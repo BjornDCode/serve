@@ -62,3 +62,5 @@ export const spaces = [
 ]
 
 export const alignments = ['start', 'center', 'end']
+
+export const justifications = ['start', 'center', 'end', 'between', 'around']

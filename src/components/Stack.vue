@@ -10,7 +10,11 @@
 </template>
 
 <script>
-    import { isValidAlignment, isValidSpace } from '@/config/validators'
+    import {
+        isValidAlignment,
+        isValidSpace,
+        isValidJustification,
+    } from '@/config/validators'
 
     export default {
         props: {
@@ -23,6 +27,11 @@
                 default: 'start',
                 validator: isValidAlignment,
             },
+            justify: {
+                type: String,
+                default: 'start',
+                validator: isValidJustification,
+            },
             space: {
                 type: Number,
                 default: 0,
@@ -32,7 +41,11 @@
 
         computed: {
             classes() {
-                return [`items-${this.align}`, `space-y-${this.space}`]
+                return [
+                    `items-${this.align}`,
+                    `space-y-${this.space}`,
+                    `justify-${this.justify}`,
+                ]
             },
         },
     }
