@@ -1,8 +1,11 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import path from 'path'
+import { exec } from 'child_process'
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -23,6 +26,8 @@ function createWindow() {
             // Use pluginOptions.nodeIntegration, leave this alone
             // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
             nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+            preload: path.join(__dirname, 'preload.js'),
+            contextIsolation: true,
         },
     })
 
@@ -87,3 +92,18 @@ if (isDevelopment) {
         })
     }
 }
+
+ipcMain.on('execute-command', (event, command) => {
+    exec(
+        command,
+        {
+            cwd: '/Users/bjornlindholm/Documents/Code/laraveldocker',
+        },
+        (error, stdout, stderr) => {
+            console.log('error', error)
+            console.log('stdout', stdout)
+            console.log('stderr', stderr)
+        }
+    )
+    // event.reply('command-executed', 'pong')
+})
