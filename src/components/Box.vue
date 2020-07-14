@@ -6,6 +6,7 @@
 
 <script>
     import {
+        isValidSize,
         isValidColor,
         isValidShade,
         isValidSpace,
@@ -50,6 +51,18 @@
                 default: 'start',
                 validator: isValidJustification,
             },
+            height: {
+                type: [Number, String],
+                validator: isValidSize,
+            },
+            width: {
+                type: [Number, String],
+                validator: isValidSize,
+            },
+            size: {
+                type: [Number, String],
+                validator: isValidSize,
+            },
         },
 
         computed: {
@@ -61,6 +74,9 @@
                     ...(this.spaceX ? [`px-${this.spaceX}`] : []),
                     ...(this.spaceY ? [`py-${this.spaceY}`] : []),
                     ...(this.space ? [`p-${this.space}`] : []),
+                    ...(this.height ? [`h-${this.height}`] : []),
+                    ...(this.width ? [`w-${this.width}`] : []),
+                    ...(this.size ? [`h-${this.size}`, `w-${this.size}`] : []),
                 ]
             },
         },
