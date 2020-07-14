@@ -6,9 +6,9 @@
 
 <script>
     import {
-        isValidFontSize,
         isValidColor,
         isValidShade,
+        isValidFontSize,
     } from '@/config/validators'
 
     export default {

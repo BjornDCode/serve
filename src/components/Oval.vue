@@ -8,9 +8,9 @@
     import Box from '@/components/Box'
 
     import {
+        isValidSize,
         isValidColor,
         isValidShade,
-        isValidSize,
     } from '@/config/validators'
 
     export default {

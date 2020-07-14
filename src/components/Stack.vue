@@ -11,8 +11,8 @@
 
 <script>
     import {
-        isValidAlignment,
         isValidSpace,
+        isValidAlignment,
         isValidJustification,
     } from '@/config/validators'
 
