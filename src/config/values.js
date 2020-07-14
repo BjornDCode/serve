@@ -61,6 +61,40 @@ export const spaces = [
     64,
 ]
 
+export const sizes = [
+    ...spaces,
+    'auto',
+    'px',
+    'full',
+    'screen',
+    '1/2',
+    '1/3',
+    '2/3',
+    '1/4',
+    '2/4',
+    '3/4',
+    '1/5',
+    '2/5',
+    '3/5',
+    '4/5',
+    '1/6',
+    '2/6',
+    '3/6',
+    '4/6',
+    '5/6',
+    '1/1',
+    '2/1',
+    '3/1',
+    '4/1',
+    '5/1',
+    '6/1',
+    '7/1',
+    '8/1',
+    '9/1',
+    '10/12',
+    '11/12',
+]
+
 export const alignments = ['start', 'center', 'end']
 
 export const justifications = ['start', 'center', 'end', 'between', 'around']
