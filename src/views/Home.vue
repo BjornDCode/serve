@@ -4,6 +4,24 @@
             Home
         </h1>
 
-        <router-link to="/project">Project</router-link>
+        <router-link
+            v-for="project in projects"
+            :key="project.id"
+            :to="{ name: 'Project', params: { id: project.id } }"
+        >
+            {{ project.name }}
+        </router-link>
     </div>
 </template>
+
+<script>
+    import { mapGetters } from 'vuex'
+
+    export default {
+        computed: {
+            ...mapGetters({
+                projects: 'projects/all',
+            }),
+        },
+    }
+</script>

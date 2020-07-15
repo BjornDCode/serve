@@ -8,7 +8,8 @@
         :spaceX="4"
         :spaceY="1"
         class="rounded border transform focus:outline-none focus:shadow-outline"
-        :class="styles.classes"
+        :class="[...styles.classes, ...(this.disabled ? ['opacity-75'] : [])]"
+        :disabled="disabled"
     >
         <Copy
             size="xs"
@@ -41,6 +42,10 @@
                 type: String,
                 default: 'primary',
                 validator: value => ['primary', 'secondary'].includes(value),
+            },
+            disabled: {
+                type: Boolean,
+                default: false,
             },
         },
 

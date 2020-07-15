@@ -37,6 +37,10 @@
                 default: 'normal',
                 validator: isValidWeight,
             },
+            capitalised: {
+                type: Boolean,
+                default: false,
+            },
         },
 
         computed: {
@@ -45,6 +49,7 @@
                     `text-${this.size}`,
                     `text-${this.color}${this.shade ? `-${this.shade}` : ''}`,
                     `font-${this.weight}`,
+                    ...(this.capitalised ? ['capitalize'] : []),
                 ]
             },
         },

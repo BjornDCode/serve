@@ -110,3 +110,5 @@ export const weights = [
     'extrabold',
     'black',
 ]
+
+export const statuses = ['running', 'stopped', 'starting', 'stopping']

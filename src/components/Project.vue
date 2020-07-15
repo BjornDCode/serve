@@ -16,17 +16,14 @@
                 </TextLink>
 
                 <Headline>
-                    Ferrous
+                    {{ name }}
                 </Headline>
 
-                <Inline :space="2">
-                    <Oval :size="3" color="green" shade="400" />
-                    <Copy size="sm" color="gray" shade="700">Running</Copy>
-                </Inline>
+                <Status :value="status" />
             </Stack>
             <Box>
-                <Button>
-                    Stop
+                <Button :disabled="buttonDisabled">
+                    {{ buttonText }}
                 </Button>
             </Box>
         </Box>
@@ -37,24 +34,53 @@
     import Box from '@/components/Box'
     import Icon from '@/components/Icon'
     import Copy from '@/components/Copy'
-    import Oval from '@/components/Oval'
     import Stack from '@/components/Stack'
     import Button from '@/components/Button'
-    import Inline from '@/components/Inline'
+    import Status from '@/components/Status'
     import TextLink from '@/components/TextLink'
     import Headline from '@/components/Headline'
+
+    import { isValidStatus } from '@/config/validators'
 
     export default {
         components: {
             Box,
             Icon,
             Copy,
-            Oval,
             Stack,
             Button,
-            Inline,
+            Status,
             TextLink,
             Headline,
+        },
+
+        props: {
+            name: {
+                type: String,
+                required: true,
+            },
+            status: {
+                type: String,
+                required: true,
+                validator: isValidStatus,
+            },
+        },
+
+        computed: {
+            buttonText() {
+                const lookup = {
+                    running: 'Stop',
+                    stopped: 'Start',
+                    starting: 'Starting...',
+                    stopping: 'Stopping...',
+                }
+
+                return lookup[this.status]
+            },
+
+            buttonDisabled() {
+                return ['starting', 'stopping'].includes(this.status)
+            },
         },
     }
 </script>

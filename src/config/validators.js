@@ -4,6 +4,7 @@ import {
     shades,
     spaces,
     weights,
+    statuses,
     fontSizes,
     alignments,
     justifications,
@@ -14,6 +15,7 @@ export const isValidColor = color => colors.includes(color)
 export const isValidShade = shade => shades.includes(shade)
 export const isValidSpace = space => spaces.includes(space)
 export const isValidWeight = weight => weights.includes(weight)
+export const isValidStatus = status => statuses.includes(status)
 export const isValidFontSize = fontSize => fontSizes.includes(fontSize)
 export const isValidAlignment = alignment => alignments.includes(alignment)
 export const isValidJustification = justification =>

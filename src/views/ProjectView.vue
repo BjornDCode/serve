@@ -1,5 +1,5 @@
 <template>
-    <Project />
+    <Project v-bind="project" />
 </template>
 
 <script>
@@ -8,6 +8,14 @@
     export default {
         components: {
             Project,
+        },
+
+        computed: {
+            project() {
+                return this.$store.getters['projects/find'](
+                    this.$route.params.id
+                )
+            },
         },
     }
 </script>
