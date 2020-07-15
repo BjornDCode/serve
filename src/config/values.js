@@ -98,3 +98,15 @@ export const sizes = [
 export const alignments = ['start', 'center', 'end']
 
 export const justifications = ['start', 'center', 'end', 'between', 'around']
+
+export const weights = [
+    'hairline',
+    'thin',
+    'light',
+    'normal',
+    'medium',
+    'semibold',
+    'bold',
+    'extrabold',
+    'black',
+]
