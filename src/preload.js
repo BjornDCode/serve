@@ -5,13 +5,14 @@ const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld('ipc', {
     send: (channel, data) => {
         // whitelist channels
-        let validChannels = ['execute-command']
+        let validChannels = ['stdin', 'docker']
+
         if (validChannels.includes(channel)) {
             ipcRenderer.send(channel, data)
         }
     },
     receive: (channel, callback) => {
-        let validChannels = ['command-executed']
+        let validChannels = ['stdout', 'stderr', 'docker']
         if (validChannels.includes(channel)) {
             // Deliberately strip event as it includes `sender`
             ipcRenderer.on(channel, (event, ...args) => callback(...args))

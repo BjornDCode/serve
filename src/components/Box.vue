@@ -1,5 +1,5 @@
 <template>
-    <Component :is="component" class="flex" :class="classes">
+    <Component :is="component" class="flex" :class="classes" v-on="$listeners">
         <slot />
     </Component>
 </template>

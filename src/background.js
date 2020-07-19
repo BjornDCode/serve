@@ -1,10 +1,11 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import path from 'path'
-import { exec } from 'child_process'
+
+import './commands'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -92,18 +93,3 @@ if (isDevelopment) {
         })
     }
 }
-
-ipcMain.on('execute-command', (event, command) => {
-    exec(
-        command,
-        {
-            cwd: '/Users/bjornlindholm/Documents/Code/laraveldocker',
-        },
-        (error, stdout, stderr) => {
-            console.log('error', error)
-            console.log('stdout', stdout)
-            console.log('stderr', stderr)
-        }
-    )
-    // event.reply('command-executed', 'pong')
-})

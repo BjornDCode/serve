@@ -3,8 +3,8 @@
         <Box
             color="gray"
             shade="200"
-            :spaceX="6"
-            :spaceY="4"
+            :spaceX="8"
+            :spaceY="6"
             justify="between"
             align="center"
             width="full"
@@ -22,7 +22,7 @@
                 <Status :value="status" />
             </Stack>
             <Box>
-                <Button :disabled="buttonDisabled">
+                <Button :disabled="buttonDisabled" @click="toggle">
                     {{ buttonText }}
                 </Button>
             </Box>
@@ -80,6 +80,12 @@
 
             buttonDisabled() {
                 return ['starting', 'stopping'].includes(this.status)
+            },
+        },
+
+        methods: {
+            toggle() {
+                this.$emit('toggle')
             },
         },
     }
