@@ -30,8 +30,6 @@ new Vue({
                     path: project.path,
                     name: project.name,
                 })
-                // Listen for responses in this file as well
-                // - Check stderr / stdout for project name
             })
         },
     },
@@ -52,12 +50,12 @@ new Vue({
                 project => project.id === response.id
             )
 
-            console.log('project', project.status)
-            console.log('response', response.value)
             if (project.status !== response.value) {
                 this.updateProjectStatus({ project, newStatus: response.value })
             }
         })
+
+        this.reloadProjectStatuses()
     },
     render: h => h(App),
 }).$mount('#app')
