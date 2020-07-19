@@ -2,30 +2,76 @@ import { ipcMain } from 'electron'
 import { exec } from 'child_process'
 import * as compose from 'docker-compose'
 
-ipcMain.on('docker', (event, command) => {
-    compose.upAll({ cwd: command.path }).then(
-        () => {
-            event.reply('docker', {
-                id: command.id,
-                status: 'success',
-            })
-        },
-        error => {
-            console.log('error', error)
-        }
-    )
-})
+export const registerCommands = win => {
+    ipcMain.on('docker', (event, command) => {
+        switch (command.type) {
+            case 'up': {
+                compose.upAll({ cwd: command.path }).then(
+                    () => {
+                        event.reply('docker', {
+                            id: command.id,
+                            type: command.type,
+                            status: 'success',
+                        })
+                    },
+                    error => {
+                        console.log('error', error)
+                    }
+                )
+                break
+            }
+            case 'down': {
+                compose.down({ cwd: command.path }).then(
+                    () => {
+                        event.reply('docker', {
+                            id: command.id,
+                            type: command.type,
+                            status: 'success',
+                        })
+                    },
+                    error => {
+                        console.log('error', error)
+                    }
+                )
+                break
+            }
+            case 'ps': {
+                compose.ps({ cwd: command.path }).then(
+                    success => {
+                        // Check stdout for whether it has the standard docker-compose output for running containers
+                        const status = success.out.includes(command.name)
+                            ? 'running'
+                            : 'stopped'
 
-ipcMain.on('stdin', (event, command) => {
-    exec(
-        command.executable,
-        {
-            cwd: command.path,
-        },
-        (error, stdout, stderr) => {
-            console.log('error', error)
-            console.log('stdout', stdout)
-            console.log('stderr', stderr)
+                        event.reply('docker', {
+                            id: command.id,
+                            type: command.type,
+                            status: 'success',
+                            value: status,
+                        })
+                    },
+                    () => {}
+                )
+                break
+            }
         }
-    )
-})
+    })
+
+    ipcMain.on('stdin', (event, command) => {
+        exec(
+            command.executable,
+            {
+                cwd: command.path,
+            },
+            (error, stdout, stderr) => {
+                console.log('error', error)
+                console.log('stdout', stdout)
+                console.log('stderr', stderr)
+            }
+        )
+    })
+
+    win.on('focus', () => {
+        win.webContents.send('app', { type: 'focused' })
+    })
+}

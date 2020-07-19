@@ -5,7 +5,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import path from 'path'
 
-import './commands'
+import { registerCommands } from './commands'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -77,6 +77,7 @@ app.on('ready', async () => {
         }
     }
     createWindow()
+    registerCommands(win)
 })
 
 // Exit cleanly on request from parent process in development mode.

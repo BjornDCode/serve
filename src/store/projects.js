@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { v4 as uuid } from 'uuid'
 
 const statusMachine = {
@@ -8,7 +9,7 @@ const statusMachine = {
                 window.ipc.send('docker', {
                     id: project.id,
                     path: project.path,
-                    executable: 'docker-compose up -d',
+                    type: 'up',
                 })
             },
         },
@@ -22,7 +23,13 @@ const statusMachine = {
     running: {
         NEXT: {
             value: 'stopping',
-            handler() {},
+            handler(project) {
+                window.ipc.send('docker', {
+                    id: project.id,
+                    path: project.path,
+                    type: 'down',
+                })
+            },
         },
     },
     stopping: {
@@ -38,7 +45,7 @@ export default {
     state: {
         items: [
             {
-                id: uuid(),
+                id: 'abc',
                 name: 'laraveldocker',
                 status: 'stopped',
                 path: '/Users/bjornlindholm/Documents/Code/laraveldocker',
@@ -76,6 +83,12 @@ export default {
             commit('updateStatus', {
                 id: project.id,
                 status: status.value,
+            })
+        },
+        updateStatus({ commit }, { project, newStatus }) {
+            commit('updateStatus', {
+                id: project.id,
+                status: newStatus,
             })
         },
     },

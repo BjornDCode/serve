@@ -22,6 +22,14 @@
 
         mounted() {
             window.ipc.receive('docker', response => {
+                if (response.id !== this.project.id) {
+                    return
+                }
+
+                if (!['up', 'down'].includes(response.type)) {
+                    return
+                }
+
                 if (response.status === 'success') {
                     this.moveToNextStatus()
                 }
