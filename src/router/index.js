@@ -1,20 +1,35 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Home from '@/views/Home'
-import ProjectView from '@/views/ProjectView'
+import ProjectShow from '@/views/project/Show'
+import ProjectOverview from '@/views/project/Overview'
+import ProjectSettings from '@/views/project/Settings'
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-        name: 'Home',
+        name: 'home',
         component: Home,
     },
     {
         path: '/project/:id',
-        name: 'Project',
-        component: ProjectView,
+        name: 'project.show',
+        component: ProjectShow,
+        children: [
+            {
+                path: 'overview',
+                name: 'project.overview',
+                component: ProjectOverview,
+            },
+            {
+                path: 'settings',
+                name: 'project.settings',
+                component: ProjectSettings,
+            },
+        ],
     },
 ]
 

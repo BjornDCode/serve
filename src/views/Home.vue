@@ -7,7 +7,7 @@
         <router-link
             v-for="project in projects"
             :key="project.id"
-            :to="{ name: 'Project', params: { id: project.id } }"
+            :to="{ name: 'project.overview', params: { id: project.id } }"
         >
             {{ project.name }}
         </router-link>

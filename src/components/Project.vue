@@ -10,7 +10,7 @@
             width="full"
         >
             <Stack :space="2">
-                <TextLink to="/">
+                <TextLink :to="{ name: 'home' }">
                     <Icon name="cheveron-left" color="gray" shade="400" />
                     <Copy size="xs" color="gray" shade="500">Projects</Copy>
                 </TextLink>
@@ -28,7 +28,7 @@
             </Box>
         </Box>
         <Box color="gray" shade="700" :spaceX="8" :spaceY="6" expand>
-            <p>Rest</p>
+            <router-view />
         </Box>
     </Stack>
 </template>
