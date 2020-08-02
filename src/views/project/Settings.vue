@@ -1,8 +1,16 @@
 <template>
-    <ProjectSettings :values="form" :onInput="onInput" :onSave="onSave" />
+    <ProjectSettings
+        :values="form"
+        :onInput="onInput"
+        :onSave="onSave"
+        :onCancel="onCancel"
+    />
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
+    import { renameKey } from '@/helpers/methods'
+
     import ProjectSettings from '@/components/ProjectSettings'
 
     export default {
@@ -11,6 +19,10 @@
         },
 
         props: {
+            id: {
+                type: String,
+                required: true,
+            },
             project: {
                 type: String,
                 required: true,
@@ -31,6 +43,10 @@
         },
 
         methods: {
+            ...mapActions({
+                updateSettings: 'projects/updateSettings',
+            }),
+
             onInput(key, value) {
                 this.form = {
                     ...this.form,
@@ -39,7 +55,17 @@
             },
 
             onSave() {
-                console.log(this.form)
+                this.updateSettings({
+                    id: this.id,
+                    settings: renameKey(this.form, 'project', 'name'),
+                })
+            },
+
+            onCancel() {
+                this.form = {
+                    project: this.project,
+                    path: this.path,
+                }
             },
         },
     }

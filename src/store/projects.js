@@ -73,6 +73,19 @@ export default {
                 }
             })
         },
+
+        updateKeys(state, payload) {
+            state.items = state.items.map(project => {
+                if (project.id !== payload.id) {
+                    return project
+                }
+
+                return {
+                    ...project,
+                    ...payload.settings,
+                }
+            })
+        },
     },
     actions: {
         nextStatus({ commit }, project) {
@@ -89,6 +102,12 @@ export default {
             commit('updateStatus', {
                 id: project.id,
                 status: newStatus,
+            })
+        },
+        updateSettings({ commit }, { id, settings }) {
+            commit('updateKeys', {
+                id,
+                settings,
             })
         },
     },

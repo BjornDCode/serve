@@ -11,6 +11,7 @@
 
 <script>
     import {
+        isValidSize,
         isValidSpace,
         isValidAlignment,
         isValidJustification,
@@ -43,6 +44,14 @@
                 default: 0,
                 validator: isValidSpace,
             },
+            height: {
+                type: [Number, String],
+                validator: isValidSize,
+            },
+            width: {
+                type: [Number, String],
+                validator: isValidSize,
+            },
             expand: {
                 type: Boolean,
                 default: false,
@@ -55,6 +64,8 @@
                     `items-${this.align}`,
                     `space-y-${this.space}`,
                     `justify-${this.justify}`,
+                    ...(this.height ? [`h-${this.height}`] : []),
+                    ...(this.width ? [`w-${this.width}`] : []),
                     ...(this.expand ? [`flex-1`] : []),
                 ]
             },

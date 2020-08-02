@@ -39,7 +39,7 @@
                 </Tab>
             </Tabs>
         </Box>
-        <Box :spaceX="8" :spaceY="6" expand>
+        <Box expand>
             <router-view
                 v-bind="{
                     ...{ ...$props, name: 'default', project: name },

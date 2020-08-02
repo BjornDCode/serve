@@ -65,6 +65,7 @@ export const sizes = [
     ...spaces,
     'auto',
     'px',
+    '2px',
     'full',
     'screen',
     '1/2',
