@@ -7,7 +7,7 @@
         :shade="styles.background.shade"
         :spaceX="4"
         :spaceY="1"
-        class="rounded border transform focus:outline-none focus:shadow-outline"
+        class="rounded border transform focus:outline-none focus-visible:shadow-outline"
         :class="[...styles.classes, ...(this.disabled ? ['opacity-75'] : [])]"
         :disabled="disabled"
         v-on="$listeners"

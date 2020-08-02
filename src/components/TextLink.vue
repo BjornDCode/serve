@@ -2,7 +2,7 @@
     <Inline
         component="RouterLink"
         v-bind="$attrs"
-        class="focus:outline-none focus:shadow-outline"
+        class="focus:outline-none focus-visible:shadow-outline"
     >
         <slot />
     </Inline>

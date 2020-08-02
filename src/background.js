@@ -7,6 +7,8 @@ import path from 'path'
 
 import { registerCommands } from './commands'
 
+app.commandLine.appendSwitch('enable-experimental-web-platform-features')
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
