@@ -41,6 +41,22 @@
                 type: Number,
                 validator: isValidSpace,
             },
+            spaceT: {
+                type: Number,
+                validator: isValidSpace,
+            },
+            spaceB: {
+                type: Number,
+                validator: isValidSpace,
+            },
+            spaceR: {
+                type: Number,
+                validator: isValidSpace,
+            },
+            spaceL: {
+                type: Number,
+                validator: isValidSpace,
+            },
             align: {
                 type: String,
                 default: 'start',
@@ -78,6 +94,10 @@
                     ...(this.expand ? [`flex-1`] : []),
                     ...(this.spaceX ? [`px-${this.spaceX}`] : []),
                     ...(this.spaceY ? [`py-${this.spaceY}`] : []),
+                    ...(this.spaceT ? [`pt-${this.spaceT}`] : []),
+                    ...(this.spaceB ? [`pb-${this.spaceB}`] : []),
+                    ...(this.spaceR ? [`pr-${this.spaceR}`] : []),
+                    ...(this.spaceL ? [`pl-${this.spaceL}`] : []),
                     ...(this.space ? [`p-${this.space}`] : []),
                     ...(this.height ? [`h-${this.height}`] : []),
                     ...(this.width ? [`w-${this.width}`] : []),

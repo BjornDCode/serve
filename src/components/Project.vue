@@ -27,6 +27,18 @@
                 </Button>
             </Box>
         </Box>
+        <Box :spaceX="8">
+            <Tabs>
+                <Tab
+                    v-for="tab in tabs"
+                    :key="tab.route"
+                    :to="{ name: tab.route, params: { id: id } }"
+                    :active="$route.name === tab.route"
+                >
+                    {{ tab.name }}
+                </Tab>
+            </Tabs>
+        </Box>
         <Box color="gray" shade="700" :spaceX="8" :spaceY="6" expand>
             <router-view />
         </Box>
@@ -35,6 +47,8 @@
 
 <script>
     import Box from '@/components/Box'
+    import Tab from '@/components/Tab'
+    import Tabs from '@/components/Tabs'
     import Icon from '@/components/Icon'
     import Copy from '@/components/Copy'
     import Stack from '@/components/Stack'
@@ -48,6 +62,8 @@
     export default {
         components: {
             Box,
+            Tab,
+            Tabs,
             Icon,
             Copy,
             Stack,
@@ -58,6 +74,10 @@
         },
 
         props: {
+            id: {
+                type: String,
+                required: true,
+            },
             name: {
                 type: String,
                 required: true,
@@ -83,6 +103,19 @@
 
             buttonDisabled() {
                 return ['starting', 'stopping'].includes(this.status)
+            },
+
+            tabs() {
+                return [
+                    {
+                        name: 'Overview',
+                        route: 'project.overview',
+                    },
+                    {
+                        name: 'Settings',
+                        route: 'project.settings',
+                    },
+                ]
             },
         },
 
