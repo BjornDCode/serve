@@ -6,6 +6,7 @@
 
 <script>
     import {
+        isValidSize,
         isValidSpace,
         isValidAlignment,
         isValidJustification,
@@ -32,6 +33,10 @@
                 default: 0,
                 validator: isValidSpace,
             },
+            width: {
+                type: [Number, String],
+                validator: isValidSize,
+            },
         },
 
         computed: {
@@ -40,6 +45,7 @@
                     `items-${this.align}`,
                     `space-x-${this.space}`,
                     `justify-${this.justify}`,
+                    ...(this.width ? [`w-${this.width}`] : []),
                 ]
             },
         },

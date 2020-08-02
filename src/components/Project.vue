@@ -39,8 +39,12 @@
                 </Tab>
             </Tabs>
         </Box>
-        <Box color="gray" shade="700" :spaceX="8" :spaceY="6" expand>
-            <router-view />
+        <Box :spaceX="8" :spaceY="6" expand>
+            <router-view
+                v-bind="{
+                    ...{ ...$props, name: 'default', project: name },
+                }"
+            />
         </Box>
     </Stack>
 </template>
@@ -79,6 +83,10 @@
                 required: true,
             },
             name: {
+                type: String,
+                required: true,
+            },
+            path: {
                 type: String,
                 required: true,
             },

@@ -43,6 +43,10 @@
                 default: 0,
                 validator: isValidSpace,
             },
+            expand: {
+                type: Boolean,
+                default: false,
+            },
         },
 
         computed: {
@@ -51,6 +55,7 @@
                     `items-${this.align}`,
                     `space-y-${this.space}`,
                     `justify-${this.justify}`,
+                    ...(this.expand ? [`flex-1`] : []),
                 ]
             },
         },
