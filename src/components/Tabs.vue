@@ -1,5 +1,5 @@
 <template>
-    <Inline :space="4">
+    <Inline component="ul" :space="4">
         <slot />
     </Inline>
 </template>

@@ -1,26 +1,29 @@
 <template>
-    <TextLink :to="to">
-        <Box :spaceT="2" :spaceB="1">
-            <Stack :space="1">
-                <Copy size="sm" :color="color" shade="700" weight="medium">
-                    <slot />
-                </Copy>
+    <ListItem>
+        <TextLink :to="to">
+            <Box :spaceT="2" :spaceB="1">
+                <Stack :space="1">
+                    <Copy size="sm" :color="color" shade="700" weight="medium">
+                        <slot />
+                    </Copy>
 
-                <Box
-                    width="full"
-                    :height="1"
-                    :color="styles.border.color"
-                    :shade="styles.border.shade"
-                />
-            </Stack>
-        </Box>
-    </TextLink>
+                    <Box
+                        width="full"
+                        :height="1"
+                        :color="styles.border.color"
+                        :shade="styles.border.shade"
+                    />
+                </Stack>
+            </Box>
+        </TextLink>
+    </ListItem>
 </template>
 
 <script>
     import Box from '@/components/Box'
     import Copy from '@/components/Copy'
     import Stack from '@/components/Stack'
+    import ListItem from '@/components/ListItem'
     import TextLink from '@/components/TextLink'
 
     export default {
@@ -28,6 +31,7 @@
             Box,
             Copy,
             Stack,
+            ListItem,
             TextLink,
         },
 

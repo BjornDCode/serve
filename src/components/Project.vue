@@ -27,7 +27,7 @@
                 </Button>
             </Box>
         </Box>
-        <Box :spaceX="8">
+        <Box component="nav" :spaceX="8">
             <Tabs>
                 <Tab
                     v-for="tab in tabs"
