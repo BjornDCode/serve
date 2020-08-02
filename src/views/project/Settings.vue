@@ -1,40 +1,13 @@
 <template>
-    <Box width="full">
-        <Inline width="full" :space="8" align="start">
-            <Box width="1/3">
-                <Stack :space="1">
-                    <Headline :level="2">
-                        Project
-                    </Headline>
-                    <Copy component="p" color="gray" shade="700">
-                        Meta information about the project
-                    </Copy>
-                </Stack>
-            </Box>
-            <Stack component="Box" align="stretch" width="2/5" :space="8">
-                <TextField label="Name" :value="project" />
-                <TextField label="Path" :value="path" />
-            </Stack>
-        </Inline>
-    </Box>
+    <ProjectSettings :values="form" :onInput="onInput" :onSave="onSave" />
 </template>
 
 <script>
-    import Box from '@/components/Box'
-    import Copy from '@/components/Copy'
-    import Stack from '@/components/Stack'
-    import Inline from '@/components/Inline'
-    import Headline from '@/components/Headline'
-    import TextField from '@/components/TextField'
+    import ProjectSettings from '@/components/ProjectSettings'
 
     export default {
         components: {
-            Box,
-            Copy,
-            Stack,
-            Inline,
-            Headline,
-            TextField,
+            ProjectSettings,
         },
 
         props: {
@@ -45,6 +18,28 @@
             path: {
                 type: String,
                 required: true,
+            },
+        },
+
+        data() {
+            return {
+                form: {
+                    project: this.project,
+                    path: this.path,
+                },
+            }
+        },
+
+        methods: {
+            onInput(key, value) {
+                this.form = {
+                    ...this.form,
+                    [key]: value,
+                }
+            },
+
+            onSave() {
+                console.log(this.form)
             },
         },
     }

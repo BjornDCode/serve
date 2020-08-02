@@ -11,7 +11,13 @@
             {{ label }}
         </Copy>
 
-        <Input type="text" :value="value" @focus="onFocus" @blur="onBlur" />
+        <Input
+            type="text"
+            :value="value"
+            @focus="onFocus"
+            @blur="onBlur"
+            @input="$emit('input', $event.target.value)"
+        />
     </Stack>
 </template>
 
