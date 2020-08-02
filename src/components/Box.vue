@@ -63,6 +63,10 @@
                 type: [Number, String],
                 validator: isValidSize,
             },
+            expand: {
+                type: Boolean,
+                default: false,
+            },
         },
 
         computed: {
@@ -71,6 +75,7 @@
                     `bg-${this.color}${this.shade ? `-${this.shade}` : ''}`,
                     `items-${this.align}`,
                     `justify-${this.justify}`,
+                    ...(this.expand ? [`flex-1`] : []),
                     ...(this.spaceX ? [`px-${this.spaceX}`] : []),
                     ...(this.spaceY ? [`py-${this.spaceY}`] : []),
                     ...(this.space ? [`p-${this.space}`] : []),

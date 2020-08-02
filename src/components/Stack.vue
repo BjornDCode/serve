@@ -16,7 +16,13 @@
         isValidJustification,
     } from '@/config/validators'
 
+    import Box from '@/components/Box'
+
     export default {
+        components: {
+            Box,
+        },
+
         props: {
             component: {
                 type: String,

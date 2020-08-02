@@ -1,5 +1,5 @@
 <template>
-    <Box size="screen">
+    <Stack component="Box" size="screen" align="stretch">
         <Box
             color="gray"
             shade="200"
@@ -27,7 +27,10 @@
                 </Button>
             </Box>
         </Box>
-    </Box>
+        <Box color="gray" shade="700" :spaceX="8" :spaceY="6" expand>
+            <p>Rest</p>
+        </Box>
+    </Stack>
 </template>
 
 <script>

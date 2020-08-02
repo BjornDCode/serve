@@ -95,7 +95,7 @@ export const sizes = [
     '11/12',
 ]
 
-export const alignments = ['start', 'center', 'end']
+export const alignments = ['start', 'center', 'end', 'stretch']
 
 export const justifications = ['start', 'center', 'end', 'between', 'around']
 
