@@ -18,7 +18,7 @@
                         :value="values.project"
                         @input="onInput('project', $event)"
                     />
-                    <TextField
+                    <PathField
                         label="Path"
                         :value="values.path"
                         @input="onInput('path', $event)"
@@ -51,6 +51,7 @@
     import Inline from '@/components/Inline'
     import Headline from '@/components/Headline'
     import TextField from '@/components/TextField'
+    import PathField from '@/components/PathField'
 
     export default {
         components: {
@@ -61,6 +62,7 @@
             Inline,
             Headline,
             TextField,
+            PathField,
         },
 
         props: {

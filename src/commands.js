@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { ipcMain, dialog } from 'electron'
 import { exec } from 'child_process'
 import * as compose from 'docker-compose'
 
@@ -69,6 +69,25 @@ export const registerCommands = win => {
                 console.log('stderr', stderr)
             }
         )
+    })
+
+    ipcMain.on('dialog', (event, command) => {
+        switch (command.type) {
+            case 'open': {
+                const paths = dialog.showOpenDialogSync({
+                    buttonLabel: 'Select',
+                    properties: ['openDirectory'],
+                })
+
+                if (paths) {
+                    event.reply('dialog', {
+                        id: command.id,
+                        value: paths[0],
+                    })
+                }
+                break
+            }
+        }
     })
 
     win.on('focus', () => {

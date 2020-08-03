@@ -14,6 +14,7 @@
         <Input
             type="text"
             :value="value"
+            :focused="focused"
             @focus="onFocus"
             @blur="onBlur"
             @input="$emit('input', $event.target.value)"

@@ -3,7 +3,11 @@
         :type="type"
         v-bind="$attrs"
         v-on="$listeners"
-        class="block w-full border-2 border-gray-300 px-4 py-3 rounded focus:outline-none focus:border-indigo-700"
+        class="block w-full border-2 px-3 py-2 rounded focus:outline-none"
+        :class="{
+            'border-indigo-700': focused,
+            'border-gray-300': !focused,
+        }"
     />
 </template>
 
@@ -13,6 +17,10 @@
             type: {
                 type: String,
                 required: true,
+            },
+            focused: {
+                type: Boolean,
+                default: false,
             },
         },
     }
