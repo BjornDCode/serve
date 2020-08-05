@@ -1,6 +1,13 @@
 <template>
     <Stack expand height="full">
-        <Box :spaceX="8" :spaceY="6" width="full" expand>
+        <Stack
+            component="Box"
+            :space="16"
+            :spaceX="8"
+            :spaceY="6"
+            width="full"
+            expand
+        >
             <Inline width="full" :space="8" align="start">
                 <Box width="1/3">
                     <Stack :space="1">
@@ -8,7 +15,7 @@
                             Project
                         </Headline>
                         <Copy component="p" color="gray" shade="700">
-                            Meta information about the project
+                            Meta information about the project.
                         </Copy>
                     </Stack>
                 </Box>
@@ -25,7 +32,28 @@
                     />
                 </Stack>
             </Inline>
-        </Box>
+
+            <Inline width="full" :space="8" align="start">
+                <Box width="1/3">
+                    <Stack :space="1">
+                        <Headline :level="2">
+                            PHP
+                        </Headline>
+                        <Copy component="p" color="gray" shade="700">
+                            All settings related to PHP.
+                        </Copy>
+                    </Stack>
+                </Box>
+                <Stack component="Box" align="stretch" width="2/5" :space="8">
+                    <SelectField
+                        label="Version"
+                        :options="['7.4', '7.3', '7.2']"
+                        :value="values.phpVersion"
+                        @input="onInput('phpVersion', $event)"
+                    />
+                </Stack>
+            </Inline>
+        </Stack>
 
         <Stack width="full">
             <Box color="gray" shade="300" width="full" height="2px" />
@@ -52,6 +80,7 @@
     import Headline from '@/components/Headline'
     import TextField from '@/components/TextField'
     import PathField from '@/components/PathField'
+    import SelectField from '@/components/SelectField'
 
     export default {
         components: {
@@ -63,6 +92,7 @@
             Headline,
             TextField,
             PathField,
+            SelectField,
         },
 
         props: {

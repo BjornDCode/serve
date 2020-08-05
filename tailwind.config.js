@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
     purge: [],
     theme: {
@@ -17,6 +19,9 @@ module.exports = {
             },
             height: {
                 '2px': '2px',
+            },
+            maxHeight: {
+                ...defaultTheme.spacing,
             },
         },
     },

@@ -16,6 +16,7 @@
     "core-js": "^3.6.5",
     "docker-compose": "^0.23.5",
     "tailwindcss": "^1.6.1",
+    "tinykeys": "^1.0.6",
     "uuid": "^8.3.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

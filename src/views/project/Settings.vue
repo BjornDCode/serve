@@ -31,13 +31,18 @@
                 type: String,
                 required: true,
             },
+            phpVersion: {
+                type: String,
+                required: true,
+            },
         },
 
         data() {
             return {
                 form: {
-                    project: this.project,
                     path: this.path,
+                    project: this.project,
+                    phpVersion: this.phpVersion,
                 },
             }
         },
@@ -58,13 +63,15 @@
                 this.updateSettings({
                     id: this.id,
                     settings: renameKey(this.form, 'project', 'name'),
+                    phpVersion: this.phpVersion,
                 })
             },
 
             onCancel() {
                 this.form = {
-                    project: this.project,
                     path: this.path,
+                    project: this.project,
+                    phpVersion: this.phpVersion,
                 }
             },
         },
