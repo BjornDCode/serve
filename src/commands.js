@@ -113,6 +113,10 @@ export const registerCommands = win => {
                 }
                 break
             }
+            case 'write': {
+                filesystem.writeFileSync(command.path, command.value)
+                break
+            }
         }
     })
 

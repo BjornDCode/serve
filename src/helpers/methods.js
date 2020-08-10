@@ -8,4 +8,14 @@ export const renameKey = (object, key, newKey) => {
     return clonedObject
 }
 
+export const removeKeys = (original, keys = []) => {
+    return Object.keys(original).reduce((object, key) => {
+        if (!keys.includes(key)) {
+            object[key] = original[key]
+        }
+
+        return object
+    }, {})
+}
+
 export const clone = object => Object.assign({}, object)

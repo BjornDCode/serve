@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mapGetters, mapActions } from 'vuex'
-import toml from 'toml'
+import toml from '@iarna/toml'
 import cloneDeep from 'lodash/cloneDeep'
 
 import App from './App.vue'

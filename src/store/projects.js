@@ -1,5 +1,8 @@
 // eslint-disable-next-line
 import { v4 as uuid } from 'uuid'
+import toml from '@iarna/toml'
+
+import { removeKeys } from '@/helpers/methods'
 
 const statusMachine = {
     stopped: {
@@ -107,7 +110,17 @@ export default {
                 status: newStatus,
             })
         },
-        updateSettings({ commit }, { id, settings }) {
+        updateSettings({ commit, getters }, { id, settings }) {
+            const project = getters.find(id)
+            const writeableSettings = removeKeys(settings, ['path'])
+
+            window.ipc.send('files', {
+                id: id,
+                type: 'write',
+                path: `${project.path}/serve.toml`,
+                value: toml.stringify(writeableSettings),
+            })
+
             commit('updateKeys', {
                 id,
                 settings,
