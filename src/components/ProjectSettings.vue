@@ -59,10 +59,14 @@
             <Box color="gray" shade="300" width="full" height="2px" />
             <Box :spaceX="8" :spaceY="4" width="full">
                 <Inline justify="end" width="full" :space="4">
-                    <Button variant="secondary" @click="onCancel">
+                    <Button
+                        variant="secondary"
+                        @click="onCancel"
+                        :disabled="!dirty"
+                    >
                         Cancel
                     </Button>
-                    <Button @click="onSave">
+                    <Button @click="onSave" :disabled="!dirty">
                         Save
                     </Button>
                 </Inline>
@@ -99,6 +103,10 @@
             values: {
                 type: Object,
                 required: true,
+            },
+            dirty: {
+                type: Boolean,
+                default: false,
             },
             onInput: {
                 type: Function,

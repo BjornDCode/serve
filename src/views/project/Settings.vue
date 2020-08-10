@@ -1,6 +1,7 @@
 <template>
     <ProjectSettings
-        :values="form"
+        :values="values"
+        :dirty="dirty"
         :onInput="onInput"
         :onSave="onSave"
         :onCancel="onCancel"
@@ -9,6 +10,7 @@
 
 <script>
     import { mapActions } from 'vuex'
+    import isEqual from 'lodash/isEqual'
     import { renameKey } from '@/helpers/methods'
 
     import ProjectSettings from '@/components/ProjectSettings'
@@ -39,12 +41,26 @@
 
         data() {
             return {
-                form: {
+                values: {
                     path: this.path,
                     project: this.project,
                     phpVersion: this.phpVersion,
                 },
             }
+        },
+
+        computed: {
+            dirty() {
+                return !isEqual(this.values, this.initialValues)
+            },
+
+            initialValues() {
+                return {
+                    path: this.path,
+                    project: this.project,
+                    phpVersion: this.phpVersion,
+                }
+            },
         },
 
         methods: {
@@ -53,8 +69,8 @@
             }),
 
             onInput(key, value) {
-                this.form = {
-                    ...this.form,
+                this.values = {
+                    ...this.values,
                     [key]: value,
                 }
             },
@@ -62,17 +78,13 @@
             onSave() {
                 this.updateSettings({
                     id: this.id,
-                    settings: renameKey(this.form, 'project', 'name'),
+                    settings: renameKey(this.values, 'project', 'name'),
                     phpVersion: this.phpVersion,
                 })
             },
 
             onCancel() {
-                this.form = {
-                    path: this.path,
-                    project: this.project,
-                    phpVersion: this.phpVersion,
-                }
+                this.values = { ...this.initialValues }
             },
         },
     }

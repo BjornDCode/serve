@@ -15,6 +15,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "docker-compose": "^0.23.5",
+    "lodash": "^4.17.19",
     "tailwindcss": "^1.6.1",
     "tinykeys": "^1.0.6",
     "uuid": "^8.3.0",
