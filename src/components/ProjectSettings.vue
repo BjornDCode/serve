@@ -48,8 +48,8 @@
                     <SelectField
                         label="Version"
                         :options="['7.4', '7.3', '7.2']"
-                        :value="values.phpVersion"
-                        @input="onInput('phpVersion', $event)"
+                        :value="values.php.version"
+                        @input="onInput('php.version', $event)"
                     />
                 </Stack>
             </Inline>

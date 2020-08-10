@@ -1,3 +1,4 @@
+import filesystem from 'fs'
 import { ipcMain, dialog } from 'electron'
 import { exec } from 'child_process'
 import * as compose from 'docker-compose'
@@ -83,6 +84,31 @@ export const registerCommands = win => {
                     event.reply('dialog', {
                         id: command.id,
                         value: paths[0],
+                    })
+                }
+                break
+            }
+        }
+    })
+
+    ipcMain.on('files', (event, command) => {
+        switch (command.type) {
+            case 'read': {
+                try {
+                    const contents = filesystem.readFileSync(
+                        command.path,
+                        'utf8'
+                    )
+                    event.reply('files', {
+                        id: command.id,
+                        value: contents,
+                        type: 'success',
+                    })
+                } catch {
+                    event.reply('files', {
+                        id: command.id,
+                        value: null,
+                        type: 'error',
                     })
                 }
                 break

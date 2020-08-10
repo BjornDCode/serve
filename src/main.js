@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import { mapGetters, mapActions } from 'vuex'
+import toml from 'toml'
+import cloneDeep from 'lodash/cloneDeep'
 
 import App from './App.vue'
 import router from './router'
@@ -20,6 +22,7 @@ new Vue({
     methods: {
         ...mapActions({
             updateProjectStatus: 'projects/updateStatus',
+            updateProjectSettings: 'projects/updateSettings',
         }),
 
         reloadProjectStatuses() {
@@ -29,6 +32,16 @@ new Vue({
                     id: project.id,
                     path: project.path,
                     name: project.name,
+                })
+            })
+        },
+
+        reloadProjectSettings() {
+            this.projects.forEach(project => {
+                window.ipc.send('files', {
+                    type: 'read',
+                    id: project.id,
+                    path: `${project.path}/serve.toml`,
                 })
             })
         },
@@ -55,7 +68,20 @@ new Vue({
             }
         })
 
+        window.ipc.receive('files', response => {
+            if (response.type === 'error') {
+                console.log("The file couldn't be read")
+                return
+            }
+
+            this.updateProjectSettings({
+                id: response.id,
+                settings: cloneDeep(toml.parse(response.value)),
+            })
+        })
+
         this.reloadProjectStatuses()
+        this.reloadProjectSettings()
     },
     render: h => h(App),
 }).$mount('#app')

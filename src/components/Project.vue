@@ -95,10 +95,9 @@
                 required: true,
                 validator: isValidStatus,
             },
-            phpVersion: {
-                type: String,
+            php: {
+                type: Object,
                 required: true,
-                validator: version => ['7.2', '7.3', '7.4'].includes(version),
             },
         },
 

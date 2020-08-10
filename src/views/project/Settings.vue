@@ -11,6 +11,8 @@
 <script>
     import { mapActions } from 'vuex'
     import isEqual from 'lodash/isEqual'
+    import set from 'lodash/set'
+    import cloneDeep from 'lodash/cloneDeep'
     import { renameKey } from '@/helpers/methods'
 
     import ProjectSettings from '@/components/ProjectSettings'
@@ -33,8 +35,8 @@
                 type: String,
                 required: true,
             },
-            phpVersion: {
-                type: String,
+            php: {
+                type: Object,
                 required: true,
             },
         },
@@ -44,7 +46,7 @@
                 values: {
                     path: this.path,
                     project: this.project,
-                    phpVersion: this.phpVersion,
+                    php: this.php,
                 },
             }
         },
@@ -58,7 +60,7 @@
                 return {
                     path: this.path,
                     project: this.project,
-                    phpVersion: this.phpVersion,
+                    php: this.php,
                 }
             },
         },
@@ -69,17 +71,14 @@
             }),
 
             onInput(key, value) {
-                this.values = {
-                    ...this.values,
-                    [key]: value,
-                }
+                this.values = { ...set(cloneDeep(this.values), key, value) }
             },
 
             onSave() {
                 this.updateSettings({
                     id: this.id,
                     settings: renameKey(this.values, 'project', 'name'),
-                    phpVersion: this.phpVersion,
+                    php: this.php,
                 })
             },
 
