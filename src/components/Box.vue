@@ -5,6 +5,7 @@
         :class="classes"
         :style="styles"
         v-on="$listeners"
+        v-bind="$attrs"
     >
         <slot />
     </Component>
@@ -16,8 +17,12 @@
         isValidColor,
         isValidShade,
         isValidSpace,
+        isValidShadow,
+        isValidMaxWidth,
         isValidPosition,
         isValidAlignment,
+        isValidDirection,
+        isValidBorderRadius,
         isValidJustification,
     } from '@/config/validators'
 
@@ -64,6 +69,11 @@
                 type: Number,
                 validator: isValidSpace,
             },
+            direction: {
+                type: String,
+                default: 'row',
+                validator: isValidDirection,
+            },
             align: {
                 type: String,
                 default: 'start',
@@ -102,6 +112,20 @@
             bottom: {
                 type: Number,
             },
+            borderRadius: {
+                type: String,
+                default: 'none',
+                validator: isValidBorderRadius,
+            },
+            shadow: {
+                type: String,
+                default: 'none',
+                validator: isValidShadow,
+            },
+            maxWidth: {
+                type: [String, Number],
+                validator: isValidMaxWidth,
+            },
             expand: {
                 type: Boolean,
                 default: false,
@@ -114,6 +138,13 @@
                     `bg-${this.color}${this.shade ? `-${this.shade}` : ''}`,
                     `items-${this.align}`,
                     `justify-${this.justify}`,
+                    `flex-${this.direction}`,
+                    ...(this.borderRadius === 'normal'
+                        ? [`rounded`]
+                        : [`rounded-${this.borderRadius}`]),
+                    ...(this.shadow === 'normal'
+                        ? [`shadow`]
+                        : [`shadow-${this.shadow}`]),
                     ...(this.expand ? [`flex-1`] : []),
                     ...(this.spaceX ? [`px-${this.spaceX}`] : []),
                     ...(this.spaceY ? [`py-${this.spaceY}`] : []),
@@ -126,6 +157,7 @@
                     ...(this.width ? [`w-${this.width}`] : []),
                     ...(this.position ? [this.position] : []),
                     ...(this.size ? [`h-${this.size}`, `w-${this.size}`] : []),
+                    ...(this.maxWidth ? [`max-w-${this.maxWidth}`] : []),
                 ]
             },
 

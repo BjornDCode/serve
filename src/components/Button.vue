@@ -19,6 +19,7 @@
       size="xs"
       :color="styles.text.color"
       :shade="styles.text.shade"
+      lineHeight="tight"
       weight="medium"
     >
       <slot />

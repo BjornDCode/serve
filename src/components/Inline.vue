@@ -1,15 +1,17 @@
 <template>
-    <Component :is="component" class="flex" :class="classes" v-bind="$attrs">
+    <Box
+        class="flex"
+        :class="classes"
+        v-bind="$attrs"
+        :align="align"
+        v-on="$listeners"
+    >
         <slot />
-    </Component>
+    </Box>
 </template>
 
 <script>
-    import {
-        isValidSpace,
-        isValidAlignment,
-        isValidJustification,
-    } from '@/config/validators'
+    import { isValidSpace, isValidAlignment } from '@/config/validators'
 
     import Box from '@/components/Box'
 
@@ -19,19 +21,10 @@
         },
 
         props: {
-            component: {
-                type: String,
-                default: 'Box',
-            },
             align: {
                 type: String,
                 default: 'center',
                 validator: isValidAlignment,
-            },
-            justify: {
-                type: String,
-                default: 'start',
-                validator: isValidJustification,
             },
             space: {
                 type: Number,
@@ -42,11 +35,7 @@
 
         computed: {
             classes() {
-                return [
-                    `items-${this.align}`,
-                    `space-x-${this.space}`,
-                    `justify-${this.justify}`,
-                ]
+                return [`space-x-${this.space}`]
             },
         },
     }

@@ -115,3 +115,59 @@ export const weights = [
 export const statuses = ['running', 'stopped', 'starting', 'stopping']
 
 export const positions = ['static', 'relative', 'absolute', 'fixed', 'sticky']
+
+export const directions = ['row', 'col']
+
+export const borderRadii = ['none', 'sm', 'normal', 'md', 'lg', 'full']
+
+export const maxWidths = [
+    'none',
+    'xs',
+    'sm',
+    'md',
+    'lg',
+    'xl',
+    '2xl',
+    '3xl',
+    '4xl',
+    '5xl',
+    '6xl',
+    'full',
+    'screen-sm',
+    'screen-md',
+    'screen-lg',
+    'screen-xl',
+    ...spaces,
+]
+
+export const shadows = [
+    'xs',
+    'sm',
+    'normal',
+    'md',
+    'lg',
+    'xl',
+    '2xl',
+    'inner',
+    'outline',
+    'none',
+]
+
+export const textAlignments = ['left', 'center', 'right']
+
+export const lineHeights = [
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    'none',
+    'tight',
+    'snug',
+    'normal',
+    'relaxed',
+    'loose',
+]

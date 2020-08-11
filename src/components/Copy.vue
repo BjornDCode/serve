@@ -10,6 +10,8 @@
         isValidShade,
         isValidWeight,
         isValidFontSize,
+        isValidLineHeight,
+        isValidTextAlignment,
     } from '@/config/validators'
 
     export default {
@@ -37,6 +39,16 @@
                 default: 'normal',
                 validator: isValidWeight,
             },
+            align: {
+                type: String,
+                default: 'left',
+                validator: isValidTextAlignment,
+            },
+            lineHeight: {
+                type: String,
+                default: 'none',
+                validator: isValidLineHeight,
+            },
             capitalised: {
                 type: Boolean,
                 default: false,
@@ -49,6 +61,8 @@
                     `text-${this.size}`,
                     `text-${this.color}${this.shade ? `-${this.shade}` : ''}`,
                     `font-${this.weight}`,
+                    `text-${this.align}`,
+                    `leading-${this.lineHeight}`,
                     ...(this.capitalised ? ['capitalize'] : []),
                 ]
             },

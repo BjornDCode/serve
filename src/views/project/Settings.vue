@@ -85,6 +85,7 @@
 
         methods: {
             ...mapActions({
+                addMessage: 'messages/add',
                 updateSettings: 'projects/updateSettings',
             }),
 
@@ -97,10 +98,22 @@
                     id: this.id,
                     settings: renameKey(this.values, 'project', 'name'),
                 })
+
+                this.addMessage({
+                    content: 'Saved',
+                    expires: 2000,
+                    type: 'success',
+                })
             },
 
             onCancel() {
                 this.values = { ...this.initialValues }
+
+                this.addMessage({
+                    content: 'Cancelled',
+                    expires: 2000,
+                    type: 'success',
+                })
             },
         },
     }

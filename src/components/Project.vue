@@ -1,5 +1,5 @@
 <template>
-    <Stack component="Box" size="screen" align="stretch">
+    <Stack size="screen" align="stretch">
         <Box
             color="gray"
             shade="200"

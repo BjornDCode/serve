@@ -23,6 +23,9 @@ module.exports = {
             maxHeight: {
                 ...defaultTheme.spacing,
             },
+            maxWidth: {
+                ...defaultTheme.spacing,
+            },
         },
     },
     variants: {
