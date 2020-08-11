@@ -39,6 +39,18 @@
                 type: Object,
                 required: true,
             },
+            node: {
+                type: Object,
+                required: true,
+            },
+            redis: {
+                type: Object,
+                required: true,
+            },
+            database: {
+                type: Object,
+                required: true,
+            },
         },
 
         data() {
@@ -47,6 +59,9 @@
                     path: this.path,
                     project: this.project,
                     php: this.php,
+                    node: this.node,
+                    redis: this.redis,
+                    database: this.database,
                 },
             }
         },
@@ -61,6 +76,9 @@
                     path: this.path,
                     project: this.project,
                     php: this.php,
+                    node: this.node,
+                    redis: this.redis,
+                    database: this.database,
                 }
             },
         },
@@ -78,7 +96,6 @@
                 this.updateSettings({
                     id: this.id,
                     settings: renameKey(this.values, 'project', 'name'),
-                    php: this.php,
                 })
             },
 

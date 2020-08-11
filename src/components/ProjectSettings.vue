@@ -53,6 +53,75 @@
                     />
                 </Stack>
             </Inline>
+
+            <Inline width="full" :space="8" align="start">
+                <Box width="1/3">
+                    <Stack :space="1">
+                        <Headline :level="2">
+                            Node
+                        </Headline>
+                        <Copy component="p" color="gray" shade="700">
+                            All settings related to Node.
+                        </Copy>
+                    </Stack>
+                </Box>
+                <Stack component="Box" align="stretch" width="2/5" :space="8">
+                    <SelectField
+                        label="Version"
+                        :options="['14', '12', '10']"
+                        :value="values.node.version"
+                        @input="onInput('node.version', $event)"
+                    />
+                </Stack>
+            </Inline>
+
+            <Inline width="full" :space="8" align="start">
+                <Box width="1/3">
+                    <Stack :space="1">
+                        <Headline :level="2">
+                            Redis
+                        </Headline>
+                        <Copy component="p" color="gray" shade="700">
+                            All settings related to Redis.
+                        </Copy>
+                    </Stack>
+                </Box>
+                <Stack component="Box" align="stretch" width="2/5" :space="8">
+                    <SelectField
+                        label="Version"
+                        :options="['6', '5']"
+                        :value="values.redis.version"
+                        @input="onInput('redis.version', $event)"
+                    />
+                </Stack>
+            </Inline>
+
+            <Inline width="full" :space="8" align="start">
+                <Box width="1/3">
+                    <Stack :space="1">
+                        <Headline :level="2">
+                            Database
+                        </Headline>
+                        <Copy component="p" color="gray" shade="700">
+                            All settings related to your database.
+                        </Copy>
+                    </Stack>
+                </Box>
+                <Stack component="Box" align="stretch" width="2/5" :space="8">
+                    <SelectField
+                        label="Type"
+                        :options="['mysql', 'postgres']"
+                        :value="values.database.type"
+                        @input="onInput('database.type', $event)"
+                    />
+                    <SelectField
+                        label="Version"
+                        :options="databaseVersionOptions"
+                        :value="values.database.version"
+                        @input="onInput('database.version', $event)"
+                    />
+                </Stack>
+            </Inline>
         </Stack>
 
         <Stack width="full">
@@ -99,6 +168,17 @@
             SelectField,
         },
 
+        computed: {
+            databaseVersionOptions() {
+                const lookup = {
+                    mysql: ['8', '5.7', '5.6'],
+                    postgres: ['13', '12', '11', '10', '9.5', '9'],
+                }
+
+                return lookup[this.values.database.type] || []
+            },
+        },
+
         props: {
             values: {
                 type: Object,
@@ -119,6 +199,21 @@
             onCancel: {
                 type: Function,
                 default: () => {},
+            },
+        },
+
+        watch: {
+            'values.database.type': function (value, oldValue) {
+                if (value === oldValue) {
+                    return
+                }
+
+                const lookup = {
+                    mysql: '5.7',
+                    postgres: '12',
+                }
+
+                this.onInput('database.version', lookup[value])
             },
         },
     }

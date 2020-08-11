@@ -55,6 +55,16 @@ export default {
                 php: {
                     version: '7.4',
                 },
+                node: {
+                    version: '12',
+                },
+                redis: {
+                    version: '6',
+                },
+                database: {
+                    type: 'mysql',
+                    version: '5.7',
+                },
             },
         ],
     },

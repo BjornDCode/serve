@@ -99,6 +99,18 @@
                 type: Object,
                 required: true,
             },
+            node: {
+                type: Object,
+                required: true,
+            },
+            redis: {
+                type: Object,
+                required: true,
+            },
+            database: {
+                type: Object,
+                required: true,
+            },
         },
 
         computed: {
