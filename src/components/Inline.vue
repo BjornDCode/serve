@@ -6,17 +6,22 @@
 
 <script>
     import {
-        isValidSize,
         isValidSpace,
         isValidAlignment,
         isValidJustification,
     } from '@/config/validators'
 
+    import Box from '@/components/Box'
+
     export default {
+        components: {
+            Box,
+        },
+
         props: {
             component: {
                 type: String,
-                default: 'div',
+                default: 'Box',
             },
             align: {
                 type: String,
@@ -33,10 +38,6 @@
                 default: 0,
                 validator: isValidSpace,
             },
-            width: {
-                type: [Number, String],
-                validator: isValidSize,
-            },
         },
 
         computed: {
@@ -45,7 +46,6 @@
                     `items-${this.align}`,
                     `space-x-${this.space}`,
                     `justify-${this.justify}`,
-                    ...(this.width ? [`w-${this.width}`] : []),
                 ]
             },
         },

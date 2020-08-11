@@ -1,7 +1,6 @@
 <template>
     <Stack expand height="full">
         <Stack
-            component="Box"
             :space="16"
             :spaceX="8"
             :spaceT="6"
@@ -20,7 +19,7 @@
                         </Copy>
                     </Stack>
                 </Box>
-                <Stack component="Box" align="stretch" width="2/5" :space="8">
+                <Stack align="stretch" width="2/5" :space="8">
                     <TextField
                         label="Name"
                         :value="values.project"
@@ -45,7 +44,7 @@
                         </Copy>
                     </Stack>
                 </Box>
-                <Stack component="Box" align="stretch" width="2/5" :space="8">
+                <Stack align="stretch" width="2/5" :space="8">
                     <SelectField
                         label="Version"
                         :options="['7.4', '7.3', '7.2']"
@@ -66,7 +65,7 @@
                         </Copy>
                     </Stack>
                 </Box>
-                <Stack component="Box" align="stretch" width="2/5" :space="8">
+                <Stack align="stretch" width="2/5" :space="8">
                     <SelectField
                         label="Version"
                         :options="['14', '12', '10']"
@@ -87,7 +86,7 @@
                         </Copy>
                     </Stack>
                 </Box>
-                <Stack component="Box" align="stretch" width="2/5" :space="8">
+                <Stack align="stretch" width="2/5" :space="8">
                     <SelectField
                         label="Version"
                         :options="['6', '5']"
@@ -108,7 +107,7 @@
                         </Copy>
                     </Stack>
                 </Box>
-                <Stack component="Box" align="stretch" width="2/5" :space="8">
+                <Stack align="stretch" width="2/5" :space="8">
                     <SelectField
                         label="Type"
                         :options="['mysql', 'postgres']"
@@ -125,7 +124,14 @@
             </Inline>
         </Stack>
 
-        <Stack width="full" class="fixed inset-x-0 bottom-0 bg-white">
+        <Stack
+            width="full"
+            position="fixed"
+            :left="0"
+            :right="0"
+            :bottom="0"
+            color="white"
+        >
             <Box color="gray" shade="300" width="full" height="2px" />
             <Box :spaceX="8" :spaceY="4" width="full">
                 <Inline justify="end" width="full" :space="4">

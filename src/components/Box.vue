@@ -1,5 +1,11 @@
 <template>
-    <Component :is="component" class="flex" :class="classes" v-on="$listeners">
+    <Component
+        :is="component"
+        class="flex"
+        :class="classes"
+        :style="styles"
+        v-on="$listeners"
+    >
         <slot />
     </Component>
 </template>
@@ -10,6 +16,7 @@
         isValidColor,
         isValidShade,
         isValidSpace,
+        isValidPosition,
         isValidAlignment,
         isValidJustification,
     } from '@/config/validators'
@@ -79,6 +86,22 @@
                 type: [Number, String],
                 validator: isValidSize,
             },
+            position: {
+                type: String,
+                validator: isValidPosition,
+            },
+            left: {
+                type: Number,
+            },
+            right: {
+                type: Number,
+            },
+            top: {
+                type: Number,
+            },
+            bottom: {
+                type: Number,
+            },
             expand: {
                 type: Boolean,
                 default: false,
@@ -101,7 +124,25 @@
                     ...(this.space ? [`p-${this.space}`] : []),
                     ...(this.height ? [`h-${this.height}`] : []),
                     ...(this.width ? [`w-${this.width}`] : []),
+                    ...(this.position ? [this.position] : []),
                     ...(this.size ? [`h-${this.size}`, `w-${this.size}`] : []),
+                ]
+            },
+
+            styles() {
+                return [
+                    ...(this.left || this.left === 0
+                        ? [{ left: `${this.left / 4}rem` }]
+                        : []),
+                    ...(this.right || this.right === 0
+                        ? [{ right: `${this.right / 4}rem` }]
+                        : []),
+                    ...(this.top || this.top === 0
+                        ? [{ top: `${this.top / 4}rem` }]
+                        : []),
+                    ...(this.bottom || this.bottom === 0
+                        ? [{ bottom: `${this.bottom / 4}rem` }]
+                        : []),
                 ]
             },
         },
