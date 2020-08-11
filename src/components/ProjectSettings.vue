@@ -4,7 +4,8 @@
             component="Box"
             :space="16"
             :spaceX="8"
-            :spaceY="6"
+            :spaceT="6"
+            :spaceB="20"
             width="full"
             expand
         >
@@ -124,7 +125,7 @@
             </Inline>
         </Stack>
 
-        <Stack width="full">
+        <Stack width="full" class="fixed inset-x-0 bottom-0 bg-white">
             <Box color="gray" shade="300" width="full" height="2px" />
             <Box :spaceX="8" :spaceY="4" width="full">
                 <Inline justify="end" width="full" :space="4">
