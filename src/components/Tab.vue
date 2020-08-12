@@ -1,8 +1,8 @@
 <template>
     <ListItem>
         <TextLink :to="to">
-            <Box :spaceT="2" :spaceB="1">
-                <Stack :space="1">
+            <Box :spaceT="3" :spaceB="2">
+                <Stack :space="2">
                     <Copy size="sm" :color="color" shade="700" weight="medium">
                         <slot />
                     </Copy>
