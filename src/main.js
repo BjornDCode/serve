@@ -23,6 +23,7 @@ new Vue({
         ...mapActions({
             updateProjectStatus: 'projects/updateStatus',
             updateProjectSettings: 'projects/updateSettings',
+            addMessage: 'messages/add',
         }),
 
         reloadProjectStatuses() {
@@ -70,7 +71,11 @@ new Vue({
 
         window.ipc.receive('files', response => {
             if (response.type === 'error') {
-                console.log("The file couldn't be read")
+                this.addMessage({
+                    content: 'The was a problem with the config file.',
+                    expires: 2000,
+                    type: 'error',
+                })
                 return
             }
 
