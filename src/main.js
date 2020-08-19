@@ -53,6 +53,9 @@ new Vue({
                 this.reloadProjectStatuses()
             }
         })
+        window.ipc.receive('message', message => {
+            this.addMessage(message)
+        })
 
         // Reload project status
         window.ipc.receive('docker', response => {
@@ -70,15 +73,6 @@ new Vue({
         })
 
         window.ipc.receive('files', response => {
-            if (response.type === 'error') {
-                this.addMessage({
-                    content: 'The was a problem with the config file.',
-                    expires: 2000,
-                    type: 'error',
-                })
-                return
-            }
-
             this.updateProjectSettings({
                 id: response.id,
                 settings: cloneDeep(toml.parse(response.value)),

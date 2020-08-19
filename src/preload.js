@@ -12,6 +12,7 @@ contextBridge.exposeInMainWorld('ipc', {
             'dialog',
             'files',
             'shell',
+            'message',
         ]
 
         if (validChannels.includes(channel)) {
@@ -27,6 +28,7 @@ contextBridge.exposeInMainWorld('ipc', {
             'dialog',
             'files',
             'shell',
+            'message',
         ]
         if (validChannels.includes(channel)) {
             // Deliberately strip event as it includes `sender`

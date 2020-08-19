@@ -105,9 +105,8 @@ export const registerCommands = win => {
                         type: 'success',
                     })
                 } catch {
-                    event.reply('files', {
-                        id: command.id,
-                        value: null,
+                    win.webContents.send('message', {
+                        content: `There was a problem reading: ${command.path}`,
                         type: 'error',
                     })
                 }
@@ -123,11 +122,30 @@ export const registerCommands = win => {
     ipcMain.on('shell', (event, command) => {
         switch (command.type) {
             case 'filesystem': {
-                shell.openPath(command.path)
+                shell.openPath(command.path).then(result => {
+                    // The promise returns and empty string if it was successful
+                    if (result === '') {
+                        return
+                    }
+
+                    win.webContents.send('message', {
+                        content: result,
+                        type: 'error',
+                        expires: 2000,
+                    })
+                })
                 break
             }
             case 'browser': {
-                shell.openExternal(command.path)
+                try {
+                    shell.openExternal(command.path)
+                } catch (error) {
+                    win.webContents.send('message', {
+                        content: 'The URL could not be opened',
+                        type: 'error',
+                        expires: 2000,
+                    })
+                }
                 break
             }
         }
