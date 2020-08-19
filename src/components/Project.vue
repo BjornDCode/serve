@@ -111,6 +111,10 @@
                 type: Object,
                 required: true,
             },
+            server: {
+                type: Object,
+                required: true,
+            },
         },
 
         computed: {

@@ -65,6 +65,9 @@ export default {
                     type: 'mysql',
                     version: '5.7',
                 },
+                server: {
+                    port: '8081',
+                },
             },
         ],
     },

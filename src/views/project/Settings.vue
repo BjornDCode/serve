@@ -51,6 +51,10 @@
                 type: Object,
                 required: true,
             },
+            server: {
+                type: Object,
+                required: true,
+            },
         },
 
         data() {
@@ -62,6 +66,7 @@
                     node: this.node,
                     redis: this.redis,
                     database: this.database,
+                    server: this.server,
                 },
             }
         },
@@ -79,6 +84,7 @@
                     node: this.node,
                     redis: this.redis,
                     database: this.database,
+                    server: this.server,
                 }
             },
         },

@@ -37,6 +37,26 @@
                 <Box width="1/3">
                     <Stack :space="1">
                         <Headline :level="2">
+                            Server
+                        </Headline>
+                        <Copy component="p" color="gray" shade="700">
+                            All settings related to the web server.
+                        </Copy>
+                    </Stack>
+                </Box>
+                <Stack align="stretch" width="2/5" :space="8">
+                    <TextField
+                        label="Port"
+                        :value="values.server.port"
+                        @input="onInput('server.port', $event)"
+                    />
+                </Stack>
+            </Inline>
+
+            <Inline width="full" :space="8" align="start">
+                <Box width="1/3">
+                    <Stack :space="1">
+                        <Headline :level="2">
                             PHP
                         </Headline>
                         <Copy component="p" color="gray" shade="700">
