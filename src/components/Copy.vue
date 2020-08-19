@@ -10,9 +10,12 @@
         isValidShade,
         isValidWeight,
         isValidFontSize,
+        isValidDecoration,
         isValidLineHeight,
         isValidTextAlignment,
     } from '@/config/validators'
+
+    import { match } from '@/helpers/methods'
 
     export default {
         props: {
@@ -49,6 +52,11 @@
                 default: 'none',
                 validator: isValidLineHeight,
             },
+            decoration: {
+                type: String,
+                default: 'none',
+                validator: isValidDecoration,
+            },
             capitalised: {
                 type: Boolean,
                 default: false,
@@ -56,6 +64,14 @@
         },
 
         computed: {
+            decorationClass() {
+                return match(this.decoration, {
+                    underline: 'underline',
+                    'line-through': 'line-through',
+                    none: 'no-underline',
+                })
+            },
+
             classes() {
                 return [
                     `text-${this.size}`,
@@ -64,6 +80,7 @@
                     `text-${this.align}`,
                     `leading-${this.lineHeight}`,
                     ...(this.capitalised ? ['capitalize'] : []),
+                    ...(this.decoration ? [this.decorationClass] : []),
                 ]
             },
         },

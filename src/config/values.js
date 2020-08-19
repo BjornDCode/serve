@@ -171,3 +171,5 @@ export const lineHeights = [
     'relaxed',
     'loose',
 ]
+
+export const decorations = ['underline', 'line-through', 'none']

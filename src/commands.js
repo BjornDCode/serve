@@ -1,5 +1,5 @@
 import filesystem from 'fs'
-import { ipcMain, dialog } from 'electron'
+import { ipcMain, dialog, shell } from 'electron'
 import { exec } from 'child_process'
 import * as compose from 'docker-compose'
 
@@ -115,6 +115,19 @@ export const registerCommands = win => {
             }
             case 'write': {
                 filesystem.writeFileSync(command.path, command.value)
+                break
+            }
+        }
+    })
+
+    ipcMain.on('shell', (event, command) => {
+        switch (command.type) {
+            case 'filesystem': {
+                shell.openPath(command.path)
+                break
+            }
+            case 'browser': {
+                shell.openExternal(command.path)
                 break
             }
         }

@@ -19,3 +19,5 @@ export const removeKeys = (original, keys = []) => {
 }
 
 export const clone = object => Object.assign({}, object)
+
+export const match = (input, patterns) => patterns[input] || patterns['default']

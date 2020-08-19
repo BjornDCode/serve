@@ -5,7 +5,14 @@ const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld('ipc', {
     send: (channel, data) => {
         // whitelist channels
-        let validChannels = ['stdin', 'docker', 'app', 'dialog', 'files']
+        let validChannels = [
+            'stdin',
+            'docker',
+            'app',
+            'dialog',
+            'files',
+            'shell',
+        ]
 
         if (validChannels.includes(channel)) {
             ipcRenderer.send(channel, data)
@@ -19,6 +26,7 @@ contextBridge.exposeInMainWorld('ipc', {
             'app',
             'dialog',
             'files',
+            'shell',
         ]
         if (validChannels.includes(channel)) {
             // Deliberately strip event as it includes `sender`
