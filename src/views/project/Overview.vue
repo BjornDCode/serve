@@ -1,8 +1,10 @@
 <template>
-    <ProjectOverview v-bind="$props" />
+    <ProjectOverview v-bind="$props" :onQuickAction="onQuickAction" />
 </template>
 
 <script>
+    import { match } from '@/helpers/methods'
+
     import ProjectOverview from '@/components/ProjectOverview'
 
     export default {
@@ -38,6 +40,21 @@
             server: {
                 type: Object,
                 required: true,
+            },
+        },
+
+        methods: {
+            onQuickAction(action) {
+                const executable = match(action.key, {
+                    phpstorm: `phpstorm ${this.path}`,
+                    sublime: `subl ${this.path}`,
+                    vscode: `code ${this.path}`,
+                })
+
+                window.ipc.send('stdin', {
+                    executable: executable,
+                    path: this.path,
+                })
             },
         },
     }

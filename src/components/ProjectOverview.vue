@@ -150,7 +150,24 @@
             </Table>
         </GridItem>
         <GridItem :span="2">
-            <div class="h-20 w-full bg-red-500"></div>
+            <Stack :space="4">
+                <Headline :level="3">
+                    Quick actions
+                </Headline>
+                <Stack>
+                    <MultiOptionButton
+                        :options="[
+                            { key: 'phpstorm', title: 'PhpStorm' },
+                            { key: 'sublime', title: 'Sublime' },
+                            { key: 'vscode', title: 'VSCode' },
+                        ]"
+                        #default="{ option }"
+                        @click="onQuickAction"
+                    >
+                        Open in {{ option.title }}
+                    </MultiOptionButton>
+                </Stack>
+            </Stack>
         </GridItem>
     </Grid>
 </template>
@@ -159,23 +176,33 @@
     import Copy from '@/components/Copy'
     import Grid from '@/components/Grid'
     import Table from '@/components/Table'
+    import Stack from '@/components/Stack'
     import GridItem from '@/components/GridItem'
+    import Headline from '@/components/Headline'
     import TableRow from '@/components/TableRow'
     import TableCell from '@/components/TableCell'
     import ExternalButton from '@/components/ExternalButton'
+    import MultiOptionButton from '@/components/MultiOptionButton'
 
     export default {
         components: {
             Copy,
             Grid,
             Table,
+            Stack,
             GridItem,
+            Headline,
             TableRow,
             TableCell,
             ExternalButton,
+            MultiOptionButton,
         },
 
         props: {
+            onQuickAction: {
+                type: Function,
+                default: () => {},
+            },
             project: {
                 type: String,
                 required: true,
