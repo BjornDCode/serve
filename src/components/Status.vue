@@ -12,11 +12,12 @@
 </template>
 
 <script>
+    import { match } from '@/helpers/methods'
+    import { isValidStatus } from '@/config/validators'
+
     import Copy from '@/components/Copy'
     import Oval from '@/components/Oval'
     import Inline from '@/components/Inline'
-
-    import { isValidStatus } from '@/config/validators'
 
     export default {
         components: {
@@ -35,28 +36,26 @@
 
         computed: {
             styles() {
-                const lookup = {
-                    running: {
-                        color: 'green',
-                        shade: '400',
-                    },
-                    stopped: {
-                        color: 'red',
-                        shade: '500',
-                    },
-                    starting: {
-                        color: 'yellow',
-                        shade: '500',
-                    },
-                    stopping: {
-                        color: 'yellow',
-                        shade: '500',
-                    },
-                }
-
                 return {
                     indicator: {
-                        ...lookup[this.value],
+                        ...match(this.value, {
+                            running: {
+                                color: 'green',
+                                shade: '400',
+                            },
+                            stopped: {
+                                color: 'red',
+                                shade: '500',
+                            },
+                            starting: {
+                                color: 'yellow',
+                                shade: '500',
+                            },
+                            stopping: {
+                                color: 'yellow',
+                                shade: '500',
+                            },
+                        }),
                     },
                 }
             },

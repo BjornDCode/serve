@@ -50,6 +50,9 @@
 </template>
 
 <script>
+    import { match } from '@/helpers/methods'
+    import { isValidStatus } from '@/config/validators'
+
     import Box from '@/components/Box'
     import Tab from '@/components/Tab'
     import Tabs from '@/components/Tabs'
@@ -60,8 +63,6 @@
     import Status from '@/components/Status'
     import TextLink from '@/components/TextLink'
     import Headline from '@/components/Headline'
-
-    import { isValidStatus } from '@/config/validators'
 
     export default {
         components: {
@@ -119,14 +120,12 @@
 
         computed: {
             buttonText() {
-                const lookup = {
+                return match(this.status, {
                     running: 'Stop',
                     stopped: 'Start',
                     starting: 'Starting...',
                     stopping: 'Stopping...',
-                }
-
-                return lookup[this.status]
+                })
             },
 
             buttonDisabled() {

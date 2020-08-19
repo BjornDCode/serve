@@ -172,6 +172,8 @@
 </template>
 
 <script>
+    import { match } from '@/helpers/methods'
+
     import Box from '@/components/Box'
     import Copy from '@/components/Copy'
     import Stack from '@/components/Stack'
@@ -197,12 +199,11 @@
 
         computed: {
             databaseVersionOptions() {
-                const lookup = {
+                return match(this.values.database.type, {
                     mysql: ['8', '5.7', '5.6'],
                     postgres: ['13', '12', '11', '10', '9.5', '9'],
-                }
-
-                return lookup[this.values.database.type] || []
+                    default: [],
+                })
             },
         },
 
@@ -235,12 +236,10 @@
                     return
                 }
 
-                const lookup = {
+                this.onInput('database.version', match(value), {
                     mysql: '5.7',
                     postgres: '12',
-                }
-
-                this.onInput('database.version', lookup[value])
+                })
             },
         },
     }

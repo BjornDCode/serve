@@ -27,6 +27,8 @@
 </template>
 
 <script>
+    import { match } from '@/helpers/methods'
+
     import Copy from '@/components/Copy'
     import Icon from '@/components/Icon'
     import Inline from '@/components/Inline'
@@ -51,12 +53,10 @@
 
         computed: {
             icon() {
-                const lookup = {
+                return match(this.type, {
                     success: 'checkmark-outline',
                     error: 'close-outline',
-                }
-
-                return lookup[this.type]
+                })
             },
 
             styles() {
