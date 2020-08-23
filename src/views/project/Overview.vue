@@ -41,6 +41,9 @@
                 type: Object,
                 required: true,
             },
+            repository: {
+                type: String,
+            },
         },
 
         methods: {

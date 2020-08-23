@@ -116,6 +116,9 @@
                 type: Object,
                 required: true,
             },
+            repository: {
+                type: String,
+            },
         },
 
         computed: {

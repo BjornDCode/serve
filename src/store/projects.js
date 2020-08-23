@@ -52,6 +52,7 @@ export default {
                 name: 'laraveldocker',
                 status: 'stopped',
                 path: '/Users/bjornlindholm/Documents/Code/laraveldocker',
+                repository: null,
                 php: {
                     version: '7.4',
                 },

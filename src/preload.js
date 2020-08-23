@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld('ipc', {
             'files',
             'shell',
             'message',
+            'git',
         ]
 
         if (validChannels.includes(channel)) {
@@ -29,6 +30,7 @@ contextBridge.exposeInMainWorld('ipc', {
             'files',
             'shell',
             'message',
+            'git',
         ]
         if (validChannels.includes(channel)) {
             // Deliberately strip event as it includes `sender`

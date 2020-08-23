@@ -2,6 +2,7 @@ import filesystem from 'fs'
 import { ipcMain, dialog, shell } from 'electron'
 import { exec } from 'child_process'
 import * as compose from 'docker-compose'
+import git from 'simple-git'
 
 export const registerCommands = win => {
     ipcMain.on('docker', (event, command) => {
@@ -146,6 +147,27 @@ export const registerCommands = win => {
                         expires: 2000,
                     })
                 }
+                break
+            }
+        }
+    })
+
+    ipcMain.on('git', (event, command) => {
+        switch (command.type) {
+            case 'remote': {
+                git(command.path)
+                    .getRemotes(true)
+                    .then(results => {
+                        if (results.length === 0) {
+                            return
+                        }
+
+                        win.webContents.send('git', {
+                            id: command.id,
+                            type: 'remote',
+                            content: results[0].refs.fetch,
+                        })
+                    })
                 break
             }
         }

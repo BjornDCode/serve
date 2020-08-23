@@ -79,6 +79,32 @@
                         </ExternalButton>
                     </TableCell>
                 </TableRow>
+
+                <TableRow v-if="repository">
+                    <TableCell class="px-4 py-2 w-2/5">
+                        <Copy
+                            size="sm"
+                            weight="medium"
+                            color="gray"
+                            shade="500"
+                        >
+                            Repository
+                        </Copy>
+                    </TableCell>
+                    <TableCell class="pr-4 py-2">
+                        <ExternalButton target="browser" :path="repository">
+                            <Copy
+                                size="sm"
+                                color="gray"
+                                shade="800"
+                                decoration="underline"
+                            >
+                                {{ repository }}
+                            </Copy>
+                        </ExternalButton>
+                    </TableCell>
+                </TableRow>
+
                 <TableRow>
                     <TableCell class="px-4 py-2 w-2/5">
                         <Copy
@@ -96,6 +122,7 @@
                         </Copy>
                     </TableCell>
                 </TableRow>
+
                 <TableRow>
                     <TableCell class="px-4 py-2 w-2/5">
                         <Copy
@@ -113,6 +140,7 @@
                         </Copy>
                     </TableCell>
                 </TableRow>
+
                 <TableRow>
                     <TableCell class="px-4 py-2 w-2/5">
                         <Copy
@@ -130,6 +158,7 @@
                         </Copy>
                     </TableCell>
                 </TableRow>
+
                 <TableRow>
                     <TableCell class="px-4 py-2 w-2/5">
                         <Copy
@@ -235,6 +264,9 @@
             server: {
                 type: Object,
                 required: true,
+            },
+            repository: {
+                type: String,
             },
         },
     }

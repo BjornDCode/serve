@@ -44,6 +44,12 @@ new Vue({
                     id: project.id,
                     path: `${project.path}/serve.toml`,
                 })
+
+                window.ipc.send('git', {
+                    type: 'remote',
+                    id: project.id,
+                    path: project.path,
+                })
             })
         },
     },
@@ -76,6 +82,21 @@ new Vue({
             this.updateProjectSettings({
                 id: response.id,
                 settings: cloneDeep(toml.parse(response.value)),
+            })
+        })
+
+        window.ipc.receive('git', response => {
+            if (response.type !== 'remote') {
+                return
+            }
+
+            const project = this.projects.find(
+                project => project.id === response.id
+            )
+
+            this.updateProjectSettings({
+                id: response.id,
+                settings: { ...project, repository: response.content },
             })
         })
 
