@@ -45,10 +45,11 @@
 
         methods: {
             onQuickAction(action) {
-                const executable = match(action.key, {
+                const executable = match(action, {
                     phpstorm: `phpstorm ${this.path}`,
                     sublime: `subl ${this.path}`,
                     vscode: `code ${this.path}`,
+                    github: `github ${this.path}`,
                 })
 
                 window.ipc.send('stdin', {

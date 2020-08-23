@@ -154,7 +154,7 @@
                 <Headline :level="3">
                     Quick actions
                 </Headline>
-                <Stack>
+                <Stack :space="2">
                     <MultiOptionButton
                         :options="[
                             { key: 'phpstorm', title: 'PhpStorm' },
@@ -162,10 +162,13 @@
                             { key: 'vscode', title: 'VSCode' },
                         ]"
                         #default="{ option }"
-                        @click="onQuickAction"
+                        @click="action => onQuickAction(action.key)"
                     >
                         Open in {{ option.title }}
                     </MultiOptionButton>
+                    <Button @click="onQuickAction('github')">
+                        Open in GitHub Desktop
+                    </Button>
                 </Stack>
             </Stack>
         </GridItem>
@@ -177,6 +180,7 @@
     import Grid from '@/components/Grid'
     import Table from '@/components/Table'
     import Stack from '@/components/Stack'
+    import Button from '@/components/Button'
     import GridItem from '@/components/GridItem'
     import Headline from '@/components/Headline'
     import TableRow from '@/components/TableRow'
@@ -190,6 +194,7 @@
             Grid,
             Table,
             Stack,
+            Button,
             GridItem,
             Headline,
             TableRow,
