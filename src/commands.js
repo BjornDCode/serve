@@ -2,9 +2,9 @@ import filesystem from 'fs'
 import { ipcMain } from 'electron'
 import { exec } from 'child_process'
 import * as compose from 'docker-compose'
-import git from 'simple-git'
 
 import Launcher from '@/shell/Launcher'
+import Git from '@/shell/Git'
 
 export const registerCommands = win => {
     const registerCommand = (key, handler) => {
@@ -26,6 +26,7 @@ export const registerCommands = win => {
     }
 
     registerCommand('launch', Launcher)
+    registerCommand('git', Git)
 
     ipcMain.on('docker', (event, command) => {
         switch (command.type) {
@@ -118,27 +119,6 @@ export const registerCommands = win => {
             }
             case 'write': {
                 filesystem.writeFileSync(command.path, command.value)
-                break
-            }
-        }
-    })
-
-    ipcMain.on('git', (event, command) => {
-        switch (command.type) {
-            case 'remote': {
-                git(command.path)
-                    .getRemotes(true)
-                    .then(results => {
-                        if (results.length === 0) {
-                            return
-                        }
-
-                        win.webContents.send('git', {
-                            id: command.id,
-                            type: 'remote',
-                            content: results[0].refs.fetch,
-                        })
-                    })
                 break
             }
         }

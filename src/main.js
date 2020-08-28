@@ -57,6 +57,7 @@ new Vue({
         window.ipc.receive('app', event => {
             if (event.type === 'focused') {
                 this.reloadProjectStatuses()
+                this.reloadProjectSettings()
             }
         })
         window.ipc.receive('message', message => {
