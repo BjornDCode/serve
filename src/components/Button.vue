@@ -1,6 +1,6 @@
 <template>
     <Box
-        component="button"
+        :component="component"
         :type="type"
         v-bind="$attrs"
         :color="styles.background.color"
@@ -40,6 +40,11 @@
         },
 
         props: {
+            component: {
+                type: String,
+                default: 'button',
+            },
+
             type: {
                 type: String,
                 default: 'button',

@@ -44,10 +44,17 @@
                     </TextLink>
                 </Stack>
                 <Box :width="80" justify="between">
-                    <Button variant="secondary">
+                    <Button
+                        component="router-link"
+                        :to="{ name: 'import.laravel' }"
+                        variant="secondary"
+                    >
                         Import
                     </Button>
-                    <Button>
+                    <Button
+                        component="router-link"
+                        :to="{ name: 'create.laravel' }"
+                    >
                         Create
                     </Button>
                 </Box>
@@ -80,10 +87,17 @@
                     project or import an existing one to get started.
                 </Copy>
                 <Inline justify="center" :space="4">
-                    <Button variant="secondary">
+                    <Button
+                        component="router-link"
+                        :to="{ name: 'import.laravel' }"
+                        variant="secondary"
+                    >
                         Import
                     </Button>
-                    <Button>
+                    <Button
+                        component="router-link"
+                        :to="{ name: 'create.laravel' }"
+                    >
                         Create
                     </Button>
                 </Inline>

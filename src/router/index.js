@@ -6,6 +6,10 @@ import ProjectShow from '@/views/project/Show'
 import ProjectOverview from '@/views/project/Overview'
 import ProjectSettings from '@/views/project/Settings'
 
+import ImportLaravel from '@/views/import/Laravel'
+
+import CreateLaravel from '@/views/create/Laravel'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -13,6 +17,16 @@ const routes = [
         path: '/',
         name: 'home',
         component: Home,
+    },
+    {
+        path: '/import/laravel',
+        name: 'import.laravel',
+        component: ImportLaravel,
+    },
+    {
+        path: '/create/laravel',
+        name: 'create.laravel',
+        component: CreateLaravel,
     },
     {
         path: '/project/:id',
