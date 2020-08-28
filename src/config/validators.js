@@ -11,9 +11,11 @@ import {
     maxWidths,
     directions,
     alignments,
+    minHeights,
     decorations,
     lineHeights,
     borderRadii,
+    borderWidths,
     textAlignments,
     justifications,
 } from '@/config/values'
@@ -30,9 +32,12 @@ export const isValidPosition = position => positions.includes(position)
 export const isValidDirection = direction => directions.includes(direction)
 export const isValidMaxWidth = maxWidth => maxWidths.includes(maxWidth)
 export const isValidAlignment = alignment => alignments.includes(alignment)
+export const isValidMinHeight = minHeight => minHeights.includes(minHeight)
 export const isValidDecoration = decoration => decorations.includes(decoration)
 export const isValidLineHeight = lineHeight => lineHeights.includes(lineHeight)
 export const isValidBorderRadius = radis => borderRadii.includes(radis)
+export const isValidBorderWidth = borderWidth =>
+    borderWidths.includes(borderWidth)
 export const isValidTextAlignment = textAlignment =>
     textAlignments.includes(textAlignment)
 export const isValidJustification = justification =>

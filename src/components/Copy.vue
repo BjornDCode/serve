@@ -73,6 +73,7 @@
             },
 
             classes() {
+                console.log(this.align)
                 return [
                     `text-${this.size}`,
                     `text-${this.color}${this.shade ? `-${this.shade}` : ''}`,

@@ -19,7 +19,12 @@
                     {{ name }}
                 </Headline>
 
-                <Status :value="status" />
+                <Inline :space="2">
+                    <Status :value="status" />
+                    <Copy size="sm" color="gray" shade="700" capitalised>
+                        {{ status }}
+                    </Copy>
+                </Inline>
             </Stack>
             <Box>
                 <Button :disabled="buttonDisabled" @click="toggle">
@@ -61,6 +66,7 @@
     import Stack from '@/components/Stack'
     import Button from '@/components/Button'
     import Status from '@/components/Status'
+    import Inline from '@/components/Inline'
     import TextLink from '@/components/TextLink'
     import Headline from '@/components/Headline'
 
@@ -74,6 +80,7 @@
             Stack,
             Button,
             Status,
+            Inline,
             TextLink,
             Headline,
         },

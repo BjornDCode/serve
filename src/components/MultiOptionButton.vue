@@ -1,6 +1,10 @@
 <template>
     <div class="relative">
-        <Button class="pr-12 py" @click="$emit('click', option)">
+        <Button
+            class="pr-12 py"
+            @click="$emit('click', option)"
+            v-bind="$attrs"
+        >
             <slot :option="option" />
         </Button>
         <Selectable

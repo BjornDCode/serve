@@ -6,7 +6,7 @@
         :color="styles.background.color"
         :shade="styles.background.shade"
         :spaceX="4"
-        :spaceY="1"
+        :spaceY="spaceY"
         class="rounded border transform focus:outline-none focus-visible:shadow-outline"
         :class="[
             ...styles.classes,
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+    import { match } from '@/helpers/methods'
+
     import Box from '@/components/Box'
     import Copy from '@/components/Copy'
 
@@ -48,6 +50,11 @@
                 default: 'primary',
                 validator: value => ['primary', 'secondary'].includes(value),
             },
+            size: {
+                type: String,
+                default: 'small',
+                validator: value => ['small', 'medium'].includes(value),
+            },
             disabled: {
                 type: Boolean,
                 default: false,
@@ -57,6 +64,13 @@
         computed: {
             isPrimary() {
                 return this.variant === 'primary'
+            },
+
+            spaceY() {
+                return match(this.size, {
+                    small: 1,
+                    medium: 2,
+                })
             },
 
             styles() {

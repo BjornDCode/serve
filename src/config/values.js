@@ -59,6 +59,7 @@ export const spaces = [
     48,
     56,
     64,
+    80,
 ]
 
 export const sizes = [
@@ -173,3 +174,7 @@ export const lineHeights = [
 ]
 
 export const decorations = ['underline', 'line-through', 'none']
+
+export const minHeights = ['0', 'full', 'screen']
+
+export const borderWidths = [0, 1, 2, 4, 8]

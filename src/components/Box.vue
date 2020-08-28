@@ -22,6 +22,8 @@
         isValidPosition,
         isValidAlignment,
         isValidDirection,
+        isValidMinHeight,
+        isValidBorderWidth,
         isValidBorderRadius,
         isValidJustification,
     } from '@/config/validators'
@@ -112,6 +114,42 @@
             bottom: {
                 type: Number,
             },
+            borderWidth: {
+                type: Number,
+                validator: isValidBorderWidth,
+            },
+            borderWidthY: {
+                type: Number,
+                validator: isValidBorderWidth,
+            },
+            borderWidthX: {
+                type: Number,
+                validator: isValidBorderWidth,
+            },
+            borderWidthT: {
+                type: Number,
+                validator: isValidBorderWidth,
+            },
+            borderWidthB: {
+                type: Number,
+                validator: isValidBorderWidth,
+            },
+            borderWidthL: {
+                type: Number,
+                validator: isValidBorderWidth,
+            },
+            borderWidthR: {
+                type: Number,
+                validator: isValidBorderWidth,
+            },
+            borderColor: {
+                type: String,
+                validator: isValidColor,
+            },
+            borderShade: {
+                type: String,
+                validator: isValidShade,
+            },
             borderRadius: {
                 type: String,
                 default: 'none',
@@ -125,6 +163,10 @@
             maxWidth: {
                 type: [String, Number],
                 validator: isValidMaxWidth,
+            },
+            minHeight: {
+                type: [String, Number],
+                validator: isValidMinHeight,
             },
             expand: {
                 type: Boolean,
@@ -158,6 +200,33 @@
                     ...(this.position ? [this.position] : []),
                     ...(this.size ? [`h-${this.size}`, `w-${this.size}`] : []),
                     ...(this.maxWidth ? [`max-w-${this.maxWidth}`] : []),
+                    ...(this.minHeight ? [`min-h-${this.minHeight}`] : []),
+                    ...(this.borderWidth ? [`border-${this.borderWidth}`] : []),
+                    ...(this.borderWidthY
+                        ? [`border-y-${this.borderWidthY}`]
+                        : []),
+                    ...(this.borderWidthX
+                        ? [`border-x-${this.borderWidthX}`]
+                        : []),
+                    ...(this.borderWidthT
+                        ? [`border-t-${this.borderWidthT}`]
+                        : []),
+                    ...(this.borderWidthB
+                        ? [`border-b-${this.borderWidthB}`]
+                        : []),
+                    ...(this.borderWidthL
+                        ? [`border-l-${this.borderWidthL}`]
+                        : []),
+                    ...(this.borderWidthR
+                        ? [`border-r-${this.borderWidthR}`]
+                        : []),
+                    ...(this.borderColor
+                        ? [
+                              `border-${this.borderColor}${
+                                  this.borderShade ? `-${this.borderShade}` : ''
+                              }`,
+                          ]
+                        : []),
                 ]
             },
 

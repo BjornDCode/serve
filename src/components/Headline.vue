@@ -3,6 +3,7 @@
         :component="component"
         class="font-semibold tracking-tighter leading-none"
         :class="classes"
+        v-bind="$attrs"
     >
         <slot />
     </Copy>
@@ -20,7 +21,7 @@
             level: {
                 type: Number,
                 default: 1,
-                validator: value => [1, 2, 3].includes(value),
+                validator: value => [1, 2, 3, 4].includes(value),
             },
         },
 
@@ -34,6 +35,7 @@
                     1: '3xl',
                     2: '2xl',
                     3: 'xl',
+                    4: 'lg',
                 }
 
                 return `text-${sizes[this.level]}`

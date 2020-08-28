@@ -47,29 +47,29 @@ export default {
     namespaced: true,
     state: {
         items: [
-            {
-                id: 'abc',
-                name: 'laraveldocker',
-                status: 'stopped',
-                path: '/Users/bjornlindholm/Documents/Code/laraveldocker',
-                repository: null,
-                php: {
-                    version: '7.4',
-                },
-                node: {
-                    version: '12',
-                },
-                redis: {
-                    version: '6',
-                },
-                database: {
-                    type: 'mysql',
-                    version: '5.7',
-                },
-                server: {
-                    port: '8081',
-                },
-            },
+            // {
+            //     id: 'abc',
+            //     name: 'laraveldocker',
+            //     status: 'stopped',
+            //     path: '/Users/bjornlindholm/Documents/Code/laraveldocker',
+            //     repository: null,
+            //     php: {
+            //         version: '7.4',
+            //     },
+            //     node: {
+            //         version: '12',
+            //     },
+            //     redis: {
+            //         version: '6',
+            //     },
+            //     database: {
+            //         type: 'mysql',
+            //         version: '5.7',
+            //     },
+            //     server: {
+            //         port: '8081',
+            //     },
+            // },
         ],
     },
     getters: {

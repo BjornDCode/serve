@@ -185,6 +185,7 @@
                 </Headline>
                 <Stack :space="2">
                     <MultiOptionButton
+                        size="medium"
                         :options="[
                             { key: 'phpstorm', title: 'PhpStorm' },
                             { key: 'sublime', title: 'Sublime' },
@@ -195,7 +196,7 @@
                     >
                         Open in {{ option.title }}
                     </MultiOptionButton>
-                    <Button @click="onQuickAction('github')">
+                    <Button @click="onQuickAction('github')" size="medium">
                         Open in GitHub Desktop
                     </Button>
                 </Stack>

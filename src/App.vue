@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="font-sans antialiased relative">
+    <div id="app" class="font-sans antialiased relative min-h-screen">
         <router-view />
 
         <Messages />

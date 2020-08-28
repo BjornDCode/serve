@@ -1,29 +1,20 @@
 <template>
-    <Inline :space="2">
-        <Oval
-            :size="3"
-            :color="styles.indicator.color"
-            :shade="styles.indicator.shade"
-        />
-        <Copy size="sm" color="gray" shade="700" capitalised>
-            {{ value }}
-        </Copy>
-    </Inline>
+    <Oval
+        :size="3"
+        :color="styles.indicator.color"
+        :shade="styles.indicator.shade"
+    />
 </template>
 
 <script>
     import { match } from '@/helpers/methods'
     import { isValidStatus } from '@/config/validators'
 
-    import Copy from '@/components/Copy'
     import Oval from '@/components/Oval'
-    import Inline from '@/components/Inline'
 
     export default {
         components: {
-            Copy,
             Oval,
-            Inline,
         },
 
         props: {
