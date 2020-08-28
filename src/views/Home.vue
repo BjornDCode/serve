@@ -10,62 +10,61 @@
             <Headline>
                 Serve
             </Headline>
-            <div v-if="projects.length">
-                <Stack
-                    color="white"
-                    :borderWidth="1"
-                    borderColor="gray"
-                    borderShade="300"
-                    borderRadius="normal"
-                    :width="80"
+            <Stack
+                v-if="projects.length"
+                color="white"
+                :borderWidth="2"
+                borderColor="gray"
+                borderShade="300"
+                borderRadius="normal"
+                :width="80"
+            >
+                <TextLink
+                    v-for="project in projects"
+                    :key="project.id"
+                    :to="{
+                        name: 'project.overview',
+                        params: { id: project.id },
+                    }"
+                    class="w-full border-b-1 border-gray-300 last:border-0 hover:underline"
                 >
-                    <TextLink
-                        v-for="project in projects"
-                        :key="project.id"
-                        :to="{
-                            name: 'project.overview',
-                            params: { id: project.id },
-                        }"
-                        class="w-full border-b-1 border-gray-300 last:border-0 hover:underline"
+                    <Box
+                        :spaceX="6"
+                        :spaceY="4"
+                        :borderWidthB="1"
+                        width="full"
+                        align="center"
+                        justify="between"
                     >
-                        <Box
-                            :spaceX="6"
-                            :spaceY="4"
-                            :borderWidthB="1"
-                            width="full"
-                            align="center"
-                            justify="between"
-                        >
-                            <Copy color="indigo" shade="700" weight="medium">
-                                {{ project.name }}
-                            </Copy>
-                            <Status :value="project.status" />
-                        </Box>
-                    </TextLink>
-                </Stack>
-                <Box :width="80" justify="between">
-                    <Button
-                        component="router-link"
-                        :to="{ name: 'import.laravel' }"
-                        variant="secondary"
-                    >
-                        Import
-                    </Button>
-                    <Button
-                        component="router-link"
-                        :to="{ name: 'create.laravel' }"
-                    >
-                        Create
-                    </Button>
-                </Box>
-            </div>
+                        <Copy color="indigo" shade="700" weight="medium">
+                            {{ project.name }}
+                        </Copy>
+                        <Status :value="project.status" />
+                    </Box>
+                </TextLink>
+            </Stack>
+            <Box v-if="projects.length" :width="80" justify="between">
+                <Button
+                    component="router-link"
+                    :to="{ name: 'import.laravel' }"
+                    variant="secondary"
+                >
+                    Import
+                </Button>
+                <Button
+                    component="router-link"
+                    :to="{ name: 'create.laravel' }"
+                >
+                    Create
+                </Button>
+            </Box>
 
             <Stack
                 v-if="!projects.length"
                 color="white"
                 :width="80"
                 align="stretch"
-                :borderWidth="1"
+                :borderWidth="2"
                 borderColor="gray"
                 borderShade="300"
                 borderRadius="normal"

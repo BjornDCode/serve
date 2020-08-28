@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-import { v4 as uuid } from 'uuid'
 import toml from '@iarna/toml'
 
 import { removeKeys } from '@/helpers/methods'
@@ -46,31 +44,7 @@ const statusMachine = {
 export default {
     namespaced: true,
     state: {
-        items: [
-            // {
-            //     id: 'abc',
-            //     name: 'laraveldocker',
-            //     status: 'stopped',
-            //     path: '/Users/bjornlindholm/Documents/Code/laraveldocker',
-            //     repository: null,
-            //     php: {
-            //         version: '7.4',
-            //     },
-            //     node: {
-            //         version: '12',
-            //     },
-            //     redis: {
-            //         version: '6',
-            //     },
-            //     database: {
-            //         type: 'mysql',
-            //         version: '5.7',
-            //     },
-            //     server: {
-            //         port: '8081',
-            //     },
-            // },
-        ],
+        items: [],
     },
     getters: {
         all(state) {
@@ -106,6 +80,10 @@ export default {
                 }
             })
         },
+
+        create(state, payload) {
+            state.items = [...state.items, payload]
+        },
     },
     actions: {
         nextStatus({ commit }, project) {
@@ -139,6 +117,10 @@ export default {
                 id,
                 settings,
             })
+        },
+
+        create({ commit }, project) {
+            commit('create', project)
         },
     },
 }

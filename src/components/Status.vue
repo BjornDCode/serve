@@ -20,7 +20,6 @@
         props: {
             value: {
                 type: String,
-                required: true,
                 validator: isValidStatus,
             },
         },
@@ -45,6 +44,10 @@
                             stopping: {
                                 color: 'yellow',
                                 shade: '500',
+                            },
+                            default: {
+                                color: 'gray',
+                                shade: '300',
                             },
                         }),
                     },

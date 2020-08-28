@@ -18,19 +18,19 @@
     }
 
     table tr:first-child td {
-        @apply border-t;
+        @apply border-t-2;
     }
 
     table tr:last-child td {
-        @apply border-b;
+        @apply border-b-2;
     }
 
     table tr td:first-child {
-        @apply border-l;
+        @apply border-l-2;
     }
 
     table tr td:last-child {
-        @apply border-r;
+        @apply border-r-2;
     }
 
     table tr:first-child td:first-child {

@@ -78,6 +78,10 @@
 
         computed: {
             displayValue() {
+                if (!this.value) {
+                    return ''
+                }
+
                 const folder = this.value.split('/').pop()
 
                 return `../${folder}`
