@@ -1,5 +1,5 @@
 import filesystem from 'fs'
-import { ipcMain, dialog } from 'electron'
+import { ipcMain } from 'electron'
 import { exec } from 'child_process'
 import * as compose from 'docker-compose'
 import git from 'simple-git'
@@ -10,7 +10,11 @@ export const registerCommands = win => {
     const registerCommand = (key, handler) => {
         ipcMain.on(key, async (event, command) => {
             try {
-                await new handler(command).handle()
+                const response = await new handler(command).handle()
+
+                if (response) {
+                    event.reply(key, response)
+                }
             } catch (error) {
                 win.webContents.send('message', {
                     content: error.message,
@@ -89,25 +93,6 @@ export const registerCommands = win => {
                 console.log('stderr', stderr)
             }
         )
-    })
-
-    ipcMain.on('dialog', (event, command) => {
-        switch (command.type) {
-            case 'open': {
-                const paths = dialog.showOpenDialogSync({
-                    buttonLabel: 'Select',
-                    properties: ['openDirectory'],
-                })
-
-                if (paths) {
-                    event.reply('dialog', {
-                        id: command.id,
-                        value: paths[0],
-                    })
-                }
-                break
-            }
-        }
     })
 
     ipcMain.on('files', (event, command) => {

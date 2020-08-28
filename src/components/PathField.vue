@@ -122,8 +122,8 @@
             this.$el.addEventListener('dragleave', this.onDragLeave)
             this.$el.addEventListener('drop', this.onDrop)
 
-            // Reveive response from dialog
-            window.ipc.receive('dialog', payload => {
+            // Reveive response from launcher
+            window.ipc.receive('launch', payload => {
                 if (payload.id !== this.id) {
                     return
                 }
@@ -153,9 +153,9 @@
             },
 
             onClick() {
-                window.ipc.send('dialog', {
+                window.ipc.send('launch', {
                     id: this.id,
-                    type: 'open',
+                    type: 'dialog',
                 })
             },
 
