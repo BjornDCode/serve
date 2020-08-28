@@ -11,7 +11,7 @@ contextBridge.exposeInMainWorld('ipc', {
             'app',
             'dialog',
             'files',
-            'shell',
+            'launch',
             'message',
             'git',
         ]
@@ -28,7 +28,7 @@ contextBridge.exposeInMainWorld('ipc', {
             'app',
             'dialog',
             'files',
-            'shell',
+            'launch',
             'message',
             'git',
         ]

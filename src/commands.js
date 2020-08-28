@@ -1,10 +1,28 @@
 import filesystem from 'fs'
-import { ipcMain, dialog, shell } from 'electron'
+import { ipcMain, dialog } from 'electron'
 import { exec } from 'child_process'
 import * as compose from 'docker-compose'
 import git from 'simple-git'
 
+import Launcher from '@/shell/Launcher'
+
 export const registerCommands = win => {
+    const registerCommand = (key, handler) => {
+        ipcMain.on(key, async (event, command) => {
+            try {
+                await new handler(command).handle()
+            } catch (error) {
+                win.webContents.send('message', {
+                    content: error.message,
+                    type: 'error',
+                    expires: 2000,
+                })
+            }
+        })
+    }
+
+    registerCommand('launch', Launcher)
+
     ipcMain.on('docker', (event, command) => {
         switch (command.type) {
             case 'up': {
@@ -115,38 +133,6 @@ export const registerCommands = win => {
             }
             case 'write': {
                 filesystem.writeFileSync(command.path, command.value)
-                break
-            }
-        }
-    })
-
-    ipcMain.on('shell', (event, command) => {
-        switch (command.type) {
-            case 'filesystem': {
-                shell.openPath(command.path).then(result => {
-                    // The promise returns and empty string if it was successful
-                    if (result === '') {
-                        return
-                    }
-
-                    win.webContents.send('message', {
-                        content: result,
-                        type: 'error',
-                        expires: 2000,
-                    })
-                })
-                break
-            }
-            case 'browser': {
-                try {
-                    shell.openExternal(command.path)
-                } catch (error) {
-                    win.webContents.send('message', {
-                        content: 'The URL could not be opened',
-                        type: 'error',
-                        expires: 2000,
-                    })
-                }
                 break
             }
         }
