@@ -6,10 +6,9 @@ contextBridge.exposeInMainWorld('ipc', {
     send: (channel, data) => {
         // whitelist channels
         let validChannels = [
-            'stdin',
             'docker',
             'app',
-            'files',
+            'filesystem',
             'launch',
             'message',
             'git',
@@ -21,11 +20,9 @@ contextBridge.exposeInMainWorld('ipc', {
     },
     receive: (channel, callback) => {
         let validChannels = [
-            'stdout',
-            'stderr',
             'docker',
             'app',
-            'files',
+            'filesystem',
             'launch',
             'message',
             'git',

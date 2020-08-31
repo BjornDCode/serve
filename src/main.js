@@ -39,7 +39,7 @@ new Vue({
 
         reloadProjectSettings() {
             this.projects.forEach(project => {
-                window.ipc.send('files', {
+                window.ipc.send('filesystem', {
                     type: 'read',
                     id: project.id,
                     path: `${project.path}/serve.toml`,
@@ -79,7 +79,7 @@ new Vue({
             }
         })
 
-        window.ipc.receive('files', response => {
+        window.ipc.receive('filesystem', response => {
             this.updateProjectSettings({
                 id: response.id,
                 settings: cloneDeep(toml.parse(response.value)),

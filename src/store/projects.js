@@ -106,7 +106,7 @@ export default {
             const project = getters.find(id)
             const writeableSettings = removeKeys(settings, ['path'])
 
-            window.ipc.send('files', {
+            window.ipc.send('filesystem', {
                 id: id,
                 type: 'write',
                 path: `${project.path}/serve.toml`,
