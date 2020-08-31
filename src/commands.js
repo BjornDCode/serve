@@ -1,10 +1,10 @@
 import filesystem from 'fs'
 import { ipcMain } from 'electron'
 import { exec } from 'child_process'
-import * as compose from 'docker-compose'
 
-import Launcher from '@/shell/Launcher'
 import Git from '@/shell/Git'
+import Docker from '@/shell/Docker'
+import Launcher from '@/shell/Launcher'
 
 export const registerCommands = win => {
     const registerCommand = (key, handler) => {
@@ -25,62 +25,9 @@ export const registerCommands = win => {
         })
     }
 
-    registerCommand('launch', Launcher)
     registerCommand('git', Git)
-
-    ipcMain.on('docker', (event, command) => {
-        switch (command.type) {
-            case 'up': {
-                compose.upAll({ cwd: command.path }).then(
-                    () => {
-                        event.reply('docker', {
-                            id: command.id,
-                            type: command.type,
-                            status: 'success',
-                        })
-                    },
-                    error => {
-                        console.log('error', error)
-                    }
-                )
-                break
-            }
-            case 'down': {
-                compose.down({ cwd: command.path }).then(
-                    () => {
-                        event.reply('docker', {
-                            id: command.id,
-                            type: command.type,
-                            status: 'success',
-                        })
-                    },
-                    error => {
-                        console.log('error', error)
-                    }
-                )
-                break
-            }
-            case 'ps': {
-                compose.ps({ cwd: command.path }).then(
-                    success => {
-                        // Check stdout for whether it has the standard docker-compose output for running containers
-                        const status = success.out.includes(command.name)
-                            ? 'running'
-                            : 'stopped'
-
-                        event.reply('docker', {
-                            id: command.id,
-                            type: command.type,
-                            status: 'success',
-                            value: status,
-                        })
-                    },
-                    () => {}
-                )
-                break
-            }
-        }
-    })
+    registerCommand('docker', Docker)
+    registerCommand('launch', Launcher)
 
     ipcMain.on('stdin', (event, command) => {
         exec(
