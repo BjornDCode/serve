@@ -1,4 +1,5 @@
 import { shell, dialog } from 'electron'
+import { exec } from 'child_process'
 
 import InvalidPathError from '@/exceptions/InvalidPathError'
 
@@ -36,6 +37,22 @@ class Launcher {
                 value: response.filePaths[0],
             }
         }
+    }
+
+    async phpstorm() {
+        exec(`phpstorm ${this.command.path}`)
+    }
+
+    async sublime() {
+        exec(`subl ${this.command.path}`)
+    }
+
+    async vscode() {
+        exec(`code ${this.command.path}`)
+    }
+
+    async github() {
+        exec(`github ${this.command.path}`)
     }
 }
 

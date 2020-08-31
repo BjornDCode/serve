@@ -3,8 +3,6 @@
 </template>
 
 <script>
-    import { match } from '@/helpers/methods'
-
     import ProjectOverview from '@/components/ProjectOverview'
 
     export default {
@@ -47,16 +45,9 @@
         },
 
         methods: {
-            onQuickAction(action) {
-                const executable = match(action, {
-                    phpstorm: `phpstorm ${this.path}`,
-                    sublime: `subl ${this.path}`,
-                    vscode: `code ${this.path}`,
-                    github: `github ${this.path}`,
-                })
-
-                window.ipc.send('stdin', {
-                    executable: executable,
+            onQuickAction(type) {
+                window.ipc.send('launch', {
+                    type,
                     path: this.path,
                 })
             },

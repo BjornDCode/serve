@@ -1,6 +1,5 @@
 import filesystem from 'fs'
 import { ipcMain } from 'electron'
-import { exec } from 'child_process'
 
 import Git from '@/shell/Git'
 import Docker from '@/shell/Docker'
@@ -28,20 +27,6 @@ export const registerCommands = win => {
     registerCommand('git', Git)
     registerCommand('docker', Docker)
     registerCommand('launch', Launcher)
-
-    ipcMain.on('stdin', (event, command) => {
-        exec(
-            command.executable,
-            {
-                cwd: command.path,
-            },
-            (error, stdout, stderr) => {
-                console.log('error', error)
-                console.log('stdout', stdout)
-                console.log('stderr', stderr)
-            }
-        )
-    })
 
     ipcMain.on('files', (event, command) => {
         switch (command.type) {
