@@ -29,10 +29,10 @@ new Vue({
         reloadProjectStatuses() {
             this.projects.forEach(project => {
                 window.ipc.send('docker', {
-                    type: 'ps',
                     id: project.id,
-                    path: project.path,
+                    type: 'ps',
                     name: project.name,
+                    path: project.path,
                 })
             })
         },
@@ -71,7 +71,7 @@ new Vue({
             }
 
             const project = this.projects.find(
-                project => project.id === response.id
+                project => project.id == response.id
             )
 
             if (project.status !== response.value) {
@@ -80,6 +80,14 @@ new Vue({
         })
 
         window.ipc.receive('filesystem', response => {
+            if (response.type !== 'read') {
+                return
+            }
+
+            if (!this.projects.find(project => project.id === response.id)) {
+                return
+            }
+
             this.updateProjectSettings({
                 id: response.id,
                 settings: cloneDeep(toml.parse(response.value)),

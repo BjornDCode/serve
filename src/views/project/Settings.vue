@@ -13,7 +13,6 @@
     import isEqual from 'lodash/isEqual'
     import set from 'lodash/set'
     import cloneDeep from 'lodash/cloneDeep'
-    import { renameKey } from '@/helpers/methods'
 
     import ProjectSettings from '@/components/ProjectSettings'
 
@@ -24,10 +23,6 @@
 
         props: {
             id: {
-                type: String,
-                required: true,
-            },
-            project: {
                 type: String,
                 required: true,
             },
@@ -61,7 +56,6 @@
             return {
                 values: {
                     path: this.path,
-                    project: this.project,
                     php: this.php,
                     node: this.node,
                     redis: this.redis,
@@ -79,7 +73,6 @@
             initialValues() {
                 return {
                     path: this.path,
-                    project: this.project,
                     php: this.php,
                     node: this.node,
                     redis: this.redis,
@@ -102,7 +95,7 @@
             onSave() {
                 this.updateSettings({
                     id: this.id,
-                    settings: renameKey(this.values, 'project', 'name'),
+                    settings: this.values,
                 })
 
                 this.addMessage({

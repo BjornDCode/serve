@@ -18,8 +18,9 @@ class Filesystem {
 
             return {
                 id: this.command.id,
+                type: this.command.type,
                 value: contents,
-                type: 'success',
+                status: 'success',
             }
         } catch (error) {
             throw new ReadFileError(
@@ -35,6 +36,16 @@ class Filesystem {
             throw new WriteFileError(
                 `There was a problem writing: ${this.command.path}`
             )
+        }
+    }
+
+    async exists() {
+        const exists = fs.existsSync(this.command.path)
+
+        return {
+            id: this.command.id,
+            type: this.command.type,
+            value: exists,
         }
     }
 }

@@ -56,7 +56,6 @@
 
 <script>
     import { match } from '@/helpers/methods'
-    import { isValidStatus } from '@/config/validators'
 
     import Box from '@/components/Box'
     import Tab from '@/components/Tab'
@@ -100,8 +99,6 @@
             },
             status: {
                 type: String,
-                required: true,
-                validator: isValidStatus,
             },
             php: {
                 type: Object,
@@ -135,6 +132,7 @@
                     stopped: 'Start',
                     starting: 'Starting...',
                     stopping: 'Stopping...',
+                    default: 'Waiting...',
                 })
             },
 

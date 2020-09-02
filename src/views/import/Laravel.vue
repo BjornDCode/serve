@@ -20,11 +20,6 @@
                     </Stack>
                 </Box>
                 <Stack align="stretch" width="2/5" :space="8">
-                    <TextField
-                        label="Name"
-                        :value="values.name"
-                        @input="onInput('name', $event)"
-                    />
                     <PathField
                         label="Path"
                         :value="values.path"
@@ -180,6 +175,8 @@
 <script>
     import { v4 as uuid } from 'uuid'
     import { mapActions } from 'vuex'
+    import toml from '@iarna/toml'
+    import cloneDeep from 'lodash/cloneDeep'
 
     import { match } from '@/helpers/methods'
 
@@ -210,7 +207,6 @@
             return {
                 values: {
                     id: uuid(),
-                    name: '',
                     path: '',
                     repository: null,
                     status: null,
@@ -244,7 +240,7 @@
             },
 
             valid() {
-                return this.values.name.length && this.values.path.length
+                return this.values.path.length
             },
         },
 
@@ -268,7 +264,55 @@
             },
         },
 
+        mounted() {
+            window.ipc.receive('filesystem', response => {
+                if (response.type !== 'read') {
+                    return
+                }
+
+                if (response.id !== this.values.id) {
+                    return
+                }
+
+                const config = cloneDeep(toml.parse(response.value))
+
+                this.values = {
+                    ...this.values,
+                    ...config,
+                }
+            })
+
+            window.ipc.receive('filesystem', response => {
+                if (response.type !== 'exists') {
+                    return
+                }
+
+                if (response.id !== this.values.id) {
+                    return
+                }
+
+                // 'response.value' contains a boolean indicating whether the file exists or not
+                if (!response.value) {
+                    return
+                }
+
+                window.ipc.send('filesystem', {
+                    id: this.values.id,
+                    type: 'read',
+                    path: `${this.values.path}/serve.toml`,
+                })
+            })
+        },
+
         watch: {
+            'values.path': function (value) {
+                window.ipc.send('filesystem', {
+                    id: this.values.id,
+                    type: 'exists',
+                    path: `${value}/serve.toml`,
+                })
+            },
+
             'values.database.type': function (value, oldValue) {
                 if (value === oldValue) {
                     return

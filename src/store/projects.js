@@ -2,6 +2,8 @@ import toml from '@iarna/toml'
 
 import { removeKeys } from '@/helpers/methods'
 
+const getProjectName = path => path.split('/').slice(-1)[0]
+
 const statusMachine = {
     stopped: {
         NEXT: {
@@ -77,6 +79,7 @@ export default {
                 return {
                     ...project,
                     ...payload.settings,
+                    name: getProjectName(payload.path || project.path),
                 }
             })
         },
@@ -104,7 +107,12 @@ export default {
         },
         updateSettings({ commit, getters }, { id, settings }) {
             const project = getters.find(id)
-            const writeableSettings = removeKeys(settings, ['path'])
+            const writeableSettings = removeKeys(settings, [
+                'id',
+                'path',
+                'name',
+                'status',
+            ])
 
             window.ipc.send('filesystem', {
                 id: id,
@@ -121,6 +129,25 @@ export default {
 
         create({ commit }, project) {
             commit('create', project)
+
+            window.ipc.send('filesystem', {
+                type: 'read',
+                id: project.id,
+                path: `${project.path}/serve.toml`,
+            })
+
+            window.ipc.send('git', {
+                type: 'remote',
+                id: project.id,
+                path: project.path,
+            })
+
+            window.ipc.send('docker', {
+                type: 'ps',
+                id: project.id,
+                path: project.path,
+                name: getProjectName(project.path),
+            })
         },
     },
 }

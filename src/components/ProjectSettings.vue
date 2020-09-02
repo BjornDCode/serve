@@ -20,11 +20,6 @@
                     </Stack>
                 </Box>
                 <Stack align="stretch" width="2/5" :space="8">
-                    <TextField
-                        label="Name"
-                        :value="values.project"
-                        @input="onInput('project', $event)"
-                    />
                     <PathField
                         label="Path"
                         :value="values.path"
