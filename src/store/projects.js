@@ -127,14 +127,10 @@ export default {
             })
         },
 
-        create({ commit }, project) {
+        create({ commit, dispatch }, project) {
             commit('create', project)
 
-            window.ipc.send('filesystem', {
-                type: 'read',
-                id: project.id,
-                path: `${project.path}/serve.toml`,
-            })
+            dispatch('updateSettings', { id: project.id, settings: project })
 
             window.ipc.send('git', {
                 type: 'remote',
