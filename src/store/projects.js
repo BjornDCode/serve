@@ -1,6 +1,8 @@
 import toml from '@iarna/toml'
+import yaml from 'yaml'
 
 import { removeKeys } from '@/helpers/methods'
+import { config as dockerConfig } from '@/config/docker'
 
 const getProjectName = path => path.split('/').slice(-1)[0]
 
@@ -131,6 +133,13 @@ export default {
             commit('create', project)
 
             dispatch('updateSettings', { id: project.id, settings: project })
+
+            window.ipc.send('filesystem', {
+                id: project.id,
+                type: 'write',
+                path: `${project.path}/docker-compose.yml`,
+                value: yaml.stringify(dockerConfig),
+            })
 
             window.ipc.send('git', {
                 type: 'remote',
