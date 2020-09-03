@@ -176,6 +176,7 @@
     import { v4 as uuid } from 'uuid'
     import { mapActions } from 'vuex'
     import toml from '@iarna/toml'
+    import set from 'lodash/set'
     import cloneDeep from 'lodash/cloneDeep'
 
     import { match } from '@/helpers/methods'
@@ -250,10 +251,7 @@
             }),
 
             onInput(key, value) {
-                this.values = {
-                    ...this.values,
-                    [key]: value,
-                }
+                this.values = { ...set(cloneDeep(this.values), key, value) }
             },
 
             onSave() {
