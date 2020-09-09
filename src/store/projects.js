@@ -123,6 +123,16 @@ export default {
                 value: toml.stringify(writeableSettings),
             })
 
+            if (settings.path) {
+                console.log('settings', settings)
+                window.ipc.send('filesystem', {
+                    id: settings.id,
+                    type: 'write',
+                    path: `${settings.path}/docker-compose.yml`,
+                    value: yaml.stringify(generateConfig(settings)),
+                })
+            }
+
             commit('updateKeys', {
                 id,
                 settings,
@@ -134,7 +144,6 @@ export default {
 
             dispatch('updateSettings', { id: project.id, settings: project })
 
-            console.log('project', project)
             window.ipc.send('filesystem', {
                 id: project.id,
                 type: 'write',
