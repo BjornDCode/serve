@@ -124,7 +124,6 @@ export default {
             })
 
             if (settings.path) {
-                console.log('settings', settings)
                 window.ipc.send('filesystem', {
                     id: settings.id,
                     type: 'write',

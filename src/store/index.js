@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
 
 import projects from '@/store/projects'
 import messages from '@/store/messages'
@@ -11,4 +12,5 @@ export default new Vuex.Store({
         projects,
         messages,
     },
+    plugins: [new VuexPersistence().plugin],
 })
