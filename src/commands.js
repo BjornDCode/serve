@@ -7,12 +7,12 @@ import Filesystem from '@/shell/Filesystem'
 
 export const registerCommands = win => {
     const registerCommand = (key, handler) => {
-        ipcMain.on(key, async (event, command) => {
+        ipcMain.handle(key, async (event, command) => {
             try {
                 const response = await new handler(command).handle()
 
                 if (response) {
-                    event.reply(key, response)
+                    return response
                 }
             } catch (error) {
                 win.webContents.send('message', {

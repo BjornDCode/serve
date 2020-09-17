@@ -1,49 +1,11 @@
+import cloneDeep from 'lodash/cloneDeep'
 import toml from '@iarna/toml'
 import yaml from 'yaml'
 
-import { removeKeys } from '@/helpers/methods'
+import { removeKeys, match } from '@/helpers/methods'
 import { generateConfig } from '@/config/docker'
 
 const getProjectName = path => path.split('/').slice(-1)[0]
-
-const statusMachine = {
-    stopped: {
-        NEXT: {
-            value: 'starting',
-            handler(project) {
-                window.ipc.send('docker', {
-                    id: project.id,
-                    path: project.path,
-                    type: 'up',
-                })
-            },
-        },
-    },
-    starting: {
-        NEXT: {
-            value: 'running',
-            handler() {},
-        },
-    },
-    running: {
-        NEXT: {
-            value: 'stopping',
-            handler(project) {
-                window.ipc.send('docker', {
-                    id: project.id,
-                    path: project.path,
-                    type: 'down',
-                })
-            },
-        },
-    },
-    stopping: {
-        NEXT: {
-            value: 'stopped',
-            handler() {},
-        },
-    },
-}
 
 export default {
     namespaced: true,
@@ -91,22 +53,87 @@ export default {
         },
     },
     actions: {
-        nextStatus({ commit }, project) {
-            const status = statusMachine[project.status].NEXT
+        toggle({ dispatch }, project) {
+            const action = match(project.status, {
+                running: 'stop',
+                stopped: 'start',
+            })
 
-            status.handler(project)
+            dispatch(action, project)
+        },
 
+        start({ commit }, project) {
             commit('updateStatus', {
                 id: project.id,
-                status: status.value,
+                status: 'starting',
             })
+
+            window.ipc
+                .invoke('docker', {
+                    id: project.id,
+                    path: project.path,
+                    type: 'up',
+                })
+                .then(() => {
+                    commit('updateStatus', {
+                        id: project.id,
+                        status: 'running',
+                    })
+                })
         },
-        updateStatus({ commit }, { project, newStatus }) {
+
+        stop({ commit }, project) {
             commit('updateStatus', {
                 id: project.id,
-                status: newStatus,
+                status: 'stopping',
             })
+
+            window.ipc
+                .invoke('docker', {
+                    id: project.id,
+                    path: project.path,
+                    type: 'down',
+                })
+                .then(() => {
+                    commit('updateStatus', {
+                        id: project.id,
+                        status: 'stopped',
+                    })
+                })
         },
+
+        updateStatus({ commit }, project) {
+            window.ipc
+                .invoke('docker', {
+                    id: project.id,
+                    type: 'ps',
+                    name: project.name,
+                    path: project.path,
+                })
+                .then(response => {
+                    commit('updateStatus', {
+                        id: project.id,
+                        status: response.value,
+                    })
+                })
+        },
+
+        updateGitStatus({ dispatch }, project) {
+            window.ipc
+                .invoke('git', {
+                    type: 'remote',
+                    id: project.id,
+                    path: project.path,
+                })
+                .then(response => {
+                    dispatch('updateSetting', {
+                        id: project.id,
+                        key: 'repository',
+                        value: response.content,
+                    })
+                })
+        },
+
         updateSettings({ commit, getters }, { id, settings }) {
             const project = getters.find(id)
             const writeableSettings = removeKeys(settings, [
@@ -116,7 +143,7 @@ export default {
                 'status',
             ])
 
-            window.ipc.send('filesystem', {
+            window.ipc.invoke('filesystem', {
                 id: id,
                 type: 'write',
                 path: `${project.path}/serve.toml`,
@@ -124,7 +151,7 @@ export default {
             })
 
             if (settings.path) {
-                window.ipc.send('filesystem', {
+                window.ipc.invoke('filesystem', {
                     id: settings.id,
                     type: 'write',
                     path: `${settings.path}/docker-compose.yml`,
@@ -138,30 +165,36 @@ export default {
             })
         },
 
+        updateSetting({ dispatch, getters }, { id, key, value }) {
+            const project = getters.find(id)
+
+            dispatch('updateSettings', {
+                id,
+                settings: { ...project, [key]: value },
+            })
+        },
+
+        readSettingsFile({ dispatch }, project) {
+            window.ipc
+                .invoke('filesystem', {
+                    type: 'read',
+                    id: project.id,
+                    path: `${project.path}/serve.toml`,
+                })
+                .then(response => {
+                    dispatch('updateSettings', {
+                        id: project.id,
+                        settings: cloneDeep(toml.parse(response.value)),
+                    })
+                })
+        },
+
         create({ commit, dispatch }, project) {
             commit('create', project)
 
             dispatch('updateSettings', { id: project.id, settings: project })
-
-            window.ipc.send('filesystem', {
-                id: project.id,
-                type: 'write',
-                path: `${project.path}/docker-compose.yml`,
-                value: yaml.stringify(generateConfig(project)),
-            })
-
-            window.ipc.send('git', {
-                type: 'remote',
-                id: project.id,
-                path: project.path,
-            })
-
-            window.ipc.send('docker', {
-                type: 'ps',
-                id: project.id,
-                path: project.path,
-                name: getProjectName(project.path),
-            })
+            dispatch('updateGitStatus', project)
+            dispatch('updateStatus', project)
         },
     },
 }

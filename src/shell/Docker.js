@@ -1,5 +1,6 @@
 import * as compose from 'docker-compose'
 
+import DockerPsError from '@/exceptions/DockerPsError'
 import DockerUpError from '@/exceptions/DockerUpError'
 import DockerDownError from '@/exceptions/DockerDownError'
 
@@ -13,17 +14,23 @@ class Docker {
     }
 
     async ps() {
-        const response = await compose.ps({ cwd: this.command.path })
+        try {
+            const response = await compose.ps({ cwd: this.command.path })
 
-        const status = response.out.includes(this.command.name)
-            ? 'running'
-            : 'stopped'
+            const status = response.out.includes(this.command.name)
+                ? 'running'
+                : 'stopped'
 
-        return {
-            id: this.command.id,
-            type: this.command.type,
-            status: 'success',
-            value: status,
+            return {
+                id: this.command.id,
+                type: this.command.type,
+                status: 'success',
+                value: status,
+            }
+        } catch (error) {
+            throw new DockerPsError(
+                'An error occured when checking whether the project was running.',
+            )
         }
     }
 
@@ -38,7 +45,7 @@ class Docker {
             }
         } catch (error) {
             throw new DockerUpError(
-                'An error occured when starting the project.'
+                'An error occured when starting the project.',
             )
         }
     }
@@ -54,7 +61,7 @@ class Docker {
             }
         } catch (error) {
             throw new DockerDownError(
-                'An error occured when stopping the project.'
+                'An error occured when stopping the project.',
             )
         }
     }

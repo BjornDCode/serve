@@ -18,6 +18,20 @@ contextBridge.exposeInMainWorld('ipc', {
             ipcRenderer.send(channel, data)
         }
     },
+    invoke: (channel, data) => {
+        let validChannels = [
+            'docker',
+            'app',
+            'filesystem',
+            'launch',
+            'message',
+            'git',
+        ]
+        
+        if (validChannels.includes(channel)) {
+            return ipcRenderer.invoke(channel, data)
+        }
+    },
     receive: (channel, callback) => {
         let validChannels = [
             'docker',

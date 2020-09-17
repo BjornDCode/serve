@@ -121,15 +121,6 @@
             this.$el.addEventListener('dragenter', this.onDragEnter)
             this.$el.addEventListener('dragleave', this.onDragLeave)
             this.$el.addEventListener('drop', this.onDrop)
-
-            // Reveive response from launcher
-            window.ipc.receive('launch', payload => {
-                if (payload.id !== this.id) {
-                    return
-                }
-
-                this.onInput(payload.value)
-            })
         },
 
         beforeDestroy() {
@@ -153,10 +144,18 @@
             },
 
             onClick() {
-                window.ipc.send('launch', {
-                    id: this.id,
-                    type: 'dialog',
-                })
+                window.ipc
+                    .invoke('launch', {
+                        id: this.id,
+                        type: 'dialog',
+                    })
+                    .then(response => {
+                        if (!response) {
+                            return
+                        }
+
+                        this.onInput(response.value)
+                    })
             },
 
             onInput(folder) {

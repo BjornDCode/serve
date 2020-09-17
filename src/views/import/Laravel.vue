@@ -262,53 +262,37 @@
             },
         },
 
-        mounted() {
-            window.ipc.receive('filesystem', response => {
-                if (response.type !== 'read') {
-                    return
-                }
-
-                if (response.id !== this.values.id) {
-                    return
-                }
-
-                const config = cloneDeep(toml.parse(response.value))
-
-                this.values = {
-                    ...this.values,
-                    ...config,
-                }
-            })
-
-            window.ipc.receive('filesystem', response => {
-                if (response.type !== 'exists') {
-                    return
-                }
-
-                if (response.id !== this.values.id) {
-                    return
-                }
-
-                // 'response.value' contains a boolean indicating whether the file exists or not
-                if (!response.value) {
-                    return
-                }
-
-                window.ipc.send('filesystem', {
-                    id: this.values.id,
-                    type: 'read',
-                    path: `${this.values.path}/serve.toml`,
-                })
-            })
-        },
-
         watch: {
             'values.path': function (value) {
-                window.ipc.send('filesystem', {
-                    id: this.values.id,
-                    type: 'exists',
-                    path: `${value}/serve.toml`,
-                })
+                window.ipc
+                    .invoke('filesystem', {
+                        id: this.values.id,
+                        type: 'exists',
+                        path: `${value}/serve.toml`,
+                    })
+                    .then(response => {
+                        // 'response.value' contains a boolean indicating whether the file exists or not
+                        if (!response.value) {
+                            return
+                        }
+
+                        window.ipc
+                            .invoke('filesystem', {
+                                id: this.values.id,
+                                type: 'read',
+                                path: `${this.values.path}/serve.toml`,
+                            })
+                            .then(response => {
+                                const config = cloneDeep(
+                                    toml.parse(response.value),
+                                )
+
+                                this.values = {
+                                    ...this.values,
+                                    ...config,
+                                }
+                            })
+                    })
             },
 
             'values.database.type': function (value, oldValue) {
@@ -316,10 +300,13 @@
                     return
                 }
 
-                this.onInput('database.version', match(value), {
-                    mysql: '5.7',
-                    postgres: '12',
-                })
+                this.onInput(
+                    'database.version',
+                    match(value, {
+                        mysql: '5.7',
+                        postgres: '12',
+                    }),
+                )
             },
         },
     }

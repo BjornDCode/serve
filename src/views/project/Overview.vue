@@ -46,7 +46,7 @@
 
         methods: {
             onQuickAction(type) {
-                window.ipc.send('launch', {
+                window.ipc.invoke('launch', {
                     type,
                     path: this.path,
                 })

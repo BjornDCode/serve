@@ -15,34 +15,18 @@
         computed: {
             project() {
                 return this.$store.getters['projects/find'](
-                    this.$route.params.id
+                    this.$route.params.id,
                 )
             },
         },
 
-        mounted() {
-            window.ipc.receive('docker', response => {
-                if (response.id !== this.project.id) {
-                    return
-                }
-
-                if (!['up', 'down'].includes(response.type)) {
-                    return
-                }
-
-                if (response.status === 'success') {
-                    this.moveToNextStatus()
-                }
-            })
-        },
-
         methods: {
             ...mapActions({
-                nextStatus: 'projects/nextStatus',
+                toggleProject: 'projects/toggle',
             }),
 
             moveToNextStatus() {
-                this.nextStatus(this.project)
+                this.toggleProject(this.project)
             },
         },
     }

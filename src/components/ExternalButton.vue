@@ -20,7 +20,7 @@
 
         methods: {
             execute() {
-                window.ipc.send('launch', {
+                window.ipc.invoke('launch', {
                     type: this.target,
                     path: this.path,
                 })
