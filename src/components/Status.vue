@@ -45,6 +45,10 @@
                                 color: 'yellow',
                                 shade: '500',
                             },
+                            creating: {
+                                color: 'teal',
+                                shade: '200',
+                            },
                             default: {
                                 color: 'gray',
                                 shade: '300',

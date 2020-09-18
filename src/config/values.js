@@ -113,7 +113,13 @@ export const weights = [
     'black',
 ]
 
-export const statuses = ['running', 'stopped', 'starting', 'stopping']
+export const statuses = [
+    'running',
+    'stopped',
+    'starting',
+    'stopping',
+    'creating',
+]
 
 export const positions = ['static', 'relative', 'absolute', 'fixed', 'sticky']
 

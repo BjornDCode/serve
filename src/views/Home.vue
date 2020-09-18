@@ -27,6 +27,10 @@
                         params: { id: project.id },
                     }"
                     class="w-full border-b-1 border-gray-300 last:border-0 hover:underline"
+                    :class="{
+                        'cursor-not-allowed pointer-events-none opacity-50':
+                            project.status === 'creating',
+                    }"
                 >
                     <Box
                         :spaceX="6"
@@ -36,9 +40,20 @@
                         align="center"
                         justify="between"
                     >
-                        <Copy color="indigo" shade="700" weight="medium">
-                            {{ project.name }}
-                        </Copy>
+                        <Inline align="center" :space="2">
+                            <Copy color="indigo" shade="700" weight="medium">
+                                {{ project.name }}
+                            </Copy>
+                            <Copy
+                                v-if="project.status === 'creating'"
+                                color="gray"
+                                shade="600"
+                                size="xs"
+                                weight="medium"
+                            >
+                                (Creating...)
+                            </Copy>
+                        </Inline>
                         <Status :value="project.status" />
                     </Box>
                 </TextLink>

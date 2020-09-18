@@ -103,6 +103,10 @@ export default {
         },
 
         updateStatus({ commit }, project) {
+            if (project.status === 'creating') {
+                return
+            }
+
             window.ipc
                 .invoke('docker', {
                     id: project.id,
@@ -119,6 +123,10 @@ export default {
         },
 
         updateGitStatus({ dispatch }, project) {
+            if (project.status === 'creating') {
+                return
+            }
+
             window.ipc
                 .invoke('git', {
                     type: 'remote',
@@ -143,6 +151,15 @@ export default {
                 'status',
             ])
 
+            commit('updateKeys', {
+                id,
+                settings,
+            })
+
+            if (settings.status === 'creating') {
+                return
+            }
+
             window.ipc.invoke('filesystem', {
                 id: id,
                 type: 'write',
@@ -158,11 +175,6 @@ export default {
                     value: yaml.stringify(generateConfig(settings)),
                 })
             }
-
-            commit('updateKeys', {
-                id,
-                settings,
-            })
         },
 
         updateSetting({ dispatch, getters }, { id, key, value }) {

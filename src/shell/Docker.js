@@ -1,8 +1,12 @@
+import util from 'util'
+import { exec } from 'child_process'
 import * as compose from 'docker-compose'
 
 import DockerPsError from '@/exceptions/DockerPsError'
 import DockerUpError from '@/exceptions/DockerUpError'
 import DockerDownError from '@/exceptions/DockerDownError'
+
+const promisifiedExec = util.promisify(exec)
 
 class Docker {
     constructor(command) {
@@ -63,6 +67,16 @@ class Docker {
             throw new DockerDownError(
                 'An error occured when stopping the project.',
             )
+        }
+    }
+
+    async run() {
+        await promisifiedExec(this.command.value, {
+            cwd: this.command.path,
+        })
+
+        return {
+            status: 'success',
         }
     }
 }
