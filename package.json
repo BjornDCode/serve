@@ -1,5 +1,12 @@
 {
-  "name": "serve",
+  "name": "Serve",
+  "description": "Easily spin up local development environments and run your projects.",
+  "homepage": "https://github.com/BjornDCode/serve",
+  "repository": "https://github.com/BjornDCode/serve",
+  "author": {
+    "name": "Bjørn Lindholm",
+    "email": "me@bjornlindholm.com"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
