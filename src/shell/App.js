@@ -13,7 +13,9 @@ class App {
 
     async getDockerStatus() {
         try {
-            execSync('docker ps', { encoding: 'utf8' })
+            execSync('docker ps', {
+                encoding: 'utf8',
+            })
 
             return {
                 type: 'global-docker-running',

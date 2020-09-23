@@ -7,6 +7,12 @@ import path from 'path'
 
 import { registerCommands } from './commands'
 
+if (process.env.NODE_ENV === 'production') {
+    const fixPath = require('fix-path')
+
+    fixPath()
+}
+
 app.commandLine.appendSwitch('enable-experimental-web-platform-features')
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
