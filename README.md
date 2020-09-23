@@ -27,6 +27,27 @@ For more information, please read the [VISION](VISION.md) document.
 2. Make sure Docker is running
 3. Launch Serve
 
+**Note:** When creating a project in `v0.1` there are a few manual steps
+
+```
+// In the project folder
+docker-compose exec app composer require predis/predis
+```
+
+```
+// In .env
+DB_HOST=db
+CACHE_DRIVER=redis
+SESSION_DRIVER=redis
+REDIS_CLIENT=predis
+REDIS_HOST=cache
+
+// If you are using postgres
+DB_CONNECTION=pgsql
+DB_PORT=5432
+DB_PASSWORD=root
+```
+
 ## Usage
 
 With Serve, you can import existing projects or create new ones.
