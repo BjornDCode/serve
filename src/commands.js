@@ -1,4 +1,5 @@
 import { ipcMain } from 'electron'
+import log from 'electron-log'
 
 import App from '@/shell/App'
 import Git from '@/shell/Git'
@@ -18,6 +19,7 @@ export const registerCommands = win => {
                     return response
                 }
             } catch (error) {
+                log.error(error)
                 if (error instanceof DockerPsError) {
                     return win.webContents.send('app', {
                         type: 'global-docker-running',
