@@ -26,6 +26,7 @@
         isValidBorderWidth,
         isValidBorderRadius,
         isValidJustification,
+        isValidBackgroundOpacity,
     } from '@/config/validators'
 
     export default {
@@ -168,6 +169,10 @@
                 type: [String, Number],
                 validator: isValidMinHeight,
             },
+            backgroundOpacity: {
+                type: Number,
+                validator: isValidBackgroundOpacity,
+            },
             expand: {
                 type: Boolean,
                 default: false,
@@ -226,6 +231,9 @@
                                   this.borderShade ? `-${this.borderShade}` : ''
                               }`,
                           ]
+                        : []),
+                    ...(this.backgroundOpacity
+                        ? [`bg-opacity-${this.backgroundOpacity}`]
                         : []),
                 ]
             },

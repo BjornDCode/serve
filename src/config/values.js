@@ -184,3 +184,5 @@ export const decorations = ['underline', 'line-through', 'none']
 export const minHeights = ['0', 'full', 'screen']
 
 export const borderWidths = [0, 1, 2, 4, 8]
+
+export const backgroundOpacities = [0, 25, 50, 75, 100]

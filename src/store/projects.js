@@ -134,6 +134,10 @@ export default {
                     path: project.path,
                 })
                 .then(response => {
+                    if (!response) {
+                        return
+                    }
+
                     dispatch('updateSetting', {
                         id: project.id,
                         key: 'repository',

@@ -18,6 +18,7 @@ import {
     borderWidths,
     textAlignments,
     justifications,
+    backgroundOpacities,
 } from '@/config/values'
 
 export const isValidSize = size => sizes.includes(size)
@@ -42,3 +43,5 @@ export const isValidTextAlignment = textAlignment =>
     textAlignments.includes(textAlignment)
 export const isValidJustification = justification =>
     justifications.includes(justification)
+export const isValidBackgroundOpacity = backgroundOpacity =>
+    backgroundOpacities.includes(backgroundOpacity)

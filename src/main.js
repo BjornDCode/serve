@@ -23,6 +23,8 @@ new Vue({
             updateProjectGitStatus: 'projects/updateGitStatus',
             updateProjectSettings: 'projects/updateSettings',
             readProjectSettingsFile: 'projects/readSettingsFile',
+            updateDockerStatus: 'app/updateDockerStatus',
+            checkDockerStatus: 'app/checkDockerStatus',
             addMessage: 'messages/add',
         }),
 
@@ -38,6 +40,11 @@ new Vue({
         window.ipc.receive('app', event => {
             if (event.type === 'focused') {
                 this.refreshProjects()
+                this.checkDockerStatus()
+            }
+
+            if (event.type === 'global-docker-running') {
+                this.updateDockerStatus(event.value)
             }
         })
         window.ipc.receive('message', message => {
