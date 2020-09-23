@@ -8,7 +8,7 @@ export const generateConfig = options => {
             MYSQL_DATABASE: 'laravel',
         },
         postgres: {
-            POSTGRES_PASSWORD: '',
+            POSTGRES_PASSWORD: 'root',
             POSTGRES_USER: 'root',
             POSTGRES_DB: 'laravel',
         },
