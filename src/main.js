@@ -9,6 +9,8 @@ import './assets/tailwind.css'
 
 Vue.config.productionTip = false
 
+console.log('HELLO FROM MAIN')
+
 new Vue({
     router,
     store,
