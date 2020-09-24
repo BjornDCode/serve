@@ -11,10 +11,19 @@ module.exports = {
                 'src/shell/*.js',
             ],
             builderOptions: {
-                appId: 'com.serve.serve',
+                appId: 'app.useserve.serve',
                 productName: 'Serve',
+                afterSign: 'scripts/notarize.js',
                 mac: {
                     category: 'public.app-category.developer-tools',
+                    hardenedRuntime: true,
+                    gatekeeperAssess: false,
+                    entitlements: 'build/entitlements.mac.plist',
+                    entitlementsInherit: 'build/entitlements.mac.plist',
+                    darkModeSupport: false,
+                },
+                dmg: {
+                    sign: false,
                 },
             },
         },
