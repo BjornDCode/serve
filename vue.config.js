@@ -10,10 +10,14 @@ module.exports = {
                 'src/exceptions/*.js',
                 'src/shell/*.js',
             ],
+
             builderOptions: {
                 appId: 'app.useserve.serve',
                 productName: 'Serve',
                 afterSign: 'scripts/notarize.js',
+                directories: {
+                    output: 'dist_electron',
+                },
                 mac: {
                     category: 'public.app-category.developer-tools',
                     hardenedRuntime: true,
@@ -21,6 +25,10 @@ module.exports = {
                     entitlements: 'build/entitlements.mac.plist',
                     entitlementsInherit: 'build/entitlements.mac.plist',
                     darkModeSupport: false,
+                    publish: {
+                        provider: 'github',
+                        owner: 'BjornDCode',
+                    },
                 },
                 dmg: {
                     sign: false,
