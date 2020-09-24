@@ -9,17 +9,18 @@
   },
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
-    "publish": "electron-builder -p always",
+    "publish": "npm run electron:build -- -p always",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "main": "src/background.js",
+  "main": "background.js",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
     "core-js": "^3.6.5",

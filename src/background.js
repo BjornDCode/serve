@@ -85,9 +85,11 @@ app.on('ready', async () => {
             console.error('Vue Devtools failed to install:', e.toString())
         }
     }
+
+    if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
+
     createWindow()
     registerCommands(win)
-    autoUpdater.checkForUpdatesAndNotify()
 })
 
 // Exit cleanly on request from parent process in development mode.
@@ -104,3 +106,7 @@ if (isDevelopment) {
         })
     }
 }
+
+autoUpdater.on('update-downloaded', () => {
+    autoUpdater.quitAndInstall()
+})
