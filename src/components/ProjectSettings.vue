@@ -231,10 +231,13 @@
                     return
                 }
 
-                this.onInput('database.version', match(value), {
-                    mysql: '5.7',
-                    postgres: '12',
-                })
+                this.onInput(
+                    'database.version',
+                    match(value, {
+                        mysql: '5.7',
+                        postgres: '12',
+                    }),
+                )
             },
         },
     }

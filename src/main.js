@@ -9,8 +9,6 @@ import './assets/tailwind.css'
 
 Vue.config.productionTip = false
 
-console.log('HELLO FROM MAIN')
-
 new Vue({
     router,
     store,
@@ -31,11 +29,13 @@ new Vue({
         }),
 
         refreshProjects() {
-            this.projects.forEach(project => {
-                this.updateProjectStatus(project)
-                this.updateProjectGitStatus(project)
-                this.readProjectSettingsFile(project)
-            })
+            this.projects
+                .filter(project => project.status !== 'creating')
+                .forEach(project => {
+                    this.updateProjectStatus(project)
+                    this.updateProjectGitStatus(project)
+                    this.readProjectSettingsFile(project)
+                })
         },
     },
     mounted() {
