@@ -86,7 +86,9 @@ app.on('ready', async () => {
         }
     }
 
-    if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
+    if (process.env.NODE_ENV === 'production') {
+        autoUpdater.checkForUpdatesAndNotify()
+    }
 
     createWindow()
     registerCommands(win)
