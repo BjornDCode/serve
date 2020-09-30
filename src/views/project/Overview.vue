@@ -45,10 +45,10 @@
         },
 
         methods: {
-            onQuickAction(type) {
+            onQuickAction(type, path) {
                 window.ipc.invoke('launch', {
                     type,
-                    path: this.path,
+                    path,
                 })
             },
         },

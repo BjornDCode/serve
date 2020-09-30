@@ -192,12 +192,26 @@
                             { key: 'vscode', title: 'VSCode' },
                         ]"
                         #default="{ option }"
-                        @click="action => onQuickAction(action.key)"
+                        @click="action => onQuickAction(action.key, path)"
                     >
                         Open in {{ option.title }}
                     </MultiOptionButton>
-                    <Button @click="onQuickAction('github')" size="medium">
+                    <Button
+                        @click="onQuickAction('github', path)"
+                        size="medium"
+                    >
                         Open in GitHub Desktop
+                    </Button>
+                    <Button
+                        @click="
+                            onQuickAction(
+                                'browser',
+                                `http://localhost:${server.port}`,
+                            )
+                        "
+                        size="medium"
+                    >
+                        Open in browser
                     </Button>
                 </Stack>
             </Stack>
