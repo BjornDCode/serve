@@ -213,6 +213,12 @@
                     >
                         Open in browser
                     </Button>
+                    <Button
+                        @click="onQuickAction('filesystem', path)"
+                        size="medium"
+                    >
+                        Open folder
+                    </Button>
                 </Stack>
             </Stack>
         </GridItem>
