@@ -51,6 +51,10 @@ class Launcher {
         )
     }
 
+    async database() {
+        exec(`open ${this.command.path}`)
+    }
+
     async phpstorm() {
         exec(`phpstorm ${this.command.path}`)
     }

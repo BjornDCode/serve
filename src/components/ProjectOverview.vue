@@ -208,6 +208,9 @@
                     >
                         Open in terminal
                     </Button>
+                    <Button @click="onDatabaseQuickAction" size="medium">
+                        Open database
+                    </Button>
                     <Button
                         @click="
                             onQuickAction(
@@ -232,6 +235,8 @@
 </template>
 
 <script>
+    import { match } from '@/helpers/methods'
+
     import Copy from '@/components/Copy'
     import Grid from '@/components/Grid'
     import Table from '@/components/Table'
@@ -294,6 +299,20 @@
             },
             repository: {
                 type: String,
+            },
+        },
+
+        methods: {
+            onDatabaseQuickAction() {
+                const protocol = match(this.database.type, {
+                    mysql: 'mysql',
+                    postgres: 'postgresql',
+                })
+
+                this.onQuickAction(
+                    'database',
+                    `${protocol}://root:root@127.0.0.1:${this.database.port}/laravel`,
+                )
             },
         },
     }
