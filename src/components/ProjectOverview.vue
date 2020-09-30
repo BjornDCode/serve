@@ -186,6 +186,7 @@
                 <Stack :space="2">
                     <MultiOptionButton
                         size="medium"
+                        :default="editor"
                         :options="[
                             { key: 'phpstorm', title: 'PhpStorm' },
                             { key: 'sublime', title: 'Sublime' },
@@ -193,6 +194,7 @@
                         ]"
                         #default="{ option }"
                         @click="action => onQuickAction(action.key, path)"
+                        @select="editor => updatePreferedEditor(editor)"
                     >
                         Open in {{ option.title }}
                     </MultiOptionButton>
@@ -269,6 +271,10 @@
                 type: Function,
                 default: () => {},
             },
+            updatePreferedEditor: {
+                type: Function,
+                default: () => {},
+            },
             project: {
                 type: String,
                 required: true,
@@ -298,6 +304,9 @@
                 required: true,
             },
             repository: {
+                type: String,
+            },
+            editor: {
                 type: String,
             },
         },

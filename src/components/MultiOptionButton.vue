@@ -56,6 +56,9 @@
         },
 
         props: {
+            default: {
+                type: String,
+            },
             options: {
                 type: Array,
                 required: true,
@@ -64,20 +67,21 @@
 
         data() {
             return {
-                selectedKey: this.options[0].key,
+                selectedKey: this.default || this.options[0].key,
             }
         },
 
         computed: {
             option() {
                 return this.options.find(
-                    option => option.key === this.selectedKey
+                    option => option.key === this.selectedKey,
                 )
             },
         },
 
         methods: {
             onOptionSelect(value) {
+                this.$emit('select', value)
                 this.selectedKey = value
             },
         },
