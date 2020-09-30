@@ -23,8 +23,8 @@ For more information, please read the [VISION](VISION.md) document.
 
 ## Installation
 
-1. [Install Docker](https://www.docker.com/get-started)
-2. Make sure Docker is running
+1. [Install](https://www.docker.com/get-started) and run Docker
+2. [Download](https://github.com/BjornDCode/serve/releases/latest) Serve (Download the .dmg file)
 3. Launch Serve
 
 **Note:** When creating a project in `v0.1` there are a few manual steps
