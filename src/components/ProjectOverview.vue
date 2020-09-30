@@ -203,6 +203,12 @@
                         Open in GitHub Desktop
                     </Button>
                     <Button
+                        @click="onQuickAction('terminal', path)"
+                        size="medium"
+                    >
+                        Open in terminal
+                    </Button>
+                    <Button
                         @click="
                             onQuickAction(
                                 'browser',
