@@ -36,14 +36,14 @@ docker-compose exec app composer require predis/predis
 
 ```
 // In .env
-DB_PASSWORD=root
+DB_HOST=db
 CACHE_DRIVER=redis
 SESSION_DRIVER=redis
 REDIS_CLIENT=predis
 REDIS_HOST=cache
 
 // If you are using postgres
-DB_HOST=db
+DB_PASSWORD=root
 DB_CONNECTION=pgsql
 DB_PORT=5432
 ```
