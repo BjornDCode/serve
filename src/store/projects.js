@@ -158,6 +158,7 @@ export default {
                 'path',
                 'name',
                 'status',
+                'last_used',
             ])
 
             commit('updateKeys', {
