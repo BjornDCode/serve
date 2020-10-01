@@ -288,7 +288,7 @@
                         value: `
                         docker run --rm --interactive \
                         --volume $PWD:/app \
-                        composer create-project --prefer-dist laravel/laravel ${this.temporary.name}
+                        composer /bin/sh -c "composer create-project --prefer-dist laravel/laravel ${this.temporary.name} && composer require predis/predis -d ${this.temporary.name}"
                     `,
                     })
                     .then(() => {
