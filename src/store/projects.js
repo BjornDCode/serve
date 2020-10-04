@@ -1,9 +1,12 @@
 import cloneDeep from 'lodash/cloneDeep'
 import toml from '@iarna/toml'
-import yaml from 'yaml'
 
-import { removeKeys, match } from '@/helpers/methods'
-import { generateConfig } from '@/config/docker'
+import { match } from '@/helpers/methods'
+import {
+    generateDockerConfig,
+    generateServeConfig,
+    generateEnvConfig,
+} from '@/config/files'
 
 const getProjectName = path => path.split('/').slice(-1)[0]
 
@@ -148,12 +151,6 @@ export default {
 
         updateSettings({ commit, getters }, { id, settings }) {
             const project = getters.find(id)
-            const writeableSettings = removeKeys(settings, [
-                'id',
-                'path',
-                'name',
-                'status',
-            ])
 
             commit('updateKeys', {
                 id,
@@ -168,16 +165,31 @@ export default {
                 id: id,
                 type: 'write',
                 path: `${project.path}/serve.toml`,
-                value: toml.stringify(writeableSettings),
+                value: generateServeConfig(settings),
             })
 
             if (settings.path) {
                 window.ipc.invoke('filesystem', {
-                    id: settings.id,
+                    id: id,
                     type: 'write',
                     path: `${settings.path}/docker-compose.yml`,
-                    value: yaml.stringify(generateConfig(settings)),
+                    value: generateDockerConfig(settings),
                 })
+
+                window.ipc
+                    .invoke('filesystem', {
+                        id,
+                        type: 'read',
+                        path: `${settings.path}/.env`,
+                    })
+                    .then(response => {
+                        window.ipc.invoke('filesystem', {
+                            id: id,
+                            type: 'write',
+                            path: `${settings.path}/.env`,
+                            value: generateEnvConfig(response.value, settings),
+                        })
+                    })
             }
         },
 
