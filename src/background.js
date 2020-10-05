@@ -4,7 +4,9 @@ import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
+import { exec } from 'child_process'
 import path from 'path'
+import log from 'electron-log'
 
 import { registerCommands } from './commands'
 
@@ -107,6 +109,13 @@ if (isDevelopment) {
             app.quit()
         })
     }
+}
+
+if (process.env.NODE_ENV === 'production') {
+    log.info('Installed CLI tool')
+    exec(
+        `ln -sf '/Applications/Serve.app/Contents/Resources/scripts/serve' '/usr/local/bin/serve'`,
+    )
 }
 
 autoUpdater.on('update-downloaded', () => {

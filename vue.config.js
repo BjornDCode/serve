@@ -15,6 +15,7 @@ module.exports = {
                 appId: 'app.useserve.serve',
                 productName: 'Serve',
                 afterSign: 'scripts/notarize.js',
+                extraResources: ['scripts/serve'],
                 directories: {
                     output: 'dist_electron',
                 },
