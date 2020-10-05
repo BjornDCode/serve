@@ -59,6 +59,11 @@ export default {
                 stopped: 'start',
             })
 
+            dispatch('updateSetting', {
+                id: project.id,
+                key: 'last_used',
+                value: Date.now(),
+            })
             dispatch(action, project)
         },
 
@@ -153,6 +158,7 @@ export default {
                 'path',
                 'name',
                 'status',
+                'last_used',
             ])
 
             commit('updateKeys', {

@@ -225,6 +225,7 @@
                 },
                 project: {
                     id: uuid(),
+                    last_used: Date.now(),
                     path: '',
                     repository: null,
                     status: null,
