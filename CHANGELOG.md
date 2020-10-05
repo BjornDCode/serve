@@ -5,6 +5,9 @@
 -   Save prefered editor when changing it in quick actions
 -   Add folder, browser, terminal, and database quick actions
 -   Order projects by last usage
+-   Automatically install predis when creating new projects
+-   Automatically update .env
+-   Add CLI tool to run commands inside containers
 
 ## [0.1.1]
 
