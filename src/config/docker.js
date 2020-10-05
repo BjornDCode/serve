@@ -3,8 +3,7 @@ import { match } from '@/helpers/methods'
 export const generateConfig = options => {
     const dbEnvVariables = match(options.database.type, {
         mysql: {
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'true',
-            MYSQL_ROOT_PASSWORD: '',
+            MYSQL_ROOT_PASSWORD: 'root',
             MYSQL_DATABASE: 'laravel',
         },
         postgres: {
@@ -39,6 +38,7 @@ export const generateConfig = options => {
                 environment: dbEnvVariables,
                 networks: ['appnet'],
                 volumes: [`dbdata:${dbVolume}`],
+                ports: [`${options.database.port}:${options.database.port}`],
             },
             node: {
                 image: `bjornlindholm/node:${options.node.version}`,

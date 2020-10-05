@@ -39,6 +39,22 @@ class Launcher {
         }
     }
 
+    async terminal() {
+        exec(
+            `mdfind "kMDItemKind == 'Application'" | grep /Applications/iTerm.app -c`,
+            (__, stdout) => {
+                // `stdout` will be 1 if iTerm exists
+                const application = stdout == 1 ? 'iTerm' : 'Terminal'
+
+                exec(`open -a ${application} ${this.command.path}`)
+            },
+        )
+    }
+
+    async database() {
+        exec(`open ${this.command.path}`)
+    }
+
     async phpstorm() {
         exec(`phpstorm ${this.command.path}`)
     }

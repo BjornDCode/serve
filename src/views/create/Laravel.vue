@@ -144,6 +144,11 @@
                         :value="project.database.version"
                         @input="onInput('database.version', $event)"
                     />
+                    <TextField
+                        label="Port"
+                        :value="project.database.port"
+                        @input="onInput('database.port', $event)"
+                    />
                 </Stack>
             </Inline>
         </Stack>
@@ -236,6 +241,7 @@
                     database: {
                         type: 'mysql',
                         version: '5.7',
+                        port: '3306',
                     },
                     server: {
                         port: '8081',
@@ -351,6 +357,13 @@
                     match(value, {
                         mysql: '5.7',
                         postgres: '12',
+                    }),
+                )
+                this.onInput(
+                    'database.port',
+                    match(value, {
+                        mysql: '3306',
+                        postgres: '5432',
                     }),
                 )
             },
