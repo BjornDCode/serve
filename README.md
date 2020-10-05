@@ -27,27 +27,6 @@ For more information, please read the [VISION](VISION.md) document.
 2. [Download](https://github.com/BjornDCode/serve/releases/latest) Serve (Download the .dmg file)
 3. Launch Serve
 
-**Note:** When creating a project in `v0.1` there are a few manual steps:
-
-```
-// In the project folder
-docker-compose exec app composer require predis/predis
-```
-
-```
-// In .env
-DB_HOST=db
-DB_PASSWORD=root
-CACHE_DRIVER=redis
-SESSION_DRIVER=redis
-REDIS_CLIENT=predis
-REDIS_HOST=cache
-
-// If you are using postgres
-DB_CONNECTION=pgsql
-DB_PORT=5432
-```
-
 ## Usage
 
 With Serve, you can import existing projects or create new ones.
@@ -57,6 +36,24 @@ For each project, you can specify versions for PHP and Node and choose database 
 A Serve project comes with a web server, so all you have to do is start the project and then access it.
 
 All configuration files live in your repository. That makes it easy to share the configuration with teammates. If you ever want to stop using Serve, a fully-functioning `docker-compose` file can be run independently from Serve.
+
+## CLI
+
+Serve has a CLI tool to run terminal commands. This means you don't need to have NPM installed locally to run NPM commands or Composer installed to run Composer commands. The CLI tool is automatically installed when openening Serve for the first time.
+
+```
+serve node
+serve npm
+serve yarn
+serve mysql
+serve mysqldump
+serve psql
+serve php
+serve composer
+serve phpunit
+serve redis
+serve redis-cli
+```
 
 ## Roadmap
 
