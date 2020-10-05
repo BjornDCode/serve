@@ -62,6 +62,11 @@ export default {
                 stopped: 'start',
             })
 
+            dispatch('updateSetting', {
+                id: project.id,
+                key: 'last_used',
+                value: Date.now(),
+            })
             dispatch(action, project)
         },
 

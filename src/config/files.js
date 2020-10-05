@@ -7,8 +7,7 @@ import { match, removeKeys } from '@/helpers/methods'
 export const generateDockerConfig = options => {
     const dbEnvVariables = match(options.database.type, {
         mysql: {
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'true',
-            MYSQL_ROOT_PASSWORD: '',
+            MYSQL_ROOT_PASSWORD: 'root',
             MYSQL_DATABASE: 'laravel',
         },
         postgres: {
@@ -43,6 +42,7 @@ export const generateDockerConfig = options => {
                 environment: dbEnvVariables,
                 networks: ['appnet'],
                 volumes: [`dbdata:${dbVolume}`],
+                ports: [`${options.database.port}:${options.database.port}`],
             },
             node: {
                 image: `bjornlindholm/node:${options.node.version}`,

@@ -1,8 +1,15 @@
 <template>
-    <ProjectOverview v-bind="$props" :onQuickAction="onQuickAction" />
+    <ProjectOverview
+        v-bind="$props"
+        :editor="editor"
+        :onQuickAction="onQuickAction"
+        :updatePreferedEditor="updatePreferedEditor"
+    />
 </template>
 
 <script>
+    import { mapGetters, mapActions } from 'vuex'
+
     import ProjectOverview from '@/components/ProjectOverview'
 
     export default {
@@ -44,11 +51,21 @@
             },
         },
 
+        computed: {
+            ...mapGetters({
+                editor: 'preferences/editor',
+            }),
+        },
+
         methods: {
-            onQuickAction(type) {
+            ...mapActions({
+                updatePreferedEditor: 'preferences/updateEditor',
+            }),
+
+            onQuickAction(type, path) {
                 window.ipc.invoke('launch', {
                     type,
-                    path: this.path,
+                    path,
                 })
             },
         },
