@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+CONTAINER_APP="app"
+CONTAINER_DB="db"
+CONTAINER_NODE="node"
+CONTAINER_CACHE="cache"
+
+PSOUTPUT="$(docker-compose ps -q)"
+if [ -z "$PSOUTPUT" ]; then
+    RUNNING=false
+else
+    RUNNING=true
+fi
+
+if [ $# -gt 0 ]; then
+    COMMAND="$1"
+else
+    COMMAND="status"
+fi
+
+if [ "$COMMAND" = "status" ]; then
+    if [ "$RUNNING" = true ]; then
+        echo "Running"
+        exit
+    else
+        echo "Stopped"
+        exit
+    fi
+fi
+
+if [ "$COMMAND" = "start" ]; then
+    docker-compose up -d > /dev/null 2>&1
+    echo "Started"
+    exit
+fi
+
+if [ "$COMMAND" = "stop" ]; then
+    docker-compose down > /dev/null 2>&1
+    echo "Stopped"
+    exit
+fi
+
+COMMANDS=("node" "npm" "yarn" "mysql" "mysqldump" "psql" "php" "composer" "phpunit" "redis" "redis-cli")
+NODE_COMMANDS=("node" "npm" "yarn")
+DB_COMMANDS=("mysql" "mysqldump" "psql")
+APP_COMMANDS=("php" "composer" "phpunit")
+CACHE_COMMANDS=("redis" "redis-cli")
+
+if [[ " ${COMMANDS[@]} " =~ " ${COMMAND} " ]]; then
+    # All commands below require the container to be running
+    if [ "$RUNNING" = false ]; then
+        echo "Please start the project before executing this command."
+        exit
+    fi
+
+    if [[ " ${NODE_COMMANDS[@]} " =~ " ${COMMAND} " ]]; then
+        docker-compose run --rm node "$@"    
+    fi
+
+    if [[ " ${DB_COMMANDS[@]} " =~ " ${COMMAND} " ]]; then
+        docker-compose exec db "$@"
+    fi
+
+    if [[ " ${APP_COMMANDS[@]} " =~ " ${COMMAND} " ]]; then
+        docker-compose exec app "$@"
+    fi
+
+    if [[ " ${CACHE_COMMANDS[@]} " =~ " ${COMMAND} " ]]; then
+        docker-compose exec cache "$@"
+    fi
+else
+    "$COMMAND"
+fi
