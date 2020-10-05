@@ -1,10 +1,13 @@
-import { match } from '@/helpers/methods'
+import toml from '@iarna/toml'
+import yaml from 'yaml'
+import env from '@/helpers/env'
 
-export const generateConfig = options => {
+import { match, removeKeys } from '@/helpers/methods'
+
+export const generateDockerConfig = options => {
     const dbEnvVariables = match(options.database.type, {
         mysql: {
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'true',
-            MYSQL_ROOT_PASSWORD: '',
+            MYSQL_ROOT_PASSWORD: 'root',
             MYSQL_DATABASE: 'laravel',
         },
         postgres: {
@@ -19,7 +22,7 @@ export const generateConfig = options => {
         postgres: '/var/lib/postgresql/data',
     })
 
-    return {
+    return yaml.stringify({
         version: '3',
         services: {
             app: {
@@ -39,6 +42,7 @@ export const generateConfig = options => {
                 environment: dbEnvVariables,
                 networks: ['appnet'],
                 volumes: [`dbdata:${dbVolume}`],
+                ports: [`${options.database.port}:${options.database.port}`],
             },
             node: {
                 image: `bjornlindholm/node:${options.node.version}`,
@@ -60,5 +64,25 @@ export const generateConfig = options => {
                 driver: 'local',
             },
         },
-    }
+    })
+}
+
+export const generateServeConfig = options => {
+    return toml.stringify(removeKeys(options, ['id', 'path', 'name', 'status']))
+}
+
+export const generateEnvConfig = (defaults, options) => {
+    return env.replace(defaults, {
+        DB_HOST: 'db',
+        DB_PASSWORD: 'root',
+        DB_CONNECTION: match(options.database.type, {
+            mysql: 'mysql',
+            postgres: 'pgsql',
+        }),
+        DB_PORT: options.database.port,
+        CACHE_DRIVER: 'redis',
+        SESSION_DRIVER: 'redis',
+        REDIS_CLIENT: 'predis',
+        REDIS_HOST: 'cache',
+    })
 }

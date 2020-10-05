@@ -186,18 +186,49 @@
                 <Stack :space="2">
                     <MultiOptionButton
                         size="medium"
+                        :default="editor"
                         :options="[
                             { key: 'phpstorm', title: 'PhpStorm' },
                             { key: 'sublime', title: 'Sublime' },
                             { key: 'vscode', title: 'VSCode' },
                         ]"
                         #default="{ option }"
-                        @click="action => onQuickAction(action.key)"
+                        @click="action => onQuickAction(action.key, path)"
+                        @select="editor => updatePreferedEditor(editor)"
                     >
                         Open in {{ option.title }}
                     </MultiOptionButton>
-                    <Button @click="onQuickAction('github')" size="medium">
+                    <Button
+                        @click="onQuickAction('github', path)"
+                        size="medium"
+                    >
                         Open in GitHub Desktop
+                    </Button>
+                    <Button
+                        @click="onQuickAction('terminal', path)"
+                        size="medium"
+                    >
+                        Open in terminal
+                    </Button>
+                    <Button @click="onDatabaseQuickAction" size="medium">
+                        Open database
+                    </Button>
+                    <Button
+                        @click="
+                            onQuickAction(
+                                'browser',
+                                `http://localhost:${server.port}`,
+                            )
+                        "
+                        size="medium"
+                    >
+                        Open in browser
+                    </Button>
+                    <Button
+                        @click="onQuickAction('filesystem', path)"
+                        size="medium"
+                    >
+                        Open folder
                     </Button>
                 </Stack>
             </Stack>
@@ -206,6 +237,8 @@
 </template>
 
 <script>
+    import { match } from '@/helpers/methods'
+
     import Copy from '@/components/Copy'
     import Grid from '@/components/Grid'
     import Table from '@/components/Table'
@@ -235,6 +268,10 @@
 
         props: {
             onQuickAction: {
+                type: Function,
+                default: () => {},
+            },
+            updatePreferedEditor: {
                 type: Function,
                 default: () => {},
             },
@@ -268,6 +305,23 @@
             },
             repository: {
                 type: String,
+            },
+            editor: {
+                type: String,
+            },
+        },
+
+        methods: {
+            onDatabaseQuickAction() {
+                const protocol = match(this.database.type, {
+                    mysql: 'mysql',
+                    postgres: 'postgresql',
+                })
+
+                this.onQuickAction(
+                    'database',
+                    `${protocol}://root:root@127.0.0.1:${this.database.port}/laravel`,
+                )
             },
         },
     }

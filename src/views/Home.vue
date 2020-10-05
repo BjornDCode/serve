@@ -146,8 +146,22 @@
 
         computed: {
             ...mapGetters({
-                projects: 'projects/all',
+                unorderedProjects: 'projects/all',
             }),
+
+            projects() {
+                return [...this.unorderedProjects].sort((a, b) => {
+                    if (a.last_used < b.last_used) {
+                        return 1
+                    }
+
+                    if (a.last_used > b.last_used) {
+                        return -1
+                    }
+
+                    return 0
+                })
+            },
         },
     }
 </script>
