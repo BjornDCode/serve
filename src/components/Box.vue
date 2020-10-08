@@ -240,16 +240,24 @@
 
             styles() {
                 return [
-                    ...(this.left || this.left === 0
+                    ...(this.left === 0
+                        ? [{ left: `0rem` }]
+                        : this.left
                         ? [{ left: `${this.left / 4}rem` }]
                         : []),
-                    ...(this.right || this.right === 0
+                    ...(this.right === 0
+                        ? [{ right: `0rem` }]
+                        : this.right
                         ? [{ right: `${this.right / 4}rem` }]
                         : []),
-                    ...(this.top || this.top === 0
+                    ...(this.top === 0
+                        ? [{ top: `0rem` }]
+                        : this.top
                         ? [{ top: `${this.top / 4}rem` }]
                         : []),
-                    ...(this.bottom || this.bottom === 0
+                    ...(this.bottom === 0
+                        ? [{ bottom: `0rem` }]
+                        : this.bottom
                         ? [{ bottom: `${this.bottom / 4}rem` }]
                         : []),
                 ]

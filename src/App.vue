@@ -5,6 +5,7 @@
         <Messages />
 
         <DockerStatus v-if="!dockerRunning" />
+        <ModalContainer />
     </div>
 </template>
 
@@ -13,11 +14,13 @@
 
     import Messages from '@/components/Messages'
     import DockerStatus from '@/components/DockerStatus'
+    import ModalContainer from '@/components/ModalContainer'
 
     export default {
         components: {
             Messages,
             DockerStatus,
+            ModalContainer,
         },
 
         computed: {
