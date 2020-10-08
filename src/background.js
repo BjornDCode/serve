@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, Menu, shell } from 'electron'
+import { app, protocol, BrowserWindow, Menu } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
@@ -171,12 +171,20 @@ const registerMenus = win => {
                         accelerator: 'CmdOrCtrl+l',
                     },
                     {
-                        label: 'Learn More',
-                        click: async () => {
-                            await shell.openExternal(
-                                'https://github.com/BjornDCode/serve',
-                            )
-                        },
+                        label: 'Documentation',
+                        click: () => sendMenuAction('OpenDocumentation'),
+                    },
+                    {
+                        label: 'Versions',
+                        click: () => sendMenuAction('OpenVersions'),
+                    },
+                    {
+                        label: 'Changelog',
+                        click: () => sendMenuAction('OpenChangelog'),
+                    },
+                    {
+                        label: 'Report a bug',
+                        click: () => sendMenuAction('OpenGithubIssues'),
                     },
                 ],
             },
