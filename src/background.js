@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, Menu, shell } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
@@ -94,6 +94,7 @@ app.on('ready', async () => {
 
     createWindow()
     registerCommands(win)
+    registerMenus(win)
 })
 
 // Exit cleanly on request from parent process in development mode.
@@ -121,3 +122,64 @@ if (process.env.NODE_ENV === 'production') {
 autoUpdater.on('update-downloaded', () => {
     autoUpdater.quitAndInstall()
 })
+
+const registerMenus = win => {
+    const isMac = process.platform === 'darwin'
+    const sendMenuAction = (action, value) =>
+        win.webContents.send('command', { type: action, value })
+
+    Menu.setApplicationMenu(
+        Menu.buildFromTemplate([
+            { role: 'appMenu' },
+            { role: 'editMenu' },
+
+            {
+                label: 'Window',
+                submenu: [
+                    {
+                        type: 'normal',
+                        label: 'New Window',
+                        accelerator: 'CmdOrCtrl+Shift+n',
+                        click: () => createWindow(),
+                    },
+                    {
+                        role: isMac ? 'close' : 'quit',
+                        type: 'normal',
+                        label: 'Close Window',
+                        accelerator: 'CmdOrCtrl+Shift+w',
+                    },
+                    { type: 'separator' },
+                    { role: 'minimize' },
+                    { role: 'zoom' },
+                    ...(isMac
+                        ? [
+                              { type: 'separator' },
+                              { role: 'front' },
+                              { type: 'separator' },
+                              { role: 'window' },
+                          ]
+                        : [{ role: 'close' }]),
+                ],
+            },
+            { role: 'viewMenu' },
+            {
+                role: 'help',
+                submenu: [
+                    {
+                        label: 'Keyboard Shortcuts',
+                        click: () => sendMenuAction('OpenShortcutsModal'),
+                        accelerator: 'CmdOrCtrl+l',
+                    },
+                    {
+                        label: 'Learn More',
+                        click: async () => {
+                            await shell.openExternal(
+                                'https://github.com/BjornDCode/serve',
+                            )
+                        },
+                    },
+                ],
+            },
+        ]),
+    )
+}
