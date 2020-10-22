@@ -3,8 +3,10 @@
         <Submenu label="Tools">
             <MenuItem role="reload">Reload</MenuItem>
         </Submenu>
-        <Submenu label="Developer">
-            <MenuItem role="toggleDevTools">Toggle Dev Tools</MenuItem>
+        <Submenu label="Developer" :platforms="['windows', 'linux']">
+            <MenuItem role="toggleDevTools" :platforms="['windows']">
+                Toggle Dev Tools
+            </MenuItem>
         </Submenu>
     </Menu>
 </template>

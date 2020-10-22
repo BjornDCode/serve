@@ -1,7 +1,6 @@
 <script>
     import { Fragment } from 'vue-fragment'
 
-    import { match } from '@/helpers/methods'
     import EventBus from '@/menu/EventBus'
 
     export default {
@@ -11,16 +10,22 @@
 
         data() {
             return {
-                platform: match(process.platform, {
-                    darwin: 'mac',
-                    linux: 'linux',
-                    win32: 'windows',
-                }),
+                system: {
+                    platform: '',
+                },
                 template: {},
             }
         },
 
         mounted() {
+            window.ipc
+                .invoke('app', {
+                    type: 'platform',
+                })
+                .then(platform => {
+                    this.system.platform = platform
+                })
+
             EventBus.$on('update-submenu', template => {
                 this.template = {
                     ...this.template,
@@ -29,9 +34,15 @@
             })
         },
 
+        provide() {
+            return {
+                system: this.system,
+            }
+        },
+
         methods: {
             isPlatform(platform) {
-                return this.platform === platform
+                return this.system.platform === platform
             },
         },
 

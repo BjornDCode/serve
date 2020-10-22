@@ -33,6 +33,8 @@
             },
         },
 
+        inject: ['system'],
+
         mounted() {
             EventBus.$on('update-menuitem', template => {
                 if (template.parentId !== this.id) {
@@ -46,14 +48,30 @@
             })
         },
 
+        methods: {
+            rerender() {
+                this.$nextTick(() => {
+                    if (!this.platforms.includes(this.system.platform)) {
+                        return
+                    }
+
+                    EventBus.$emit('update-submenu', this.template)
+                })
+            },
+        },
+
         watch: {
             template: {
                 immediate: true,
                 deep: true,
                 handler() {
-                    this.$nextTick(() => {
-                        EventBus.$emit('update-submenu', this.template)
-                    })
+                    this.rerender()
+                },
+            },
+            system: {
+                deep: true,
+                handler() {
+                    this.rerender()
                 },
             },
         },

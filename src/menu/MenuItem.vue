@@ -6,6 +6,10 @@
     export default {
         props: {
             role: String,
+            platforms: {
+                type: Array,
+                default: () => ['linux', 'mac', 'windows'],
+            },
         },
 
         data() {
@@ -23,19 +27,37 @@
             },
         },
 
+        inject: ['system'],
+
+        methods: {
+            rerender() {
+                this.$nextTick(() => {
+                    if (!this.platforms.includes(this.system.platform)) {
+                        return
+                    }
+
+                    EventBus.$emit('update-menuitem', {
+                        ...this.template,
+                        label:
+                            this.$scopedSlots.default()[0].text ||
+                            this.template.label,
+                        parentId: this.$parent.template.id,
+                    })
+                })
+            },
+        },
+
         watch: {
             template: {
                 immediate: true,
                 handler() {
-                    this.$nextTick(() => {
-                        EventBus.$emit('update-menuitem', {
-                            ...this.template,
-                            label:
-                                this.$scopedSlots.default()[0].text ||
-                                this.template.label,
-                            parentId: this.$parent.template.id,
-                        })
-                    })
+                    this.rerender()
+                },
+            },
+            system: {
+                deep: true,
+                handler() {
+                    this.rerender()
                 },
             },
         },
