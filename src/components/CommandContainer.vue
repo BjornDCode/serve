@@ -3,61 +3,12 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
+    import commands from '@/config/commands'
 
     export default {
         computed: {
             commands() {
-                return [
-                    {
-                        key: 'OpenShortcutsModal',
-                        category: 'Help',
-                        handler: () => this.setModal('ShortcutsModal'),
-                    },
-                    {
-                        key: 'OpenDocumentation',
-                        category: 'Help',
-                        handler: () => {
-                            window.ipc.invoke('launch', {
-                                type: 'browser',
-                                path: 'https://github.com/BjornDCode/serve',
-                            })
-                        },
-                    },
-                    {
-                        key: 'OpenVersions',
-                        category: 'Help',
-                        handler: () => {
-                            window.ipc.invoke('launch', {
-                                type: 'browser',
-                                path:
-                                    'https://github.com/BjornDCode/serve/releases',
-                            })
-                        },
-                    },
-                    {
-                        key: 'OpenChangelog',
-                        category: 'Help',
-                        handler: () => {
-                            window.ipc.invoke('launch', {
-                                type: 'browser',
-                                path:
-                                    'https://github.com/BjornDCode/serve/blob/master/CHANGELOG.md',
-                            })
-                        },
-                    },
-                    {
-                        key: 'OpenGithubIssues',
-                        category: 'Help',
-                        handler: () => {
-                            window.ipc.invoke('launch', {
-                                type: 'browser',
-                                path:
-                                    'https://github.com/BjornDCode/serve/issues',
-                            })
-                        },
-                    },
-                ]
+                return commands
             },
         },
 
@@ -71,14 +22,8 @@
                     return
                 }
 
-                command.handler(event.value)
+                command.handler({ value: event.value })
             })
-        },
-
-        methods: {
-            ...mapActions({
-                setModal: 'app/setModal',
-            }),
         },
     }
 </script>

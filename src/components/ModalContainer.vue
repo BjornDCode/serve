@@ -6,10 +6,12 @@
     import tinykeys from 'tinykeys'
     import { mapGetters, mapActions } from 'vuex'
 
+    import CommandsModal from '@/components/CommandsModal'
     import ShortcutsModal from '@/components/ShortcutsModal'
 
     export default {
         components: {
+            CommandsModal,
             ShortcutsModal,
         },
 

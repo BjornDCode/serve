@@ -18,6 +18,7 @@
         isValidShade,
         isValidSpace,
         isValidShadow,
+        isValidOverflow,
         isValidMaxWidth,
         isValidPosition,
         isValidAlignment,
@@ -173,6 +174,10 @@
                 type: Number,
                 validator: isValidBackgroundOpacity,
             },
+            overflow: {
+                type: String,
+                validator: isValidOverflow,
+            },
             expand: {
                 type: Boolean,
                 default: false,
@@ -235,6 +240,7 @@
                     ...(this.backgroundOpacity
                         ? [`bg-opacity-${this.backgroundOpacity}`]
                         : []),
+                    ...(this.overflow ? [`overflow-${this.overflow}`] : []),
                 ]
             },
 

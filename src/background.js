@@ -132,7 +132,16 @@ const registerMenus = win => {
         Menu.buildFromTemplate([
             { role: 'appMenu' },
             { role: 'editMenu' },
-
+            {
+                label: 'Tools',
+                submenu: [
+                    {
+                        label: 'Command Palette',
+                        accelerator: 'CmdOrCtrl+Shift+p',
+                        click: () => sendMenuAction('OpenCommandPalette'),
+                    },
+                ],
+            },
             {
                 label: 'Window',
                 submenu: [

@@ -60,6 +60,7 @@ export const spaces = [
     56,
     64,
     80,
+    100,
 ]
 
 export const sizes = [
@@ -186,3 +187,18 @@ export const minHeights = ['0', 'full', 'screen']
 export const borderWidths = [0, 1, 2, 4, 8]
 
 export const backgroundOpacities = [0, 25, 50, 75, 100]
+
+export const overflows = [
+    'auto',
+    'hidden',
+    'visible',
+    'scroll',
+    'x-auto',
+    'y-auto',
+    'x-hidden',
+    'y-hidden',
+    'x-visible',
+    'y-visible',
+    'x-scroll',
+    'y-scroll',
+]
