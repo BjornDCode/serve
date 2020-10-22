@@ -7,31 +7,59 @@ export default [
     new Command('OpenShortcutsModal', 'Help', 'List keyboard shortcuts', () =>
         setModal('ShortcutsModal'),
     ),
-    new Command('OpenDocumentation', 'Help', 'Open documentation', () => {
-        window.ipc.invoke('launch', {
-            type: 'browser',
-            path: 'https://github.com/BjornDCode/serve',
-        })
-    }),
-    new Command('OpenVersions', 'Help', 'See versions', () => {
-        window.ipc.invoke('launch', {
-            type: 'browser',
-            path: 'https://github.com/BjornDCode/serve/releases',
-        })
-    }),
-    new Command('OpenChangelog', 'Help', 'Open changelog', () => {
-        window.ipc.invoke('launch', {
-            type: 'browser',
-            path:
-                'https://github.com/BjornDCode/serve/blob/master/CHANGELOG.md',
-        })
-    }),
-    new Command('OpenGithubIssues', 'Help', 'Report a bug', () => {
-        window.ipc.invoke('launch', {
-            type: 'browser',
-            path: 'https://github.com/BjornDCode/serve/issues',
-        })
-    }),
+    new Command(
+        'OpenDocumentation',
+        'Help',
+        'Open documentation',
+        () => {
+            window.ipc.invoke('launch', {
+                type: 'browser',
+                path: 'https://github.com/BjornDCode/serve',
+            })
+        },
+        () => true,
+        true,
+    ),
+    new Command(
+        'OpenVersions',
+        'Help',
+        'See versions',
+        () => {
+            window.ipc.invoke('launch', {
+                type: 'browser',
+                path: 'https://github.com/BjornDCode/serve/releases',
+            })
+        },
+        () => true,
+        true,
+    ),
+    new Command(
+        'OpenChangelog',
+        'Help',
+        'Open changelog',
+        () => {
+            window.ipc.invoke('launch', {
+                type: 'browser',
+                path:
+                    'https://github.com/BjornDCode/serve/blob/master/CHANGELOG.md',
+            })
+        },
+        () => true,
+        true,
+    ),
+    new Command(
+        'OpenGithubIssues',
+        'Help',
+        'Report a bug',
+        () => {
+            window.ipc.invoke('launch', {
+                type: 'browser',
+                path: 'https://github.com/BjornDCode/serve/issues',
+            })
+        },
+        () => true,
+        true,
+    ),
     new Command(
         'OpenCommandPalette',
         'Tools',

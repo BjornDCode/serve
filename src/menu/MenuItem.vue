@@ -88,7 +88,6 @@
             template() {
                 return {
                     id: this.id,
-                    click: this.click,
                     role: this.role,
                     type: this.type,
                     sublabel: this.sublabel,
@@ -99,9 +98,27 @@
                     checked: this.checked,
                 }
             },
+
+            computedLabel() {
+                if (!this.$scopedSlots.default) {
+                    return this.template.label
+                }
+
+                return this.$scopedSlots.default()[0].text.trim()
+            },
         },
 
         inject: ['system'],
+
+        mounted() {
+            EventBus.$on('clicked', id => {
+                if (id !== this.id) {
+                    return
+                }
+
+                this.click()
+            })
+        },
 
         methods: {
             rerender() {
@@ -112,9 +129,7 @@
 
                     EventBus.$emit('update-menuitem', {
                         ...JSON.parse(JSON.stringify(this.template)),
-                        label:
-                            this.$scopedSlots.default()[0].text ||
-                            this.template.label,
+                        label: this.computedLabel,
                         parentId: this.$parent.template.id,
                     })
                 })

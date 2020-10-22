@@ -95,7 +95,7 @@ app.on('ready', async () => {
 
     createWindow()
     registerCommands(win)
-    registerMenus()
+    registerMenus(win)
 })
 
 // Exit cleanly on request from parent process in development mode.
@@ -123,81 +123,3 @@ if (process.env.NODE_ENV === 'production') {
 autoUpdater.on('update-downloaded', () => {
     autoUpdater.quitAndInstall()
 })
-
-// const registerMenus = win => {
-//     const isMac = process.platform === 'darwin'
-//     const sendMenuAction = (action, value) =>
-//         win.webContents.send('command', { type: action, value })
-
-//     Menu.setApplicationMenu(
-//         Menu.buildFromTemplate([
-//             { role: 'appMenu' },
-//             { role: 'editMenu' },
-//             {
-//                 label: 'Tools',
-//                 submenu: [
-//                     {
-//                         label: 'Command Palette',
-//                         accelerator: 'CmdOrCtrl+Shift+p',
-//                         click: () => sendMenuAction('OpenCommandPalette'),
-//                     },
-//                 ],
-//             },
-//             {
-//                 label: 'Window',
-//                 submenu: [
-//                     {
-//                         type: 'normal',
-//                         label: 'New Window',
-//                         accelerator: 'CmdOrCtrl+Shift+n',
-//                         click: () => createWindow(),
-//                     },
-//                     {
-//                         role: isMac ? 'close' : 'quit',
-//                         type: 'normal',
-//                         label: 'Close Window',
-//                         accelerator: 'CmdOrCtrl+Shift+w',
-//                     },
-//                     { type: 'separator' },
-//                     { role: 'minimize' },
-//                     { role: 'zoom' },
-//                     ...(isMac
-//                         ? [
-//                               { type: 'separator' },
-//                               { role: 'front' },
-//                               { type: 'separator' },
-//                               { role: 'window' },
-//                           ]
-//                         : [{ role: 'close' }]),
-//                 ],
-//             },
-//             { role: 'viewMenu' },
-//             {
-//                 role: 'help',
-//                 submenu: [
-//                     {
-//                         label: 'Keyboard Shortcuts',
-//                         click: () => sendMenuAction('OpenShortcutsModal'),
-//                         accelerator: 'CmdOrCtrl+l',
-//                     },
-//                     {
-//                         label: 'Documentation',
-//                         click: () => sendMenuAction('OpenDocumentation'),
-//                     },
-//                     {
-//                         label: 'Versions',
-//                         click: () => sendMenuAction('OpenVersions'),
-//                     },
-//                     {
-//                         label: 'Changelog',
-//                         click: () => sendMenuAction('OpenChangelog'),
-//                     },
-//                     {
-//                         label: 'Report a bug',
-//                         click: () => sendMenuAction('OpenGithubIssues'),
-//                     },
-//                 ],
-//             },
-//         ]),
-//     )
-// }

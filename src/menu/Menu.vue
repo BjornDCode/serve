@@ -57,7 +57,13 @@
         },
 
         render(createElement) {
-            return createElement(Fragment, this.$scopedSlots.default())
+            return createElement(
+                Fragment,
+                this.$scopedSlots.default({
+                    platform: this.platform,
+                    isPlatform: this.isPlatform,
+                }),
+            )
         },
     }
 </script>

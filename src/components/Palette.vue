@@ -96,7 +96,10 @@
                 )
 
                 command.handler()
-                this.$emit('close')
+
+                if (command.closeAfter) {
+                    this.$emit('close')
+                }
             },
         },
     }
