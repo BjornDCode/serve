@@ -1,5 +1,5 @@
 <template>
-    <Component :is="modal" @close="closeModal" />
+    <Component :is="modal" @close="closeModal" :project="project" />
 </template>
 
 <script>
@@ -25,6 +25,15 @@
             ...mapGetters({
                 modal: 'app/modal',
             }),
+            project() {
+                if (!this.$route.name.includes('project')) {
+                    return
+                }
+
+                return this.$store.getters['projects/find'](
+                    this.$route.params.id,
+                )
+            },
         },
 
         mounted() {

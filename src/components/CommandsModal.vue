@@ -16,10 +16,14 @@
             PaletteModal,
         },
 
+        props: {
+            project: Object,
+        },
+
         computed: {
             commands() {
                 return commands.filter(command => {
-                    return command.public
+                    return command.show({ project: this.project })
                 })
             },
         },

@@ -1,10 +1,10 @@
 class Command {
-    constructor(key, category, label, handler, isPublic = true) {
+    constructor(key, category, label, handler, show = () => true) {
         this.key = key
         this.category = category
         this.label = label
         this.handler = handler
-        this.public = isPublic
+        this.show = show
     }
 }
 
