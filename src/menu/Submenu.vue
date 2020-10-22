@@ -10,9 +10,21 @@
         },
 
         props: {
-            label: {
+            label: String,
+            role: {
                 type: String,
-                required: true,
+                validator: role =>
+                    [
+                        'appMenu',
+                        'fileMenu',
+                        'editMenu',
+                        'viewMenu',
+                        'windowMenu',
+                    ].includes(role),
+            },
+            platforms: {
+                type: Array,
+                default: () => ['linux', 'mac', 'windows'],
             },
         },
 
@@ -25,6 +37,13 @@
 
         computed: {
             template() {
+                if (this.role) {
+                    return {
+                        id: this.id,
+                        role: this.role,
+                    }
+                }
+
                 return {
                     id: this.id,
                     label: this.label,
@@ -77,7 +96,9 @@
         },
 
         render(createElement) {
-            return createElement(Fragment, this.$scopedSlots.default())
+            return this.$scopedSlots.default
+                ? createElement(Fragment, this.$scopedSlots.default())
+                : null
         },
     }
 </script>

@@ -8,6 +8,7 @@
                 Toggle Dev Tools
             </MenuItem>
         </Submenu>
+        <Submenu role="windowMenu" />
     </Menu>
 </template>
 
