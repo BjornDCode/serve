@@ -169,4 +169,19 @@ export default [
         },
         true,
     ),
+    new Command(
+        'OpenFolder',
+        'Launch',
+        'Open folder',
+        ({ project }) =>
+            store.dispatch('projects/launch', {
+                type: 'filesystem',
+                path: project.path,
+            }),
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project
+        },
+        true,
+    ),
 ]

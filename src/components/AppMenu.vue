@@ -45,6 +45,9 @@
             <MenuItem :enabled="inProject" @click="execute('OpenInBrowser')">
                 Open in browser
             </MenuItem>
+            <MenuItem :enabled="inProject" @click="execute('OpenFolder')">
+                Open folder
+            </MenuItem>
         </Submenu>
         <Submenu label="Window">
             <MenuItem role="minimize" />
