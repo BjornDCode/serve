@@ -70,6 +70,39 @@ export default [
         () => openModal('CommandsModal'),
         () => false,
     ),
+    // Projects
+    new Command(
+        'NewProject',
+        'Projects',
+        'New project',
+        () => router.push({ name: 'create.laravel' }),
+        () => true,
+        true,
+    ),
+    new Command(
+        'ImportProject',
+        'Projects',
+        'Import project',
+        () => router.push({ name: 'import.laravel' }),
+        () => true,
+        true,
+    ),
+    new Command(
+        'ListProjects',
+        'Projects',
+        'See all projects',
+        () => router.push({ name: 'home' }),
+        () => true,
+        true,
+    ),
+    new Command(
+        'SwitchProject',
+        'Projects',
+        'Switch project',
+        () => openModal('SwitchProjectModal'),
+        () => true,
+        false,
+    ),
     // Project
     new Command(
         'StartProject',

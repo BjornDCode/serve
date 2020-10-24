@@ -1,6 +1,26 @@
 <template>
     <Menu>
         <Submenu role="appMenu" />
+        <Submenu label="File">
+            <MenuItem accelerator="CmdOrCtrl+n" @click="execute('NewProject')">
+                New project
+            </MenuItem>
+            <MenuItem
+                accelerator="CmdOrCtrl+i"
+                @click="execute('ImportProject')"
+            >
+                Import project
+            </MenuItem>
+            <MenuItem @click="execute('ListProjects')">
+                See all projects
+            </MenuItem>
+            <MenuItem
+                accelerator="CmdOrCtrl+p"
+                @click="execute('SwitchProject')"
+            >
+                Switch project
+            </MenuItem>
+        </Submenu>
         <Submenu role="editMenu" />
         <Submenu label="Tools">
             <MenuItem
