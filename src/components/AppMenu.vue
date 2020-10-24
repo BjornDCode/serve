@@ -10,6 +10,20 @@
                 Command Palette
             </MenuItem>
         </Submenu>
+        <Submenu label="Project">
+            <MenuItem
+                :enabled="inProject && project.status === 'stopped'"
+                @click="execute('StartProject')"
+            >
+                Start project
+            </MenuItem>
+            <MenuItem
+                :enabled="inProject && project.status === 'running'"
+                @click="execute('StopProject')"
+            >
+                Stop project
+            </MenuItem>
+        </Submenu>
         <Submenu label="Window">
             <MenuItem role="minimize" />
             <MenuItem role="zoom" />
@@ -60,6 +74,19 @@
             commands() {
                 return commands
             },
+            project() {
+                if (!this.$route.name.includes('project')) {
+                    return
+                }
+
+                return this.$store.getters['projects/find'](
+                    this.$route.params.id,
+                )
+            },
+
+            inProject() {
+                return !!this.project
+            },
         },
 
         mounted() {
@@ -78,7 +105,7 @@
                     return
                 }
 
-                command.handler()
+                command.handler({ project: this.project })
             },
         },
     }

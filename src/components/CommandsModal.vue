@@ -1,6 +1,11 @@
 <template>
     <PaletteModal @close="$emit('close')">
-        <Palette width="full" :options="commands" @close="$emit('close')" />
+        <Palette
+            width="full"
+            :options="commands"
+            :project="project"
+            @close="$emit('close')"
+        />
     </PaletteModal>
 </template>
 

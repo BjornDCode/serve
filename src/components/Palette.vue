@@ -38,6 +38,9 @@
                 type: Array,
                 default: () => [],
             },
+            project: {
+                type: Object,
+            },
         },
 
         data() {
@@ -95,7 +98,7 @@
                     (__, index) => index === this.selected,
                 )
 
-                command.handler()
+                command.handler({ project: this.project })
 
                 if (command.closeAfter) {
                     this.$emit('close')

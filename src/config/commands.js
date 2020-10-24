@@ -67,11 +67,28 @@ export default [
         () => setModal('CommandsModal'),
         () => false,
     ),
+    // Project
     new Command(
         'StartProject',
         'Project',
         'Start project',
-        () => console.log('starting project'),
+        ({ project }) => store.dispatch('projects/toggle', project),
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project && project.status === 'stopped'
+        },
+        true,
+    ),
+    new Command(
+        'StopProject',
+        'Project',
+        'Stop project',
+        ({ project }) => store.dispatch('projects/toggle', project),
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project && project.status === 'running'
+        },
+        true,
         ({ project }) => {
             // Should only be visible if inside a project
             return !!project
