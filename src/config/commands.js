@@ -1,4 +1,5 @@
 import store from '@/store'
+import router from '@/router'
 import Command from '@/entities/Command'
 
 import { match } from '@/helpers/methods'
@@ -89,6 +90,38 @@ export default [
         ({ project }) => {
             // Should only be visible if inside a project
             return !!project && project.status === 'running'
+        },
+        true,
+    ),
+    new Command(
+        'ShowOverview',
+        'Project',
+        'Show overview',
+        ({ project }) => {
+            router.push({
+                name: 'project.overview',
+                params: { id: project.id },
+            })
+        },
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project
+        },
+        true,
+    ),
+    new Command(
+        'ShowSettings',
+        'Project',
+        'Show settings',
+        ({ project }) => {
+            router.push({
+                name: 'project.settings',
+                params: { id: project.id },
+            })
+        },
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project
         },
         true,
     ),
