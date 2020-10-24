@@ -42,6 +42,9 @@
             >
                 Open database
             </MenuItem>
+            <MenuItem :enabled="inProject" @click="execute('OpenInBrowser')">
+                Open in browser
+            </MenuItem>
         </Submenu>
         <Submenu label="Window">
             <MenuItem role="minimize" />

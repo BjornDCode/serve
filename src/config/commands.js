@@ -154,4 +154,19 @@ export default [
         },
         true,
     ),
+    new Command(
+        'OpenInBrowser',
+        'Launch',
+        'Open in browser',
+        ({ project }) =>
+            store.dispatch('projects/launch', {
+                type: 'browser',
+                path: `http://localhost:${project.server.port}`,
+            }),
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project
+        },
+        true,
+    ),
 ]
