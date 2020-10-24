@@ -6,8 +6,8 @@
     import tinykeys from 'tinykeys'
     import { mapGetters, mapActions } from 'vuex'
 
-    import CommandsModal from '@/components/CommandsModal'
-    import ShortcutsModal from '@/components/ShortcutsModal'
+    import CommandsModal from '@/modals/CommandsModal'
+    import ShortcutsModal from '@/modals/ShortcutsModal'
     import SwitchProjectModal from '@/modals/SwitchProjectModal'
     import SelectEditorToOpenProjectInModal from '@/modals/SelectEditorToOpenProjectInModal'
 

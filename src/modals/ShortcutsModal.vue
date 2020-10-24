@@ -29,6 +29,7 @@
                                     color="gray"
                                     weight="bold"
                                     shade="900"
+                                    class="font-mono"
                                 >
                                     {{ shortcut.value }}
                                 </Copy>
@@ -65,12 +66,40 @@
             groups() {
                 return [
                     {
+                        key: 'file',
+                        name: 'File',
+                        shortcuts: [
+                            {
+                                label: 'New project',
+                                value: 'cmd + n',
+                            },
+                            {
+                                label: 'Import project',
+                                value: 'cmd + i',
+                            },
+                            {
+                                label: 'Switch project',
+                                value: 'cmd + p',
+                            },
+                        ],
+                    },
+                    {
+                        key: 'tools',
+                        name: 'Tools',
+                        shortcuts: [
+                            {
+                                label: 'Open command palette',
+                                value: 'cmd + shift + p',
+                            },
+                        ],
+                    },
+                    {
                         key: 'help',
                         name: 'Help',
                         shortcuts: [
                             {
                                 label: 'List keyboard shortcuts',
-                                value: 'Cmd + l',
+                                value: 'cmd + l',
                             },
                         ],
                     },
