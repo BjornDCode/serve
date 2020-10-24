@@ -102,4 +102,19 @@ export default [
         },
         false,
     ),
+    new Command(
+        'OpenInGithubDesktop',
+        'Launch',
+        'Open in GitHub Desktop',
+        ({ project }) =>
+            store.dispatch('projects/launch', {
+                type: 'github',
+                path: project.path,
+            }),
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project
+        },
+        true,
+    ),
 ]

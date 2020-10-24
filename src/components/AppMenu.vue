@@ -27,6 +27,12 @@
             <MenuItem :enabled="inProject" @click="execute('OpenInEditor')">
                 Open in editor...
             </MenuItem>
+            <MenuItem
+                :enabled="inProject"
+                @click="execute('OpenInGithubDesktop')"
+            >
+                Open in GitHub Desktop
+            </MenuItem>
         </Submenu>
         <Submenu label="Window">
             <MenuItem role="minimize" />
