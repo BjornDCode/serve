@@ -1,6 +1,8 @@
 import store from '@/store'
 import Command from '@/entities/Command'
 
+import { match } from '@/helpers/methods'
+
 const openModal = context => store.dispatch('app/setModal', context)
 
 export default [
@@ -129,6 +131,26 @@ export default [
         ({ project }) => {
             // Should only be visible if inside a project
             return !!project
+        },
+        true,
+    ),
+    new Command(
+        'OpenDatabase',
+        'Launch',
+        'Open database',
+        ({ project }) => {
+            const protocol = match(project.database.type, {
+                mysql: 'mysql',
+                postgres: 'postgresql',
+            })
+            store.dispatch('projects/launch', {
+                type: 'database',
+                path: `${protocol}://root:root@127.0.0.1:${project.database.port}/laravel`,
+            })
+        },
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project && project.status === 'running'
         },
         true,
     ),

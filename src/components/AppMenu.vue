@@ -36,6 +36,12 @@
             <MenuItem :enabled="inProject" @click="execute('OpenInTerminal')">
                 Open in terminal
             </MenuItem>
+            <MenuItem
+                :enabled="inProject && project.status === 'running'"
+                @click="execute('OpenDatabase')"
+            >
+                Open database
+            </MenuItem>
         </Submenu>
         <Submenu label="Window">
             <MenuItem role="minimize" />
