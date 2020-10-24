@@ -1,13 +1,13 @@
 {
   "name": "Serve",
-  "description": "Easily spin up local development environments and run your projects.",
+  "description": "Local development environments without the hassle.",
   "homepage": "https://github.com/BjornDCode/serve",
   "repository": "https://github.com/BjornDCode/serve",
   "author": {
     "name": "Bjørn Lindholm",
     "email": "me@bjornlindholm.com"
   },
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
