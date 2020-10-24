@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0]
+
+-   Revamped the app menu
+-   Added a command palette
+-   Added keyboard shortcuts for common actions
+-   Fix bug where all select menus would open when pressing 'Enter'
+
 ## [0.2.0]
 
 -   Save prefered editor when changing it in quick actions
