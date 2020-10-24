@@ -1,6 +1,6 @@
 <template>
     <button
-        class="px-6 py-3 block w-full text-left focus:outline-none"
+        class="px-6 py-3 block w-full text-left hover:bg-gray-200 focus:outline-none"
         :class="{
             'bg-gray-300': selected,
             'bg-white': !selected,

@@ -7,7 +7,7 @@
                 accelerator="CmdOrCtrl+Shift+p"
                 @click="execute('OpenCommandPalette')"
             >
-                Command Palette
+                Command palette...
             </MenuItem>
         </Submenu>
         <Submenu label="Project">
@@ -22,6 +22,10 @@
                 @click="execute('StopProject')"
             >
                 Stop project
+            </MenuItem>
+            <MenuItem type="separator" />
+            <MenuItem :enabled="inProject" @click="execute('OpenInEditor')">
+                Open in editor...
             </MenuItem>
         </Submenu>
         <Submenu label="Window">

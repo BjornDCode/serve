@@ -5,6 +5,7 @@
             :options="commands"
             :project="project"
             @close="$emit('close')"
+            @execute="runCommand"
         />
     </PaletteModal>
 </template>
@@ -30,6 +31,16 @@
                 return commands.filter(command => {
                     return command.show({ project: this.project })
                 })
+            },
+        },
+
+        methods: {
+            runCommand(command) {
+                command.handler({ project: this.project })
+
+                if (command.closeAfter) {
+                    this.$emit('close')
+                }
             },
         },
     }

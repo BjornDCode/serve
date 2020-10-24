@@ -16,7 +16,7 @@
                     :selected="index === selected"
                     :value="option.display"
                     :query="query"
-                    @click="execute"
+                    @click="click(index)"
                 />
             </li>
         </ul>
@@ -56,7 +56,9 @@
                     this.options
                         .map(option => ({
                             ...option,
-                            display: `${option.category}: ${option.label}`,
+                            display: option.category
+                                ? `${option.category}: ${option.label}`
+                                : option.label,
                         }))
                         // Filter by query
                         .filter(option =>
@@ -94,15 +96,19 @@
             },
 
             execute() {
-                const command = this.filteredOptions.find(
-                    (__, index) => index === this.selected,
+                this.$emit(
+                    'execute',
+                    this.filteredOptions.find(
+                        (__, index) => index === this.selected,
+                    ),
                 )
+            },
 
-                command.handler({ project: this.project })
-
-                if (command.closeAfter) {
-                    this.$emit('close')
-                }
+            click(i) {
+                this.$emit(
+                    'execute',
+                    this.filteredOptions.find((__, index) => index === i),
+                )
             },
         },
     }

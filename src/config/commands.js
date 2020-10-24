@@ -1,11 +1,11 @@
 import store from '@/store'
 import Command from '@/entities/Command'
 
-const setModal = context => store.dispatch('app/setModal', context)
+const openModal = context => store.dispatch('app/setModal', context)
 
 export default [
     new Command('OpenShortcutsModal', 'Help', 'List keyboard shortcuts', () =>
-        setModal('ShortcutsModal'),
+        openModal('ShortcutsModal'),
     ),
     new Command(
         'OpenDocumentation',
@@ -64,7 +64,7 @@ export default [
         'OpenCommandPalette',
         'Tools',
         'Open command palette',
-        () => setModal('CommandsModal'),
+        () => openModal('CommandsModal'),
         () => false,
     ),
     // Project
@@ -89,9 +89,17 @@ export default [
             return !!project && project.status === 'running'
         },
         true,
+    ),
+    // Launch
+    new Command(
+        'OpenInEditor',
+        'Launch',
+        'Open in editor',
+        () => openModal('SelectEditorToOpenProjectInModal'),
         ({ project }) => {
             // Should only be visible if inside a project
             return !!project
         },
+        false,
     ),
 ]

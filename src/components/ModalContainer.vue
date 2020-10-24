@@ -8,11 +8,13 @@
 
     import CommandsModal from '@/components/CommandsModal'
     import ShortcutsModal from '@/components/ShortcutsModal'
+    import SelectEditorToOpenProjectInModal from '@/modals/SelectEditorToOpenProjectInModal'
 
     export default {
         components: {
             CommandsModal,
             ShortcutsModal,
+            SelectEditorToOpenProjectInModal,
         },
 
         data() {
