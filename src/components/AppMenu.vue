@@ -33,6 +33,9 @@
             >
                 Open in GitHub Desktop
             </MenuItem>
+            <MenuItem :enabled="inProject" @click="execute('OpenInTerminal')">
+                Open in terminal
+            </MenuItem>
         </Submenu>
         <Submenu label="Window">
             <MenuItem role="minimize" />

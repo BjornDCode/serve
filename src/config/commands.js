@@ -117,4 +117,19 @@ export default [
         },
         true,
     ),
+    new Command(
+        'OpenInTerminal',
+        'Launch',
+        'Open in terminal',
+        ({ project }) =>
+            store.dispatch('projects/launch', {
+                type: 'terminal',
+                path: project.path,
+            }),
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project
+        },
+        true,
+    ),
 ]
