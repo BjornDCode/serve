@@ -1,13 +1,13 @@
 {
   "name": "Serve",
-  "description": "Easily spin up local development environments and run your projects.",
+  "description": "Local development environments without the hassle.",
   "homepage": "https://github.com/BjornDCode/serve",
   "repository": "https://github.com/BjornDCode/serve",
   "author": {
     "name": "Bjørn Lindholm",
     "email": "me@bjornlindholm.com"
   },
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -35,7 +35,9 @@
     "tinykeys": "^1.0.6",
     "uuid": "^8.3.0",
     "vue": "^2.6.11",
+    "vue-fragment": "^1.5.1",
     "vue-router": "^3.2.0",
+    "vue-text-highlight": "^2.0.10",
     "vue-zondicons": "^0.1.10",
     "vuex": "^3.4.0",
     "vuex-persist": "^2.2.0",

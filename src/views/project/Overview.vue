@@ -60,13 +60,11 @@
         methods: {
             ...mapActions({
                 updatePreferedEditor: 'preferences/updateEditor',
+                launch: 'projects/launch',
             }),
 
             onQuickAction(type, path) {
-                window.ipc.invoke('launch', {
-                    type,
-                    path,
-                })
+                this.launch({ type, path })
             },
         },
     }

@@ -1,6 +1,7 @@
 import { execSync } from 'child_process'
 
 import DockerPsError from '@/exceptions/DockerPsError'
+import { match } from '@/helpers/methods'
 
 class App {
     constructor(command) {
@@ -26,6 +27,14 @@ class App {
 
             throw new DockerPsError()
         }
+    }
+
+    async platform() {
+        return match(process.platform, {
+            darwin: 'mac',
+            linux: 'linux',
+            win32: 'windows',
+        })
     }
 }
 

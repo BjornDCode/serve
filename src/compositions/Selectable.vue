@@ -21,7 +21,7 @@
         computed: {
             highlightedIndex() {
                 return this.options.findIndex(
-                    option => option === this.highlighted
+                    option => option === this.highlighted,
                 )
             },
         },
@@ -77,7 +77,11 @@
             },
 
             handleEnter() {
-                if (!this.open) {
+                if (!this.$el.contains(document.activeElement)) {
+                    return
+                }
+
+                if (!this.open && this.$el.contains(document.activeElement)) {
                     return this.show()
                 }
 

@@ -12,6 +12,8 @@ contextBridge.exposeInMainWorld('ipc', {
             'launch',
             'message',
             'git',
+            'command',
+            'menu',
         ]
 
         if (validChannels.includes(channel)) {
@@ -26,8 +28,10 @@ contextBridge.exposeInMainWorld('ipc', {
             'launch',
             'message',
             'git',
+            'command',
+            'menu',
         ]
-        
+
         if (validChannels.includes(channel)) {
             return ipcRenderer.invoke(channel, data)
         }
@@ -40,6 +44,8 @@ contextBridge.exposeInMainWorld('ipc', {
             'launch',
             'message',
             'git',
+            'command',
+            'menu',
         ]
         if (validChannels.includes(channel)) {
             // Deliberately strip event as it includes `sender`

@@ -70,7 +70,7 @@
                     component="router-link"
                     :to="{ name: 'create.laravel' }"
                 >
-                    Create
+                    New
                 </Button>
             </Box>
 
@@ -112,7 +112,7 @@
                         component="router-link"
                         :to="{ name: 'create.laravel' }"
                     >
-                        Create
+                        New
                     </Button>
                 </Inline>
             </Stack>

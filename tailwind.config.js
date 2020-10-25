@@ -19,6 +19,7 @@ module.exports = {
             spacing: {
                 '2px': '2px',
                 '80': '20rem',
+                '100': '25rem',
             },
             maxHeight: {
                 ...defaultTheme.spacing,

@@ -11,7 +11,7 @@
         <GridItem :span="3">
             <Table>
                 <TableRow>
-                    <TableCell class="px-4 py-2 w-2/5">
+                    <TableCell :spaceY="2" :spaceX="4" width="2/5">
                         <Copy
                             size="sm"
                             weight="medium"
@@ -21,14 +21,14 @@
                             Name
                         </Copy>
                     </TableCell>
-                    <TableCell class="pr-4 py-2">
+                    <TableCell :spaceY="2" :spaceX="4">
                         <Copy size="sm" color="gray" shade="800">
                             {{ project }}
                         </Copy>
                     </TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell class="px-4 py-2 w-2/5">
+                    <TableCell :spaceY="2" :spaceX="4" width="2/5">
                         <Copy
                             size="sm"
                             weight="medium"
@@ -38,7 +38,7 @@
                             Folder
                         </Copy>
                     </TableCell>
-                    <TableCell class="pr-4 py-2">
+                    <TableCell :spaceY="2" :spaceX="4">
                         <ExternalButton target="filesystem" :path="path">
                             <Copy
                                 size="sm"
@@ -53,7 +53,7 @@
                 </TableRow>
 
                 <TableRow>
-                    <TableCell class="px-4 py-2 w-2/5">
+                    <TableCell :spaceY="2" :spaceX="4" width="2/5">
                         <Copy
                             size="sm"
                             weight="medium"
@@ -63,7 +63,7 @@
                             URL
                         </Copy>
                     </TableCell>
-                    <TableCell class="pr-4 py-2">
+                    <TableCell :spaceY="2" :spaceX="4">
                         <ExternalButton
                             target="browser"
                             :path="`http://localhost:${server.port}`"
@@ -81,7 +81,7 @@
                 </TableRow>
 
                 <TableRow v-if="repository">
-                    <TableCell class="px-4 py-2 w-2/5">
+                    <TableCell :spaceY="2" :spaceX="4" width="2/5">
                         <Copy
                             size="sm"
                             weight="medium"
@@ -91,7 +91,7 @@
                             Repository
                         </Copy>
                     </TableCell>
-                    <TableCell class="pr-4 py-2">
+                    <TableCell :spaceY="2" :spaceX="4">
                         <ExternalButton target="browser" :path="repository">
                             <Copy
                                 size="sm"
@@ -106,7 +106,7 @@
                 </TableRow>
 
                 <TableRow>
-                    <TableCell class="px-4 py-2 w-2/5">
+                    <TableCell :spaceY="2" :spaceX="4" width="2/5">
                         <Copy
                             size="sm"
                             weight="medium"
@@ -116,7 +116,7 @@
                             PHP
                         </Copy>
                     </TableCell>
-                    <TableCell class="pr-4 py-2">
+                    <TableCell :spaceY="2" :spaceX="4">
                         <Copy size="sm" color="gray" shade="800">
                             {{ php.version }}
                         </Copy>
@@ -124,7 +124,7 @@
                 </TableRow>
 
                 <TableRow>
-                    <TableCell class="px-4 py-2 w-2/5">
+                    <TableCell :spaceY="2" :spaceX="4" width="2/5">
                         <Copy
                             size="sm"
                             weight="medium"
@@ -134,7 +134,7 @@
                             Node
                         </Copy>
                     </TableCell>
-                    <TableCell class="pr-4 py-2">
+                    <TableCell :spaceY="2" :spaceX="4">
                         <Copy size="sm" color="gray" shade="800">
                             {{ node.version }}
                         </Copy>
@@ -142,7 +142,7 @@
                 </TableRow>
 
                 <TableRow>
-                    <TableCell class="px-4 py-2 w-2/5">
+                    <TableCell :spaceY="2" :spaceX="4" width="2/5">
                         <Copy
                             size="sm"
                             weight="medium"
@@ -152,7 +152,7 @@
                             Redis
                         </Copy>
                     </TableCell>
-                    <TableCell class="pr-4 py-2">
+                    <TableCell :spaceY="2" :spaceX="4">
                         <Copy size="sm" color="gray" shade="800">
                             {{ redis.version }}
                         </Copy>
@@ -160,7 +160,7 @@
                 </TableRow>
 
                 <TableRow>
-                    <TableCell class="px-4 py-2 w-2/5">
+                    <TableCell :spaceY="2" :spaceX="4" width="2/5">
                         <Copy
                             size="sm"
                             weight="medium"
@@ -170,7 +170,7 @@
                             {{ database.type }}
                         </Copy>
                     </TableCell>
-                    <TableCell class="pr-4 py-2">
+                    <TableCell :spaceY="2" :spaceX="4">
                         <Copy size="sm" color="gray" shade="800">
                             {{ database.version }}
                         </Copy>

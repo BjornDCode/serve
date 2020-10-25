@@ -9,6 +9,7 @@ import path from 'path'
 import log from 'electron-log'
 
 import { registerCommands } from './commands'
+import { registerMenus } from './menu'
 
 if (process.env.NODE_ENV === 'production') {
     const fixPath = require('fix-path')
@@ -94,6 +95,7 @@ app.on('ready', async () => {
 
     createWindow()
     registerCommands(win)
+    registerMenus(win)
 })
 
 // Exit cleanly on request from parent process in development mode.

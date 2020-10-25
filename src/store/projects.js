@@ -229,5 +229,12 @@ export default {
             dispatch('updateGitStatus', project)
             dispatch('updateStatus', project)
         },
+
+        launch(__, { type, path }) {
+            window.ipc.invoke('launch', {
+                type,
+                path,
+            })
+        },
     },
 }

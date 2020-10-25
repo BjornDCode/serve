@@ -6,6 +6,7 @@ import {
     shadows,
     weights,
     statuses,
+    overflows,
     fontSizes,
     positions,
     maxWidths,
@@ -28,6 +29,7 @@ export const isValidSpace = space => spaces.includes(space)
 export const isValidShadow = shadow => shadows.includes(shadow)
 export const isValidWeight = weight => weights.includes(weight)
 export const isValidStatus = status => statuses.includes(status)
+export const isValidOverflow = overflow => overflows.includes(overflow)
 export const isValidFontSize = fontSize => fontSizes.includes(fontSize)
 export const isValidPosition = position => positions.includes(position)
 export const isValidDirection = direction => directions.includes(direction)

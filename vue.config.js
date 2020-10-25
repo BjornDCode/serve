@@ -9,6 +9,7 @@ module.exports = {
                 'src/commands.js',
                 'src/exceptions/*.js',
                 'src/shell/*.js',
+                'src/menu/index.js',
             ],
 
             builderOptions: {
