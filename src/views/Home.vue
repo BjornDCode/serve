@@ -1,78 +1,83 @@
 <template>
     <Box
         justify="center"
-        :spaceY="20"
+        :spaceY="12"
         minHeight="screen"
         color="gray"
         shade="100"
     >
-        <Stack align="center" :space="4">
-            <Headline>
-                Serve
-            </Headline>
-            <Stack
-                v-if="projects.length"
-                color="white"
-                :borderWidth="2"
-                borderColor="gray"
-                borderShade="300"
-                borderRadius="normal"
-                :width="80"
-            >
-                <TextLink
-                    v-for="project in projects"
-                    :key="project.id"
-                    :to="{
-                        name: 'project.overview',
-                        params: { id: project.id },
-                    }"
-                    class="w-full border-b-1 border-gray-300 last:border-0 hover:underline"
-                    :class="{
-                        'cursor-not-allowed pointer-events-none opacity-50':
-                            project.status === 'creating',
-                    }"
+        <Stack align="center" :space="12">
+            <Logo />
+
+            <Stack :space="4">
+                <Stack
+                    v-if="projects.length"
+                    color="white"
+                    :borderWidth="2"
+                    borderColor="gray"
+                    borderShade="300"
+                    borderRadius="normal"
+                    :width="80"
                 >
-                    <Box
-                        :spaceX="6"
-                        :spaceY="4"
-                        :borderWidthB="1"
-                        width="full"
-                        align="center"
-                        justify="between"
+                    <TextLink
+                        v-for="project in projects"
+                        :key="project.id"
+                        :to="{
+                            name: 'project.overview',
+                            params: { id: project.id },
+                        }"
+                        class="w-full border-b-1 border-gray-300 last:border-0 hover:underline"
+                        :class="{
+                            'cursor-not-allowed pointer-events-none opacity-50':
+                                project.status === 'creating',
+                        }"
                     >
-                        <Inline align="center" :space="2">
-                            <Copy color="indigo" shade="700" weight="medium">
-                                {{ project.name }}
-                            </Copy>
-                            <Copy
-                                v-if="project.status === 'creating'"
-                                color="gray"
-                                shade="600"
-                                size="xs"
-                                weight="medium"
-                            >
-                                (Creating...)
-                            </Copy>
-                        </Inline>
-                        <Status :value="project.status" />
-                    </Box>
-                </TextLink>
+                        <Box
+                            :spaceX="6"
+                            :spaceY="4"
+                            :borderWidthB="1"
+                            width="full"
+                            align="center"
+                            justify="between"
+                        >
+                            <Inline align="center" :space="2">
+                                <Copy
+                                    color="indigo"
+                                    shade="700"
+                                    weight="medium"
+                                >
+                                    {{ project.name }}
+                                </Copy>
+                                <Copy
+                                    v-if="project.status === 'creating'"
+                                    color="gray"
+                                    shade="600"
+                                    size="xs"
+                                    weight="medium"
+                                >
+                                    (Creating...)
+                                </Copy>
+                            </Inline>
+                            <Status :value="project.status" />
+                        </Box>
+                    </TextLink>
+                </Stack>
+                <Box v-if="projects.length" :width="80" justify="between">
+                    <Button
+                        component="router-link"
+                        :to="{ name: 'import.laravel' }"
+                        variant="secondary"
+                    >
+                        Import
+                    </Button>
+                    <Button
+                        component="router-link"
+                        :to="{ name: 'create.laravel' }"
+                    >
+                        New
+                    </Button>
+                </Box>
             </Stack>
-            <Box v-if="projects.length" :width="80" justify="between">
-                <Button
-                    component="router-link"
-                    :to="{ name: 'import.laravel' }"
-                    variant="secondary"
-                >
-                    Import
-                </Button>
-                <Button
-                    component="router-link"
-                    :to="{ name: 'create.laravel' }"
-                >
-                    New
-                </Button>
-            </Box>
 
             <Stack
                 v-if="!projects.length"
@@ -125,6 +130,7 @@
 
     import Box from '@/components/Box'
     import Copy from '@/components/Copy'
+    import Logo from '@/components/Logo'
     import Stack from '@/components/Stack'
     import Button from '@/components/Button'
     import Status from '@/components/Status'
@@ -136,6 +142,7 @@
         components: {
             Box,
             Copy,
+            Logo,
             Stack,
             Button,
             Status,
