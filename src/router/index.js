@@ -7,6 +7,7 @@ import ProjectOverview from '@/views/project/Overview'
 import ProjectSettings from '@/views/project/Settings'
 
 import ImportLaravel from '@/views/import/Laravel'
+import importChildRoutes from '@/views/import'
 
 import CreateLaravel from '@/views/create/Laravel'
 
@@ -22,6 +23,10 @@ const routes = [
         path: '/import/laravel',
         name: 'import.laravel',
         component: ImportLaravel,
+        redirect: {
+            name: 'import.laravel.project',
+        },
+        children: [...importChildRoutes],
     },
     {
         path: '/create/laravel',
