@@ -23,9 +23,11 @@ class Filesystem {
                 status: 'success',
             }
         } catch (error) {
-            throw new ReadFileError(
+            const message =
+                this.command.error ||
                 `There was a problem reading: ${this.command.path}`
-            )
+
+            throw new ReadFileError(message)
         }
     }
 
@@ -34,7 +36,7 @@ class Filesystem {
             fs.writeFileSync(this.command.path, this.command.value)
         } catch (error) {
             throw new WriteFileError(
-                `There was a problem writing: ${this.command.path}`
+                `There was a problem writing: ${this.command.path}`,
             )
         }
     }

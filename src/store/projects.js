@@ -186,6 +186,7 @@ export default {
                         id,
                         type: 'read',
                         path: `${settings.path}/.env`,
+                        error: `No .env file in '${settings.name}'`,
                     })
                     .then(response => {
                         window.ipc.invoke('filesystem', {
