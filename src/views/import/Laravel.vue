@@ -2,7 +2,7 @@
     <router-view
         :values="values"
         :valid="valid"
-        @submit="onSave"
+        @finish="onFinish"
         @input="onInput($event.key, $event.value)"
     />
 </template>
@@ -13,6 +13,7 @@
     import toml from '@iarna/toml'
     import set from 'lodash/set'
     import cloneDeep from 'lodash/cloneDeep'
+    import { generateEnvConfig } from '@/config/files'
 
     import { match } from '@/helpers/methods'
 
@@ -48,7 +49,7 @@
 
         computed: {
             valid() {
-                return this.values.path.length
+                return !!this.values.path.length
             },
         },
 
@@ -59,6 +60,42 @@
 
             onInput(key, value) {
                 this.values = { ...set(cloneDeep(this.values), key, value) }
+            },
+
+            onFinish() {
+                window.ipc
+                    .invoke('filesystem', {
+                        id: this.values.id,
+                        type: 'exists',
+                        path: `${this.values.path}/.env`,
+                    })
+                    .then(response => {
+                        if (!response.value) {
+                            window.ipc
+                                .invoke('filesystem', {
+                                    type: 'readStub',
+                                    path: `.env`,
+                                })
+                                .then(response => {
+                                    window.ipc
+                                        .invoke('filesystem', {
+                                            id: this.values.id,
+                                            type: 'write',
+                                            path: `${this.values.path}/.env`,
+                                            value: generateEnvConfig(
+                                                response.value,
+                                                this.values,
+                                            ),
+                                        })
+                                        .then(() => {
+                                            this.onSave()
+                                        })
+                                })
+                            return
+                        }
+
+                        console.log('Update env')
+                    })
             },
 
             onSave() {

@@ -53,7 +53,7 @@
                     </Button>
                 </template>
                 <template #right>
-                    <Button :disabled="!valid" @click="$emit('submit')">
+                    <Button :disabled="!canImport" @click="handle">
                         Import
                     </Button>
                 </template>
@@ -92,7 +92,7 @@
             },
             valid: {
                 type: Boolean,
-                default: true,
+                default: false,
             },
         },
 
@@ -103,6 +103,21 @@
                     postgres: ['13', '12', '11', '10', '9.5', '9'],
                     default: [],
                 })
+            },
+
+            canImport() {
+                return (
+                    this.values.database.type &&
+                    this.values.database.version &&
+                    this.values.database.port &&
+                    this.valid
+                )
+            },
+        },
+
+        methods: {
+            handle() {
+                this.$emit('finish')
             },
         },
     }
