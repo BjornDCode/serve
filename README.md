@@ -55,6 +55,52 @@ serve redis
 serve redis-cli
 ```
 
+## Advanced
+
+### Customising Docker images
+
+If you need to customise the Docker images for custom behavior you can do so with the following steps:
+
+1. Create a `docker` folder
+2. Create a `Dockerfile` inside the `docker folder
+3. Add changes to the `Dockerfile`
+
+```
+FROM bjornlindholm/laravel:7.4
+
+// Add changes here
+
+CMD ["supervisord"]
+```
+
+4. Update `docker-compose.yml`
+
+Replace the following snippet
+
+```
+image: bjornlindholm/laravel:7.4
+```
+
+To build your own docker image
+
+```
+build:
+  context: ./docker
+```
+
+### Installing PHP extensions
+
+If you need to install PHP extensions that aren't included in the base docker image you can do that by creating your own docker image. (See steps above)
+
+```
+FROM bjornlindholm/laravel:7.4
+
+RUN apt-get update
+RUN apt-get install -y php7.4-gmp
+
+CMD ["supervisord"]
+```
+
 ## Roadmap
 
 Please see [ROADMAP](ROADMAP.md) for more planned features.

@@ -71,7 +71,7 @@
                 <Stack align="stretch" width="2/5" :space="8">
                     <SelectField
                         label="Version"
-                        :options="['7.4', '7.3', '7.2']"
+                        :options="['7.4', '7.3']"
                         :value="project.php.version"
                         @input="onInput('php.version', $event)"
                     />
