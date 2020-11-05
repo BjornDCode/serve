@@ -68,7 +68,9 @@ export const generateDockerConfig = options => {
 }
 
 export const generateServeConfig = options => {
-    return toml.stringify(removeKeys(options, ['id', 'path', 'name', 'status']))
+    return toml.stringify(
+        removeKeys(options, ['id', 'path', 'name', 'status', 'last_used']),
+    )
 }
 
 export const generateEnvConfig = (defaults, options) => {
