@@ -14,7 +14,7 @@
             <Stack align="stretch" width="full" :space="8">
                 <SelectField
                     label="Version"
-                    :options="['7.4', '7.3', '7.2']"
+                    :options="['7.4', '7.3']"
                     :value="values.php.version"
                     @input="
                         $emit('input', { key: 'php.version', value: $event })
