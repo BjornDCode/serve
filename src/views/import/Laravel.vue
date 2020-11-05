@@ -94,7 +94,7 @@
                             return
                         }
 
-                        console.log('Update env')
+                        this.onSave()
                     })
             },
 
