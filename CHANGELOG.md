@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1]
+
+-   Add Serve logo
+-   Remove 7.2 from PHP selector
+-   Split import flow into small steps
+-   Fix import issue with projects without a .env file
+-   Add support for cloning repositories in the import flow
+
 ## [0.3.0]
 
 -   Revamped the app menu
