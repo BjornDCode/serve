@@ -1,4 +1,6 @@
-import Project from '@/views/import/Project'
+import Source from '@/views/import/Source'
+import Local from '@/views/import/Local'
+import Repository from '@/views/import/Repository'
 import Server from '@/views/import/Server'
 import Php from '@/views/import/Php'
 import Node from '@/views/import/Node'
@@ -7,9 +9,19 @@ import Database from '@/views/import/Database'
 
 export default [
     {
-        path: 'project',
-        name: 'import.laravel.project',
-        component: Project,
+        path: 'source',
+        name: 'import.laravel.source',
+        component: Source,
+    },
+    {
+        path: 'local',
+        name: 'import.laravel.local',
+        component: Local,
+    },
+    {
+        path: 'repository',
+        name: 'import.laravel.repository',
+        component: Repository,
     },
     {
         path: 'server',

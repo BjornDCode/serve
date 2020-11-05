@@ -16,6 +16,7 @@
             :value="value"
             :focused="focused"
             :error="hasError"
+            v-bind="$attrs"
             @focus="onFocus"
             @blur="onBlur"
             @input="$emit('input', $event.target.value)"

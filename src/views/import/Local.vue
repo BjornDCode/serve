@@ -3,21 +3,19 @@
         <Stack :space="8" width="full">
             <Stack :space="4">
                 <Headline :level="2">
-                    Local server
+                    Choose project
                 </Headline>
 
                 <Paragraph>
-                    Choose which port to run the local server on.
+                    Locate the project on your filesystem
                 </Paragraph>
             </Stack>
 
             <Stack align="stretch" width="full" :space="8">
-                <TextField
-                    label="Port"
-                    :value="values.server.port"
-                    @input="
-                        $emit('input', { key: 'server.port', value: $event })
-                    "
+                <PathField
+                    label="Path"
+                    :value="values.path"
+                    @input="$emit('input', { key: 'path', value: $event })"
                 />
             </Stack>
         </Stack>
@@ -36,8 +34,8 @@
                 <template #right>
                     <Button
                         component="router-link"
-                        :to="{ name: 'import.laravel.php' }"
-                        :disabled="!values.server.port"
+                        :to="{ name: 'import.laravel.server' }"
+                        :disabled="!values.path"
                     >
                         Next
                     </Button>
@@ -54,7 +52,7 @@
     import Skeleton from '@/views/import/Skeleton'
     import Paragraph from '@/components/Paragraph'
     import ActionBar from '@/components/ActionBar'
-    import TextField from '@/components/TextField'
+    import PathField from '@/components/PathField'
 
     export default {
         components: {
@@ -64,7 +62,7 @@
             Skeleton,
             Paragraph,
             ActionBar,
-            TextField,
+            PathField,
         },
 
         props: {

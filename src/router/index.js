@@ -24,7 +24,7 @@ const routes = [
         name: 'import.laravel',
         component: ImportLaravel,
         redirect: {
-            name: 'import.laravel.project',
+            name: 'import.laravel.source',
         },
         children: [...importChildRoutes],
     },

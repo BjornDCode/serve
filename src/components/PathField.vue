@@ -19,6 +19,7 @@
                 tabindex="-1"
                 :value="displayValue"
                 :focused="focused"
+                v-bind="$attrs"
                 @click="onClick"
                 @focus.prevent="onInputFocus"
             />

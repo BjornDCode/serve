@@ -24,6 +24,17 @@ class Git {
             return
         }
     }
+
+    async clone() {
+        await simpleGit(this.command.path).clone(
+            this.command.url,
+            this.command.name,
+        )
+
+        return {
+            status: 'success',
+        }
+    }
 }
 
 export default Git

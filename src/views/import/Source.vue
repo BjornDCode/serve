@@ -3,21 +3,34 @@
         <Stack :space="8" width="full">
             <Stack :space="4">
                 <Headline :level="2">
-                    Choose project
+                    Repository
                 </Headline>
 
                 <Paragraph>
-                    Locate the project on your filesystem
+                    Have you cloned your project?
                 </Paragraph>
             </Stack>
 
-            <Stack align="stretch" width="full" :space="8">
-                <PathField
-                    label="Path"
-                    :value="values.path"
-                    @input="$emit('input', { key: 'path', value: $event })"
-                />
-            </Stack>
+            <Inline align="stretch" width="full" :space="8">
+                <Button
+                    component="router-link"
+                    :to="{ name: 'import.laravel.repository' }"
+                    size="medium"
+                    justify="center"
+                    expand
+                >
+                    No
+                </Button>
+                <Button
+                    component="router-link"
+                    :to="{ name: 'import.laravel.local' }"
+                    size="medium"
+                    justify="center"
+                    expand
+                >
+                    Yes
+                </Button>
+            </Inline>
         </Stack>
 
         <template #footer>
@@ -31,15 +44,6 @@
                         Cancel
                     </Button>
                 </template>
-                <template #right>
-                    <Button
-                        component="router-link"
-                        :to="{ name: 'import.laravel.server' }"
-                        :disabled="!values.path"
-                    >
-                        Next
-                    </Button>
-                </template>
             </ActionBar>
         </template>
     </Skeleton>
@@ -48,21 +52,21 @@
 <script>
     import Stack from '@/components/Stack'
     import Button from '@/components/Button'
+    import Inline from '@/components/Inline'
     import Headline from '@/components/Headline'
     import Skeleton from '@/views/import/Skeleton'
     import Paragraph from '@/components/Paragraph'
     import ActionBar from '@/components/ActionBar'
-    import PathField from '@/components/PathField'
 
     export default {
         components: {
             Stack,
             Button,
+            Inline,
             Headline,
             Skeleton,
             Paragraph,
             ActionBar,
-            PathField,
         },
 
         props: {
