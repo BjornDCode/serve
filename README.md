@@ -62,7 +62,7 @@ serve redis-cli
 If you need to customise the Docker images for custom behavior you can do so with the following steps:
 
 1. Create a `docker` folder
-2. Create a `Dockerfile` inside the `docker folder
+2. Create a `Dockerfile` inside the `docker` folder
 3. Add changes to the `Dockerfile`
 
 ```
