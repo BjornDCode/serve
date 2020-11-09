@@ -1,6 +1,8 @@
 import { shell, dialog } from 'electron'
 import { exec } from 'child_process'
 
+import { match } from '@/helpers/methods'
+
 import InvalidPathError from '@/exceptions/InvalidPathError'
 
 class Launcher {
@@ -26,9 +28,14 @@ class Launcher {
     }
 
     async dialog() {
+        const properties = match(this.command.options, {
+            directory: ['openDirectory'],
+            file: ['openFile'],
+        })
+
         const response = await dialog.showOpenDialog({
             buttonLabel: 'Select',
-            properties: ['openDirectory'],
+            properties: properties,
         })
 
         if (!response.canceled) {

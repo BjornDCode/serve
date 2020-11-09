@@ -44,13 +44,13 @@
                 </Tab>
             </Tabs>
         </Box>
-        <Box expand>
+        <Stack width="full" align="stretch" expand>
             <router-view
                 v-bind="{
                     ...{ ...$props, name: 'default', project: name },
                 }"
             />
-        </Box>
+        </Stack>
     </Stack>
 </template>
 
@@ -120,6 +120,10 @@
                 type: Object,
                 required: true,
             },
+            logs: {
+                type: Object,
+                required: true,
+            },
             repository: {
                 type: String,
             },
@@ -145,6 +149,10 @@
                     {
                         name: 'Overview',
                         route: 'project.overview',
+                    },
+                    {
+                        name: 'Logs',
+                        route: 'project.logs',
                     },
                     {
                         name: 'Settings',
