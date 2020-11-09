@@ -53,8 +53,20 @@
                         return
                     }
 
-                    this.read()
+                    this.start()
                 })
+
+            window.ipc.receive('log', response => {
+                if (response.type !== 'change') {
+                    return
+                }
+
+                this.read()
+            })
+        },
+
+        beforeDestroy() {
+            this.terminate()
         },
 
         methods: {
@@ -66,8 +78,28 @@
                         value: '',
                     })
                     .then(() => {
-                        this.read()
+                        this.start()
                     })
+            },
+
+            start() {
+                this.read()
+
+                window.ipc
+                    .invoke('filesystem', {
+                        type: 'watch',
+                        path: this.logPath,
+                    })
+                    .then(() => {
+                        this.exists = true
+                    })
+            },
+
+            terminate() {
+                window.ipc.invoke('filesystem', {
+                    type: 'terminateWatch',
+                    path: this.logPath,
+                })
             },
 
             read() {
@@ -77,8 +109,8 @@
                         path: this.logPath,
                     })
                     .then(response => {
-                        this.exists = true
                         console.log('response', response)
+                        // Parse log file
                     })
             },
         },

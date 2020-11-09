@@ -3,6 +3,9 @@ module.exports = {
     pluginOptions: {
         electronBuilder: {
             preload: 'src/preload.js',
+
+            externals: ['chokidar'],
+
             mainProcessWatch: [
                 'src/background.js',
                 'src/commands.js',

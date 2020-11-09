@@ -1,7 +1,16 @@
 import fs from 'fs'
+import chokidar from 'chokidar'
+
+import { win } from '@/background'
 
 import ReadFileError from '@/exceptions/ReadFileError'
 import WriteFileError from '@/exceptions/WriteFileError'
+
+const watcher = chokidar.watch()
+
+watcher.on('change', () => {
+    win.webContents.send('log', { type: 'change' })
+})
 
 class Filesystem {
     constructor(command) {
@@ -72,6 +81,14 @@ class Filesystem {
             type: this.command.type,
             value: exists,
         }
+    }
+
+    async watch() {
+        watcher.add(this.command.path)
+    }
+
+    async terminateWatch() {
+        await watcher.unwatch(this.command.path)
     }
 }
 

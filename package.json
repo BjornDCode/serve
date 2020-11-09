@@ -23,6 +23,7 @@
   "main": "background.js",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
+    "chokidar": "^3.4.3",
     "core-js": "^3.6.5",
     "docker-compose": "^0.23.5",
     "dotenv": "^8.2.0",
