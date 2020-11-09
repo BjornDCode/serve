@@ -114,19 +114,6 @@ const stub = `[2020-09-15 14:30:15] local.INFO: {"error":"Invalid url given"}
 #48 {main}
 "}`
 
-// body = {
-//     raw: '',
-//     message: '',
-//     stacktrace: '',
-// }
-
-// trace = {
-//     message: '',
-//     exception: '',
-//     file: '',
-//     line: '',
-// }
-
 describe('log', () => {
     describe('.parse', () => {
         it('splits the log entries', () => {
@@ -142,11 +129,25 @@ describe('log', () => {
             assert.equal(entry.body.raw, '{"error":"Invalid url given"}')
         })
 
-        // it('parses the body of an entry', () => {
-        //     const entry = new Log(stub).entries[1]
+        it('parses the body of an entry', () => {
+            const body = new Log(stub).entries[1].body
 
-        //     // assert.equal(entry.body.message, '{"error":"Invalid url given"}')
-        //     // assert.equal(entry.body.stacktrace, '{"error":"Invalid url given"}')
-        // })
+            assert.equal(
+                body.message,
+                `Client error: \`POST http://165.22.75.34/api/v4/projects/root%2Ftest-project/hooks\` resulted in a \`422 Unprocessable Entity\` response:
+{"error":"Invalid url given"}
+ {"exception":"[object] (GuzzleHttp\\Exception\\ClientException(code: 422): Client error: \`POST http://165.22.75.34/api/v4/projects/root%2Ftest-project/hooks\` resulted in a \`422 Unprocessable Entity\` response:
+{\"error\":\"Invalid url given\"}
+ at /var/www/html/vendor/guzzlehttp/guzzle/src/Exception/RequestException.php:113)`,
+            )
+            assert.equal(body.stacktrace.length, 51)
+        })
+
+        it('stacktrace is an empty array if the doesn\t contain a stacktrace', () => {
+            const body = new Log(stub).entries[0].body
+
+            assert.isArray(body.stacktrace)
+            assert.lengthOf(body.stacktrace, 0)
+        })
     })
 })
