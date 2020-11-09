@@ -1,3 +1,5 @@
+import TraceLine from '@/helpers/logs/TraceLine'
+
 class LogEntry {
     constructor(timestamp, environment, level, body) {
         this.timestamp = timestamp
@@ -17,6 +19,7 @@ class LogEntry {
             stacktrace = parsedBody.stacktrace
                 .split('\n')
                 .filter(string => string !== '')
+                .map(line => new TraceLine(line))
         }
         this.body = {
             raw,

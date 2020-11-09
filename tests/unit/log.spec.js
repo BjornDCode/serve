@@ -2,6 +2,7 @@ import { assert } from 'chai'
 
 import Log from '@/helpers/logs/Log'
 import LogEntry from '@/helpers/logs/LogEntry'
+import TraceLine from '@/helpers/logs/TraceLine'
 
 const stub = `[2020-09-15 14:30:15] local.INFO: {"error":"Invalid url given"}  
 [2020-09-15 14:30:15] local.ERROR: Client error: \`POST http://165.22.75.34/api/v4/projects/root%2Ftest-project/hooks\` resulted in a \`422 Unprocessable Entity\` response:
@@ -122,7 +123,9 @@ describe('log', () => {
 
         it('creates a LogEntry for each item in the log', () => {
             const entry = new Log(stub).entries[0]
+
             assert.instanceOf(entry, LogEntry)
+
             assert.equal(entry.timestamp, '2020-09-15 14:30:15')
             assert.equal(entry.environment, 'local')
             assert.equal(entry.level, 'INFO')
@@ -148,6 +151,36 @@ describe('log', () => {
 
             assert.isArray(body.stacktrace)
             assert.lengthOf(body.stacktrace, 0)
+        })
+
+        it('it creates a TraceLine for each trace line', () => {
+            const entry = new Log(stub).entries[1]
+            const traceLine = entry.body.stacktrace[1]
+
+            assert.instanceOf(traceLine, TraceLine)
+
+            assert.equal(
+                traceLine.raw,
+                '#1 /var/www/html/vendor/guzzlehttp/promises/src/Promise.php(203): GuzzleHttp\\Middleware::GuzzleHttp\\{closure}(Object(GuzzleHttp\\Psr7\\Response))',
+            )
+            assert.equal(traceLine.number, '1')
+            assert.equal(
+                traceLine.file,
+                '/var/www/html/vendor/guzzlehttp/promises/src/Promise.php',
+            )
+            assert.equal(traceLine.line, '203')
+            assert.equal(
+                traceLine.caught,
+                'GuzzleHttp\\Middleware::GuzzleHttp\\{closure}(Object(GuzzleHttp\\Psr7\\Response))',
+            )
+        })
+
+        it.only('it only saves raw for invalid trace lines', () => {
+            const entry = new Log(stub).entries[1]
+            const traceLine = entry.body.stacktrace[49]
+
+            assert.instanceOf(traceLine, TraceLine)
+            assert.equal(traceLine.raw, '#49 {main}')
         })
     })
 })
