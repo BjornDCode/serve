@@ -1,5 +1,10 @@
 <template>
-    <ProjectLogs :id="id" :exists="exists" @generate="generate" />
+    <ProjectLogs
+        :id="id"
+        :exists="exists"
+        :path="logs.path"
+        @generate="generate"
+    />
 </template>
 
 <script>

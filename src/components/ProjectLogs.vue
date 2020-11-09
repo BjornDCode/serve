@@ -23,10 +23,10 @@
                         align="center"
                         lineHeight="normal"
                     >
-                        By default Serve looks for the log file at
-                        <InlineCode>storage/logs/laravel.log</InlineCode>. If
-                        the log file is located somewhere else you can update
-                        the path in settings.
+                        Serve couldn't find the log file at
+                        <InlineCode>{{ path }}</InlineCode
+                        >. If the log file is located somewhere else you can
+                        update the path in settings.
                     </Copy>
                     <Inline justify="center" :space="4">
                         <Button
@@ -75,6 +75,10 @@
 
         props: {
             id: {
+                type: String,
+                required: true,
+            },
+            path: {
                 type: String,
                 required: true,
             },
