@@ -1,5 +1,5 @@
 <template>
-    <ProjectLogs :id="id" :exists="exists" />
+    <ProjectLogs :id="id" :exists="exists" @generate="generate" />
 </template>
 
 <script>
@@ -31,19 +31,51 @@
             }
         },
 
+        computed: {
+            logPath() {
+                return `${this.path}/${this.logs.path}`
+            },
+        },
+
         mounted() {
             window.ipc
                 .invoke('filesystem', {
                     type: 'exists',
-                    path: `${this.path}/${this.logs.path}`,
+                    path: this.logPath,
                 })
                 .then(response => {
                     if (!response.value) {
                         return
                     }
 
-                    // Read file here
+                    this.read()
                 })
+        },
+
+        methods: {
+            generate() {
+                window.ipc
+                    .invoke('filesystem', {
+                        type: 'write',
+                        path: this.logPath,
+                        value: '',
+                    })
+                    .then(() => {
+                        this.read()
+                    })
+            },
+
+            read() {
+                window.ipc
+                    .invoke('filesystem', {
+                        type: 'read',
+                        path: this.logPath,
+                    })
+                    .then(response => {
+                        this.exists = true
+                        console.log('response', response)
+                    })
+            },
         },
     }
 </script>

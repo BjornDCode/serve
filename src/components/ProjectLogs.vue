@@ -39,11 +39,8 @@
                         >
                             Settings
                         </Button>
-                        <Button
-                            component="router-link"
-                            :to="{ name: 'create.laravel' }"
-                        >
-                            New
+                        <Button @click="generate">
+                            Generate log file
                         </Button>
                     </Inline>
                 </Stack>
@@ -84,6 +81,12 @@
             exists: {
                 type: Boolean,
                 default: false,
+            },
+        },
+
+        methods: {
+            generate() {
+                this.$emit('generate')
             },
         },
     }
