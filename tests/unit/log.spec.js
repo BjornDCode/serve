@@ -1,6 +1,7 @@
 import { assert } from 'chai'
 
-import logs from '@/helpers/logs'
+import Log from '@/helpers/logs/Log'
+import LogEntry from '@/helpers/logs/LogEntry'
 
 const stub = `[2020-09-15 14:30:15] local.INFO: {"error":"Invalid url given"}  
 [2020-09-15 14:30:15] local.ERROR: Client error: \`POST http://165.22.75.34/api/v4/projects/root%2Ftest-project/hooks\` resulted in a \`422 Unprocessable Entity\` response:
@@ -133,8 +134,15 @@ const stub = `[2020-09-15 14:30:15] local.INFO: {"error":"Invalid url given"}
 
 describe('log', () => {
     describe('.parse', () => {
-        it.only('splits the log entries', () => {
-            assert.equal(logs.parse(stub).length, 3)
+        it('splits the log entries', () => {
+            assert.equal(new Log(stub).entries.length, 3)
+        })
+        it('creates a LogEntry for each item in the log', () => {
+            const entry = new Log(stub).entries[0]
+            assert.instanceOf(entry, LogEntry)
+            assert.equal(entry.timestamp, '2020-09-15 14:30:15')
+            assert.equal(entry.environment, 'local')
+            assert.equal(entry.level, 'INFO')
         })
     })
 })
