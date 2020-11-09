@@ -4,7 +4,7 @@ class LogEntry {
         this.environment = environment
         this.level = level
         this.body = {
-            raw: body,
+            raw: body.trim(),
         }
     }
 }

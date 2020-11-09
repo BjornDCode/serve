@@ -114,15 +114,10 @@ const stub = `[2020-09-15 14:30:15] local.INFO: {"error":"Invalid url given"}
 #48 {main}
 "}`
 
-// Data structure
-// logs = [<logs>]
-
-// log = {
-//     header?: '',
-//     timestamp: '',
-//     env: '',
-//     level: '',
-//     body/trace: [],
+// body = {
+//     raw: '',
+//     message: '',
+//     stacktrace: '',
 // }
 
 // trace = {
@@ -137,12 +132,21 @@ describe('log', () => {
         it('splits the log entries', () => {
             assert.equal(new Log(stub).entries.length, 3)
         })
+
         it('creates a LogEntry for each item in the log', () => {
             const entry = new Log(stub).entries[0]
             assert.instanceOf(entry, LogEntry)
             assert.equal(entry.timestamp, '2020-09-15 14:30:15')
             assert.equal(entry.environment, 'local')
             assert.equal(entry.level, 'INFO')
+            assert.equal(entry.body.raw, '{"error":"Invalid url given"}')
         })
+
+        // it('parses the body of an entry', () => {
+        //     const entry = new Log(stub).entries[1]
+
+        //     // assert.equal(entry.body.message, '{"error":"Invalid url given"}')
+        //     // assert.equal(entry.body.stacktrace, '{"error":"Invalid url given"}')
+        // })
     })
 })
