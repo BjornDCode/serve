@@ -25,7 +25,7 @@
                     return `${formatDistanceToNowStrict(this.date)} ago`
                 }
 
-                return format(this.date, 'H:m:s d/M/y')
+                return format(this.date, 'HH:mm:ss d/M/y')
             },
         },
 
