@@ -12,6 +12,7 @@ module.exports = {
                     'Arial',
                     'sans-serif',
                 ],
+                mono: ['"IBM Plex Mono"', 'monospace'],
             },
             boxShadow: {
                 'inner-lg': 'inset 0 4px 8px 0 rgba(0, 0, 0, 0.16)',
