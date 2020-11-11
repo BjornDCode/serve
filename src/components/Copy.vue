@@ -12,6 +12,7 @@
         isValidFontSize,
         isValidDecoration,
         isValidLineHeight,
+        isValidTextTransform,
         isValidTextAlignment,
     } from '@/config/validators'
 
@@ -57,9 +58,10 @@
                 default: 'none',
                 validator: isValidDecoration,
             },
-            capitalised: {
-                type: Boolean,
-                default: false,
+            transform: {
+                type: String,
+                default: 'none',
+                validator: isValidTextTransform,
             },
         },
 
@@ -72,6 +74,15 @@
                 })
             },
 
+            transformClass() {
+                return match(this.transform, {
+                    none: 'normal-case',
+                    uppercase: 'uppercase',
+                    lowercase: 'lowercase',
+                    capitalise: 'capitalize',
+                })
+            },
+
             classes() {
                 return [
                     `text-${this.size}`,
@@ -79,8 +90,8 @@
                     `font-${this.weight}`,
                     `text-${this.align}`,
                     `leading-${this.lineHeight}`,
-                    ...(this.capitalised ? ['capitalize'] : []),
                     ...(this.decoration ? [this.decorationClass] : []),
+                    this.transformClass,
                 ]
             },
         },

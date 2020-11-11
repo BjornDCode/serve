@@ -21,7 +21,12 @@
 
                 <Inline :space="2">
                     <Status :value="status" />
-                    <Copy size="sm" color="gray" shade="700" capitalised>
+                    <Copy
+                        size="sm"
+                        color="gray"
+                        shade="700"
+                        transform="capitalise"
+                    >
                         {{ status }}
                     </Copy>
                 </Inline>
