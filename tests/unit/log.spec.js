@@ -128,16 +128,22 @@ describe('log', () => {
 
             assert.equal(entry.timestamp, '2020-09-15 14:30:15')
             assert.equal(entry.environment, 'local')
-            assert.equal(entry.level, 'INFO')
+            assert.equal(entry.level, 'info')
             assert.equal(entry.body.raw, '{"error":"Invalid url given"}')
         })
 
-        it('reversed the order of entries', () => {
+        it('reverses the order of entries', () => {
             const first = new Log(stub).entries[0]
             const last = new Log(stub).entries[2]
 
             assert.equal(first.timestamp, '2020-09-21 08:26:57')
             assert.equal(last.timestamp, '2020-09-15 14:30:15')
+        })
+
+        it('lowercases the level', () => {
+            const entry = new Log(stub).entries[2]
+
+            assert.equal(entry.level, 'info')
         })
 
         it('parses the body of an entry', () => {

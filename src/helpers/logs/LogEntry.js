@@ -4,7 +4,7 @@ class LogEntry {
     constructor(timestamp, environment, level, body) {
         this.timestamp = timestamp
         this.environment = environment
-        this.level = level
+        this.level = level.toLowerCase()
 
         let raw = body.trim()
         let message = raw
