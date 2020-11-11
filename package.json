@@ -33,7 +33,7 @@
     "fix-path": "^3.0.0",
     "lodash": "^4.17.19",
     "simple-git": "^2.19.0",
-    "tailwindcss": "^1.6.1",
+    "tailwindcss": "^1.9.6",
     "tinykeys": "^1.0.6",
     "uuid": "^8.3.0",
     "vue": "^2.6.11",
