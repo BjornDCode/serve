@@ -9,6 +9,7 @@ class Log {
         ]
             .map(entry => entry.groups)
             .map(values => new LogEntry(...Object.values(values)))
+            .reverse()
     }
 }
 

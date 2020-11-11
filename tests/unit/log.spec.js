@@ -122,7 +122,7 @@ describe('log', () => {
         })
 
         it('creates a LogEntry for each item in the log', () => {
-            const entry = new Log(stub).entries[0]
+            const entry = new Log(stub).entries[2]
 
             assert.instanceOf(entry, LogEntry)
 
@@ -130,6 +130,14 @@ describe('log', () => {
             assert.equal(entry.environment, 'local')
             assert.equal(entry.level, 'INFO')
             assert.equal(entry.body.raw, '{"error":"Invalid url given"}')
+        })
+
+        it('reversed the order of entries', () => {
+            const first = new Log(stub).entries[0]
+            const last = new Log(stub).entries[2]
+
+            assert.equal(first.timestamp, '2020-09-21 08:26:57')
+            assert.equal(last.timestamp, '2020-09-15 14:30:15')
         })
 
         it('parses the body of an entry', () => {
@@ -147,7 +155,7 @@ describe('log', () => {
         })
 
         it('stacktrace is an empty array if the doesn\t contain a stacktrace', () => {
-            const body = new Log(stub).entries[0].body
+            const body = new Log(stub).entries[2].body
 
             assert.isArray(body.stacktrace)
             assert.lengthOf(body.stacktrace, 0)
