@@ -160,6 +160,17 @@ describe('log', () => {
             assert.equal(body.stacktrace.length, 51)
         })
 
+        it('formats JSON if the message is JSON', () => {
+            const entry = new Log(stub).entries[2]
+
+            assert.equal(
+                `{
+    "error": "Invalid url given"
+}`,
+                entry.body.message,
+            )
+        })
+
         it('stacktrace is an empty array if the doesn\t contain a stacktrace', () => {
             const body = new Log(stub).entries[2].body
 

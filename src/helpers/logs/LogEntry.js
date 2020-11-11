@@ -11,7 +11,7 @@ class LogEntry {
         let stacktrace = []
         if (body.includes('[stacktrace]')) {
             const parsedBody = [
-                ...message.matchAll(
+                ...raw.matchAll(
                     /(?<message>[\s\S]*?(?=\n.*?\[stacktrace\]))\n\[stacktrace\](?<stacktrace>[\s\S]*)/g,
                 ),
             ][0].groups
@@ -21,6 +21,13 @@ class LogEntry {
                 .filter(string => string !== '')
                 .map(line => new TraceLine(line))
         }
+
+        try {
+            message = JSON.stringify(JSON.parse(raw), null, 4)
+        } catch (__) {
+            // Message couldn't be parsed as JSON
+        }
+
         this.body = {
             raw,
             message,
