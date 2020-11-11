@@ -175,7 +175,7 @@ describe('log', () => {
             )
         })
 
-        it.only('it only saves raw for invalid trace lines', () => {
+        it('it only saves raw for invalid trace lines', () => {
             const entry = new Log(stub).entries[1]
             const traceLine = entry.body.stacktrace[49]
 
