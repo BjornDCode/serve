@@ -160,7 +160,21 @@ describe('log', () => {
             assert.equal(body.stacktrace.length, 51)
         })
 
-        it('formats JSON if the message is JSON', () => {
+        it('parses the file and line if the message contains one', () => {
+            const entryWithFileAndLine = new Log(stub).entries[0]
+            const entryWithoutFileAndLine = new Log(stub).entries[2]
+
+            assert.equal(
+                entryWithFileAndLine.body.file,
+                'vendor/laravel/framework/src/Illuminate/Routing/Controller.php',
+            )
+            assert.equal(entryWithFileAndLine.body.line, '68')
+
+            assert.equal(entryWithoutFileAndLine.body.file, null)
+            assert.equal(entryWithoutFileAndLine.body.line, null)
+        })
+
+        it('formats as JSON if the message is JSON', () => {
             const entry = new Log(stub).entries[2]
 
             assert.equal(

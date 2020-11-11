@@ -9,7 +9,17 @@ class LogEntry {
         let raw = body.trim()
         let message = raw
         let stacktrace = []
-        if (body.includes('[stacktrace]')) {
+        let file = null
+        let line = null
+
+        const fileAndLineExpression = /at \/var\/www\/html\/(?<file>.*?(?=:)):(?<line>[0-9]+)/g
+        if (raw.match(fileAndLineExpression)) {
+            const parsed = [...raw.matchAll(fileAndLineExpression)][0].groups
+            file = parsed.file
+            line = parsed.line
+        }
+
+        if (raw.includes('[stacktrace]')) {
             const parsedBody = [
                 ...raw.matchAll(
                     /(?<message>[\s\S]*?(?=\n.*?\[stacktrace\]))\n\[stacktrace\](?<stacktrace>[\s\S]*)/g,
@@ -32,6 +42,8 @@ class LogEntry {
             raw,
             message,
             stacktrace,
+            file,
+            line,
         }
     }
 }
