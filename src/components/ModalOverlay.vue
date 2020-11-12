@@ -10,6 +10,7 @@
         justify="center"
         :backgroundOpacity="25"
         v-bind="$attrs"
+        overflow="y-auto"
         @click.self="$emit('close')"
     >
         <slot />
