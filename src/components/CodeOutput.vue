@@ -20,15 +20,10 @@
             :class="{ 'rounded': !context }"
         >
             <p class="block w-full font-mono text-white text-sm font-medium">
-                <pre><code v-html="output" /></pre>
+                <pre><code v-html="text" /></pre>
             </p>
-            <button 
-                v-if="showExpandButton" 
-                class="absolute left-0 bottom-0 flex justify-center items-center w-full pb-5 pt-5 bg-gradient-to-b from-transparent to-gray-900 hover:to-gray-700"
-                @click="expand" 
-            >
-                <Icon name="add-solid" color="pink" shade="400" />
-            </button>
+
+            <slot name="overlay" />
         </div>
     </Stack>
 </template>
@@ -36,14 +31,12 @@
 <script>
     import Box from '@/components/Box'
     import Copy from '@/components/Copy'
-    import Icon from '@/components/Icon'
     import Stack from '@/components/Stack'
 
     export default {
         components: {
             Box,
             Copy,
-            Icon,
             Stack,
         },
 
@@ -57,34 +50,5 @@
             },
         },
 
-        data() {
-            return {
-                expanded: false
-            }
-        },
-
-        computed: {
-            showExpandButton() {
-                return this.lineCount > 3 && !this.expanded
-            },
-
-            lineCount() {
-                return this.text.split('\n').length
-            },
-
-            output() {
-                if (this.expanded) {
-                    return this.text
-                }
-
-                return this.text.split('\n').filter((__, index) => index < 3).join('\n')
-            }
-        },
-
-        methods: {
-            expand() {
-                this.expanded = true
-            }
-        }
     }
 </script>
