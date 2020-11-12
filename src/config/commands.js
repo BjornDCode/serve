@@ -1,6 +1,7 @@
 import store from '@/store'
 import router from '@/router'
 import Command from '@/entities/Command'
+import { tabs } from '@/config/project'
 
 import { match } from '@/helpers/methods'
 
@@ -172,6 +173,43 @@ export default [
             // Should only be visible if inside a project
             return !!project
         },
+        true,
+    ),
+    new Command(
+        'ShowPreviousTab',
+        'Project',
+        'Show previous tab',
+        ({ project }) => {
+            const currentTabIndex = tabs.findIndex(
+                tab => tab.route === router.currentRoute.name,
+            )
+            const nextTabIndex =
+                currentTabIndex === 0 ? tabs.length - 1 : currentTabIndex - 1
+            const nextTab = tabs[nextTabIndex]
+            router.push({
+                name: nextTab.route,
+                params: { id: project.id },
+            })
+        },
+        () => false,
+        true,
+    ),
+    new Command(
+        'ShowNextTab',
+        'Project',
+        'Show next tab',
+        ({ project }) => {
+            const currentTabIndex = tabs.findIndex(
+                tab => tab.route === router.currentRoute.name,
+            )
+            const nextTabIndex = (currentTabIndex + 1) % tabs.length
+            const nextTab = tabs[nextTabIndex]
+            router.push({
+                name: nextTab.route,
+                params: { id: project.id },
+            })
+        },
+        () => false,
         true,
     ),
     // Launch

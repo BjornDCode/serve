@@ -62,6 +62,8 @@
 <script>
     import { match } from '@/helpers/methods'
 
+    import { tabs } from '@/config/project'
+
     import Box from '@/components/Box'
     import Tab from '@/components/Tab'
     import Tabs from '@/components/Tabs'
@@ -150,20 +152,7 @@
             },
 
             tabs() {
-                return [
-                    {
-                        name: 'Overview',
-                        route: 'project.overview',
-                    },
-                    {
-                        name: 'Logs',
-                        route: 'project.logs',
-                    },
-                    {
-                        name: 'Settings',
-                        route: 'project.settings',
-                    },
-                ]
+                return tabs
             },
         },
 

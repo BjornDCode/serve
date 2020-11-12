@@ -16,7 +16,7 @@
     import { mapActions, mapGetters } from 'vuex'
 
     import Log from '@/helpers/logs/Log'
-    import { command } from '@/helpers/methods'
+    import { command } from '@/helpers/commands'
 
     import ProjectLogs from '@/components/ProjectLogs'
 
