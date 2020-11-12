@@ -143,6 +143,22 @@ export default [
         true,
     ),
     new Command(
+        'ShowLogs',
+        'Project',
+        'Show logs',
+        ({ project }) => {
+            router.push({
+                name: 'project.logs',
+                params: { id: project.id },
+            })
+        },
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project
+        },
+        true,
+    ),
+    new Command(
         'ShowSettings',
         'Project',
         'Show settings',
@@ -244,6 +260,26 @@ export default [
                 type: 'filesystem',
                 path: project.path,
             }),
+        ({ project }) => {
+            // Should only be visible if inside a project
+            return !!project
+        },
+        true,
+    ),
+    new Command(
+        'ClearLogs',
+        'Logs',
+        'Clear logs',
+        ({ project }) => {
+            const path = `${project.path}/${project.logs.path}`
+
+            window.ipc.invoke('filesystem', {
+                type: 'write',
+                path,
+                value: '',
+            })
+        },
+
         ({ project }) => {
             // Should only be visible if inside a project
             return !!project

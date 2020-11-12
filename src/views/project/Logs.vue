@@ -16,6 +16,7 @@
     import { mapActions, mapGetters } from 'vuex'
 
     import Log from '@/helpers/logs/Log'
+    import { command } from '@/helpers/methods'
 
     import ProjectLogs from '@/components/ProjectLogs'
 
@@ -135,11 +136,7 @@
             },
 
             clear() {
-                window.ipc.invoke('filesystem', {
-                    type: 'write',
-                    path: this.logPath,
-                    value: '',
-                })
+                command('ClearLogs')
             },
 
             openFile(path) {
