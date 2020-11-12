@@ -98,6 +98,12 @@
                 />
             </Stack>
         </GridItem>
+
+        <ActionBar>
+            <Button @click="clear">
+                Clear
+            </Button>
+        </ActionBar>
     </Grid>
 </template>
 
@@ -111,6 +117,7 @@
     import Headline from '@/components/Headline'
     import LogEntry from '@/components/LogEntry'
     import GridItem from '@/components/GridItem'
+    import ActionBar from '@/components/ActionBar'
     import InlineCode from '@/components/InlineCode'
 
     export default {
@@ -124,6 +131,7 @@
             Headline,
             LogEntry,
             GridItem,
+            ActionBar,
             InlineCode,
         },
 
@@ -154,6 +162,10 @@
         },
 
         methods: {
+            clear() {
+                this.$emit('clear')
+            },
+
             generate() {
                 this.$emit('generate')
             },

@@ -6,6 +6,7 @@
         :log="log"
         :path="logs.path"
         :project-path="path"
+        @clear="clear"
         @generate="generate"
         @launch="openFile"
     />
@@ -131,6 +132,14 @@
                     .then(response => {
                         this.log = new Log(response.value)
                     })
+            },
+
+            clear() {
+                window.ipc.invoke('filesystem', {
+                    type: 'write',
+                    path: this.logPath,
+                    value: '',
+                })
             },
 
             openFile(path) {
