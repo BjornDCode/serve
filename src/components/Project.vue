@@ -44,6 +44,7 @@
                     :key="tab.route"
                     :to="{ name: tab.route, params: { id: id } }"
                     :active="$route.name === tab.route"
+                    :disabled="tab.disabled"
                 >
                     {{ tab.name }}
                 </Tab>

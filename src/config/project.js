@@ -8,6 +8,16 @@ export const tabs = [
         route: 'project.logs',
     },
     {
+        name: 'Assets',
+        route: 'project.assets',
+        disabled: true,
+    },
+    {
+        name: 'Queues',
+        route: 'project.queues',
+        disabled: true,
+    },
+    {
         name: 'Settings',
         route: 'project.settings',
     },
