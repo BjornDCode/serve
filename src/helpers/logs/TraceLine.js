@@ -17,6 +17,10 @@ class TraceLine {
         this.line = parsed.groups.line
         this.caught = parsed.groups.caught.trim()
     }
+
+    toString() {
+        return this.raw
+    }
 }
 
 export default TraceLine

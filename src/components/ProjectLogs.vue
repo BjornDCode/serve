@@ -10,7 +10,28 @@
         color="gray"
         shade="100"
     >
-        <GridItem v-if="!exists" :start="4" :span="6">
+        <GridItem v-if="loading" :start="4" :span="6">
+            <Card>
+                <Stack
+                    align="stretch"
+                    width="full"
+                    :spaceX="6"
+                    :spaceY="8"
+                    :space="4"
+                >
+                    <Copy
+                        color="gray"
+                        shade="700"
+                        size="sm"
+                        align="center"
+                        lineHeight="normal"
+                    >
+                        Fetching log...
+                    </Copy>
+                </Stack>
+            </Card>
+        </GridItem>
+        <GridItem v-else-if="!exists" :start="4" :span="6">
             <Card>
                 <Stack align="stretch" :spaceX="6" :spaceY="8" :space="4">
                     <Headline :level="4" align="center"
@@ -46,6 +67,37 @@
                 </Stack>
             </Card>
         </GridItem>
+        <GridItem v-else :start="3" :span="8">
+            <Card v-if="log.entries.length === 0">
+                <Stack
+                    align="stretch"
+                    width="full"
+                    :spaceX="6"
+                    :spaceY="8"
+                    :space="4"
+                >
+                    <Copy
+                        color="gray"
+                        shade="700"
+                        size="sm"
+                        align="center"
+                        lineHeight="normal"
+                    >
+                        No log entries
+                    </Copy>
+                </Stack>
+            </Card>
+
+            <Stack v-else width="full" align="stretch" :space="8">
+                <LogEntry
+                    v-for="(entry, i) in log.entries"
+                    :key="i"
+                    :project-path="projectPath"
+                    v-bind="entry"
+                    @launch="$emit('launch', $event)"
+                />
+            </Stack>
+        </GridItem>
     </Grid>
 </template>
 
@@ -57,6 +109,7 @@
     import Button from '@/components/Button'
     import Inline from '@/components/Inline'
     import Headline from '@/components/Headline'
+    import LogEntry from '@/components/LogEntry'
     import GridItem from '@/components/GridItem'
     import InlineCode from '@/components/InlineCode'
 
@@ -69,6 +122,7 @@
             Button,
             Inline,
             Headline,
+            LogEntry,
             GridItem,
             InlineCode,
         },
@@ -82,9 +136,20 @@
                 type: String,
                 required: true,
             },
+            loading: {
+                type: Boolean,
+                default: true,
+            },
             exists: {
                 type: Boolean,
                 default: false,
+            },
+            log: {
+                type: Object,
+            },
+            projectPath: {
+                type: String,
+                required: true,
             },
         },
 

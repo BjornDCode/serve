@@ -1,13 +1,21 @@
 <template>
     <ProjectLogs
         :id="id"
+        :loading="loading"
         :exists="exists"
+        :log="log"
         :path="logs.path"
+        :project-path="path"
         @generate="generate"
+        @launch="openFile"
     />
 </template>
 
 <script>
+    import { mapActions, mapGetters } from 'vuex'
+
+    import Log from '@/helpers/logs/Log'
+
     import ProjectLogs from '@/components/ProjectLogs'
 
     export default {
@@ -32,11 +40,17 @@
 
         data() {
             return {
+                loading: true,
                 exists: false,
+                log: null,
             }
         },
 
         computed: {
+            ...mapGetters({
+                editor: 'preferences/editor',
+            }),
+
             logPath() {
                 return `${this.path}/${this.logs.path}`
             },
@@ -50,6 +64,7 @@
                 })
                 .then(response => {
                     if (!response.value) {
+                        this.loading = false
                         return
                     }
 
@@ -70,6 +85,10 @@
         },
 
         methods: {
+            ...mapActions({
+                launch: 'projects/launch',
+            }),
+
             generate() {
                 window.ipc
                     .invoke('filesystem', {
@@ -91,6 +110,7 @@
                         path: this.logPath,
                     })
                     .then(() => {
+                        this.loading = false
                         this.exists = true
                     })
             },
@@ -109,9 +129,12 @@
                         path: this.logPath,
                     })
                     .then(response => {
-                        console.log('response', response)
-                        // Parse log file
+                        this.log = new Log(response.value)
                     })
+            },
+
+            openFile(path) {
+                this.launch({ type: this.editor, path })
             },
         },
     }

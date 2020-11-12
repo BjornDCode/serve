@@ -1,5 +1,8 @@
 <template>
-    <div id="app" class="font-sans antialiased relative min-h-screen">
+    <div
+        id="app"
+        class="font-sans antialiased relative min-h-screen overflow-x-hidden"
+    >
         <AppMenu />
 
         <router-view />
