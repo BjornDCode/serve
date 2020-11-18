@@ -53,8 +53,12 @@
                     </Button>
                 </template>
                 <template #right>
-                    <Button :disabled="!canImport" @click="handle">
-                        Import
+                    <Button
+                        component="router-link"
+                        :to="{ name: 'import.laravel.actions' }"
+                        :disabled="!canContinue"
+                    >
+                        Next
                     </Button>
                 </template>
             </ActionBar>
@@ -90,10 +94,6 @@
             values: {
                 required: true,
             },
-            valid: {
-                type: Boolean,
-                default: false,
-            },
         },
 
         computed: {
@@ -105,19 +105,12 @@
                 })
             },
 
-            canImport() {
+            canContinue() {
                 return (
                     this.values.database.type &&
                     this.values.database.version &&
-                    this.values.database.port &&
-                    this.valid
+                    this.values.database.port
                 )
-            },
-        },
-
-        methods: {
-            handle() {
-                this.$emit('finish')
             },
         },
     }
