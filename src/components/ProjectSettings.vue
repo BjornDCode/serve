@@ -142,6 +142,27 @@
                     />
                 </Stack>
             </Inline>
+
+            <Inline width="full" :space="8" align="start">
+                <Box width="1/3">
+                    <Stack :space="1">
+                        <Headline :level="2">
+                            Logs
+                        </Headline>
+                        <Copy component="p" color="gray" shade="700">
+                            All settings related to your logs.
+                        </Copy>
+                    </Stack>
+                </Box>
+                <Stack align="stretch" width="2/5" :space="8">
+                    <PathField
+                        label="Path"
+                        :value="values.logs.path"
+                        type="file"
+                        @input="onInput('logs.path', $event)"
+                    />
+                </Stack>
+            </Inline>
         </Stack>
 
         <Stack

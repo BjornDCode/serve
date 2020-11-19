@@ -4,6 +4,7 @@ import { mapGetters, mapActions } from 'vuex'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './assets/IBM_Plex_Mono/mono.css'
 import './assets/Inter/inter.css'
 import './assets/tailwind.css'
 

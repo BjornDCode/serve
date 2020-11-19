@@ -17,6 +17,7 @@ import {
     lineHeights,
     borderRadii,
     borderWidths,
+    textTransforms,
     textAlignments,
     justifications,
     backgroundOpacities,
@@ -41,6 +42,8 @@ export const isValidLineHeight = lineHeight => lineHeights.includes(lineHeight)
 export const isValidBorderRadius = radis => borderRadii.includes(radis)
 export const isValidBorderWidth = borderWidth =>
     borderWidths.includes(borderWidth)
+export const isValidTextTransform = textTransform =>
+    textTransforms.includes(textTransform)
 export const isValidTextAlignment = textAlignment =>
     textAlignments.includes(textAlignment)
 export const isValidJustification = justification =>

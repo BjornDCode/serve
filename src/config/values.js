@@ -202,3 +202,5 @@ export const overflows = [
     'x-scroll',
     'y-scroll',
 ]
+
+export const textTransforms = ['uppercase', 'lowercase', 'capitalise', 'none']

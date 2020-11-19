@@ -84,6 +84,20 @@
                         ],
                     },
                     {
+                        key: 'project',
+                        name: 'Project',
+                        shortcuts: [
+                            {
+                                label: 'Previous tab',
+                                value: 'cmd + [',
+                            },
+                            {
+                                label: 'Next tab',
+                                value: 'cmd + ]',
+                            },
+                        ],
+                    },
+                    {
                         key: 'tools',
                         name: 'Tools',
                         shortcuts: [
