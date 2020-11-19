@@ -6,11 +6,14 @@ This document contains the currently planned features for Serve. It's meant to b
 
 -   [x] CLI tool to run commands inside containers
 -   [x] Add command palette
--   [] Read log files (Laravel specific)
+-   [x] Read log files (Laravel specific)
 -   [] Handle queues
 -   [] Compile assets with Node
 -   [] Execute terminal commands
 -   [] GUI for Artisan + other actions (Laravel specific)
+-   [] Support testing
+-   [] Custom URL's (i.e. serve.test)
+-   [] SSL
 
 ## Long-term
 
