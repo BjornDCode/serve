@@ -1,7 +1,18 @@
 <template>
     <ListItem>
-        <TextLink :to="to">
-            <Box :spaceT="3" :spaceB="2">
+        <TextLink :to="to" class="relative">
+            <span
+                v-if="disabled"
+                class="absolute block text-indigo-900 bg-pink-400 top-0 right-0 font-semibold px-1 py-0 rounded"
+                style="font-size: 9px;"
+            >
+                SOON
+            </span>
+            <Box
+                :spaceT="3"
+                :spaceB="2"
+                :class="{ 'opacity-25 pointer-events-none': disabled }"
+            >
                 <Stack :space="2">
                     <Copy size="sm" :color="color" shade="700" weight="medium">
                         <slot />
@@ -41,6 +52,10 @@
                 required: true,
             },
             active: {
+                type: Boolean,
+                default: false,
+            },
+            disabled: {
                 type: Boolean,
                 default: false,
             },

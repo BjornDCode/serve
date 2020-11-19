@@ -44,6 +44,32 @@
                 Stop project
             </MenuItem>
             <MenuItem type="separator" />
+            <MenuItem :enabled="inProject" @click="execute('ShowOverview')">
+                Overview
+            </MenuItem>
+            <MenuItem :enabled="inProject" @click="execute('ShowLogs')">
+                Logs
+            </MenuItem>
+            <MenuItem :enabled="inProject" @click="execute('ShowSettings')">
+                Settings
+            </MenuItem>
+            <MenuItem
+                :enabled="inProject"
+                :visible="false"
+                accelerator="CmdOrCtrl+["
+                @click="execute('ShowPreviousTab')"
+            >
+                Previous tab
+            </MenuItem>
+            <MenuItem
+                :enabled="inProject"
+                :visible="false"
+                accelerator="CmdOrCtrl+]"
+                @click="execute('ShowNextTab')"
+            >
+                Next tab
+            </MenuItem>
+            <MenuItem type="separator" />
             <MenuItem :enabled="inProject" @click="execute('OpenInEditor')">
                 Open in editor...
             </MenuItem>
@@ -75,7 +101,17 @@
             <MenuItem type="separator" :platforms="['mac']" />
             <MenuItem role="front" :platforms="['mac']" />
             <MenuItem role="close" :platforms="['linux', 'windows']" />
-            <Submenu role="viewMenu" />
+        </Submenu>
+        <Submenu label="View">
+            <MenuItem role="reload" />
+            <MenuItem role="forceReload" />
+            <MenuItem role="toggleDevTools" />
+            <MenuItem type="separator" />
+            <MenuItem role="resetZoom" />
+            <MenuItem role="zoomIn" />
+            <MenuItem role="zoomOut" />
+            <MenuItem type="separator" />
+            <MenuItem role="togglefullscreen" />
         </Submenu>
         <Submenu label="Help">
             <MenuItem

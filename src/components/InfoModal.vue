@@ -1,5 +1,5 @@
 <template>
-    <ModalOverlay :spaceT="20" @close="$emit('close')">
+    <ModalOverlay :spaceY="20" @close="$emit('close')">
         <Stack
             color="white"
             width="3/5"

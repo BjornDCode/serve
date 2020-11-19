@@ -50,6 +50,10 @@
                 type: Object,
                 required: true,
             },
+            logs: {
+                type: Object,
+                required: true,
+            },
         },
 
         data() {
@@ -61,6 +65,7 @@
                     redis: this.redis,
                     database: this.database,
                     server: this.server,
+                    logs: this.logs,
                 },
             }
         },
@@ -78,6 +83,7 @@
                     redis: this.redis,
                     database: this.database,
                     server: this.server,
+                    logs: this.logs,
                 }
             },
         },

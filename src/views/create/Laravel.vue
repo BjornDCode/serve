@@ -246,6 +246,9 @@
                     server: {
                         port: '8081',
                     },
+                    logs: {
+                        path: 'storage/logs/laravel.log',
+                    },
                 },
                 errors: {
                     path: '',
