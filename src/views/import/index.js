@@ -6,6 +6,7 @@ import Php from '@/views/import/Php'
 import Node from '@/views/import/Node'
 import Redis from '@/views/import/Redis'
 import Database from '@/views/import/Database'
+import Actions from '@/views/import/Actions'
 
 export default [
     {
@@ -47,5 +48,10 @@ export default [
         path: 'database',
         name: 'import.laravel.database',
         component: Database,
+    },
+    {
+        path: 'actions',
+        name: 'import.laravel.actions',
+        component: Actions,
     },
 ]

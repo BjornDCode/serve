@@ -305,6 +305,100 @@ export default [
         true,
     ),
     new Command(
+        'CheckExists',
+        'Internal',
+        'Check File or Folder Exists',
+        (__, path, callback = () => {}) => {
+            window.ipc
+                .invoke('filesystem', {
+                    type: 'exists',
+                    path: path,
+                })
+                .then(response => {
+                    callback(response.value)
+                })
+        },
+        () => false,
+    ),
+    new Command(
+        'ReadStub',
+        'Internal',
+        'Read Stub',
+        (__, stub, callback = () => {}) => {
+            window.ipc
+                .invoke('filesystem', {
+                    type: 'readStub',
+                    path: stub,
+                })
+                .then(response => {
+                    callback(response.value)
+                })
+        },
+        () => false,
+    ),
+    new Command(
+        'WriteFile',
+        'Internal',
+        'WriteFile',
+        (__, path, value, callback = () => {}) => {
+            window.ipc
+                .invoke('filesystem', {
+                    type: 'write',
+                    path,
+                    value,
+                })
+                .then(() => {
+                    callback()
+                })
+        },
+        () => false,
+    ),
+    new Command(
+        'CheckEnvFileHasKey',
+        'Internal',
+        'Check Env File Has Key',
+        (__, path, callback = () => {}) => {
+            window.ipc
+                .invoke('filesystem', {
+                    type: 'exists',
+                    path: `${path}/.env`,
+                })
+                .then(response => {
+                    if (!response.value) {
+                        return
+                    }
+
+                    window.ipc
+                        .invoke('filesystem', {
+                            type: 'read',
+                            path: `${path}/.env`,
+                        })
+                        .then(response => {
+                            callback(!response.value.match(/^APP_KEY=\n/gm))
+                        })
+                })
+        },
+        () => false,
+    ),
+    new Command(
+        'RunCommandInContainer',
+        'Internal',
+        'Run Command In Container',
+        (__, path, command, callback = () => {}, error) => {
+            window.ipc
+                .invoke('docker', {
+                    type: 'run',
+                    path: path,
+                    value: command,
+                    error,
+                })
+                .then(() => {
+                    callback()
+                })
+        },
+        () => false,
+    ),
+    new Command(
         'ClearLogs',
         'Logs',
         'Clear logs',

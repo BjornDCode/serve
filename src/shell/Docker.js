@@ -71,12 +71,18 @@ class Docker {
     }
 
     async run() {
-        await promisifiedExec(this.command.value, {
-            cwd: this.command.path,
-        })
+        try {
+            await promisifiedExec(this.command.value, {
+                cwd: this.command.path,
+            })
 
-        return {
-            status: 'success',
+            return {
+                status: 'success',
+            }
+        } catch (error) {
+            const message = this.command.error || error.message
+
+            throw new Error(message)
         }
     }
 }

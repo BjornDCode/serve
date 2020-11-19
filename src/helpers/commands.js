@@ -2,7 +2,7 @@ import store from '@/store'
 import router from '@/router'
 import commands from '@/config/commands'
 
-export const command = key => {
+export const command = (key, ...parameters) => {
     const command = commands.find(command => command.key === key)
 
     if (!command) {
@@ -17,5 +17,5 @@ export const command = key => {
         project,
     }
 
-    command.handler(context)
+    command.handler(context, ...parameters)
 }

@@ -13,7 +13,6 @@
     import toml from '@iarna/toml'
     import set from 'lodash/set'
     import cloneDeep from 'lodash/cloneDeep'
-    import { generateEnvConfig } from '@/config/files'
 
     import { match } from '@/helpers/methods'
 
@@ -66,39 +65,7 @@
             },
 
             onFinish() {
-                window.ipc
-                    .invoke('filesystem', {
-                        id: this.values.id,
-                        type: 'exists',
-                        path: `${this.values.path}/.env`,
-                    })
-                    .then(response => {
-                        if (!response.value) {
-                            window.ipc
-                                .invoke('filesystem', {
-                                    type: 'readStub',
-                                    path: `.env`,
-                                })
-                                .then(response => {
-                                    window.ipc
-                                        .invoke('filesystem', {
-                                            id: this.values.id,
-                                            type: 'write',
-                                            path: `${this.values.path}/.env`,
-                                            value: generateEnvConfig(
-                                                response.value,
-                                                this.values,
-                                            ),
-                                        })
-                                        .then(() => {
-                                            this.onSave()
-                                        })
-                                })
-                            return
-                        }
-
-                        this.onSave()
-                    })
+                this.onSave()
             },
 
             onSave() {
