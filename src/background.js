@@ -7,9 +7,12 @@ import { autoUpdater } from 'electron-updater'
 import { exec } from 'child_process'
 import path from 'path'
 import log from 'electron-log'
+import Nucleus from 'nucleus-nodejs'
 
 import { registerCommands } from './commands'
 import { registerMenus } from './menu'
+
+require('dotenv').config()
 
 if (process.env.NODE_ENV === 'production') {
     const fixPath = require('fix-path')
@@ -20,6 +23,8 @@ if (process.env.NODE_ENV === 'production') {
 app.commandLine.appendSwitch('enable-experimental-web-platform-features')
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+Nucleus.init(process.env.NUCLEUS_TRACKING_ID)
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -52,6 +57,10 @@ function createWindow() {
         createProtocol('app')
         // Load the index.html when not in development
         win.loadURL('app://./index.html')
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+        Nucleus.appStarted()
     }
 
     win.on('closed', () => {
