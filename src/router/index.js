@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Home from '@/views/Home'
 import ProjectShow from '@/views/project/Show'
+import ProjectLogs from '@/views/project/Logs'
 import ProjectOverview from '@/views/project/Overview'
 import ProjectSettings from '@/views/project/Settings'
 
@@ -42,6 +43,11 @@ const routes = [
                 path: 'overview',
                 name: 'project.overview',
                 component: ProjectOverview,
+            },
+            {
+                path: 'logs',
+                name: 'project.logs',
+                component: ProjectLogs,
             },
             {
                 path: 'settings',

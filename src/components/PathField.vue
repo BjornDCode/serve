@@ -68,6 +68,10 @@
             value: {
                 type: String,
             },
+            type: {
+                type: String,
+                default: 'directory',
+            },
         },
 
         data() {
@@ -149,6 +153,7 @@
                     .invoke('launch', {
                         id: this.id,
                         type: 'dialog',
+                        options: this.type,
                     })
                     .then(response => {
                         if (!response) {

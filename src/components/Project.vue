@@ -21,7 +21,12 @@
 
                 <Inline :space="2">
                     <Status :value="status" />
-                    <Copy size="sm" color="gray" shade="700" capitalised>
+                    <Copy
+                        size="sm"
+                        color="gray"
+                        shade="700"
+                        transform="capitalise"
+                    >
                         {{ status }}
                     </Copy>
                 </Inline>
@@ -39,23 +44,26 @@
                     :key="tab.route"
                     :to="{ name: tab.route, params: { id: id } }"
                     :active="$route.name === tab.route"
+                    :disabled="tab.disabled"
                 >
                     {{ tab.name }}
                 </Tab>
             </Tabs>
         </Box>
-        <Box expand>
+        <Stack width="full" align="stretch" expand>
             <router-view
                 v-bind="{
                     ...{ ...$props, name: 'default', project: name },
                 }"
             />
-        </Box>
+        </Stack>
     </Stack>
 </template>
 
 <script>
     import { match } from '@/helpers/methods'
+
+    import { tabs } from '@/config/project'
 
     import Box from '@/components/Box'
     import Tab from '@/components/Tab'
@@ -120,6 +128,10 @@
                 type: Object,
                 required: true,
             },
+            logs: {
+                type: Object,
+                required: true,
+            },
             repository: {
                 type: String,
             },
@@ -141,16 +153,7 @@
             },
 
             tabs() {
-                return [
-                    {
-                        name: 'Overview',
-                        route: 'project.overview',
-                    },
-                    {
-                        name: 'Settings',
-                        route: 'project.settings',
-                    },
-                ]
+                return tabs
             },
         },
 
