@@ -30,6 +30,7 @@
     "electron-updater": "^4.3.5",
     "fix-path": "^3.0.0",
     "lodash": "^4.17.19",
+    "nucleus-nodejs": "^3.0.6",
     "simple-git": "^2.19.0",
     "tailwindcss": "^1.6.1",
     "tinykeys": "^1.0.6",
