@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.0]
+
+-   Add logs screen
+-   Add actions screen in import flow
+-   Add simple analytics
+
 ## [0.3.1]
 
 -   Add Serve logo
