@@ -76,7 +76,9 @@ export const generateServeConfig = options => {
 export const generateEnvConfig = (defaults, options) => {
     return env.replace(defaults, {
         DB_HOST: 'db',
+        DB_USERNAME: 'root',
         DB_PASSWORD: 'root',
+        DB_DATABASE: 'laravel',
         DB_CONNECTION: match(options.database.type, {
             mysql: 'mysql',
             postgres: 'pgsql',
