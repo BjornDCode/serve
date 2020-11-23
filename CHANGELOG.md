@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.1]
+
+-   Fix issue where some DB environment variables weren't updated on import
+-   Fix issue where year wasn't show in logs
+
 ## [0.4.0]
 
 -   Add logs screen
