@@ -1,6 +1,8 @@
 # Serve
 
-Serve helps you quickly spin up local environments and run your projects in a container. No Docker knowledge required.
+Serve helps you quickly spin up local environments and run your projects isolated from the rest of your system.
+
+[Website](https://useserve.app/)
 
 **Note:** Currently Serve works with Laravel projects.
 
