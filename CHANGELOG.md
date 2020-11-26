@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.2]
+
+-   PHP 8 Release Candidate 3 support
+
 ## [0.4.1]
 
 -   Fix issue where some DB environment variables weren't updated on import

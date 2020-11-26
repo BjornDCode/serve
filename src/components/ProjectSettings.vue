@@ -62,7 +62,7 @@
                 <Stack align="stretch" width="2/5" :space="8">
                     <SelectField
                         label="Version"
-                        :options="['7.4', '7.3']"
+                        :options="['8.0-rc3', '7.4', '7.3']"
                         :value="values.php.version"
                         @input="onInput('php.version', $event)"
                     />
