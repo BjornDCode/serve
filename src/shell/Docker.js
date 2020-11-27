@@ -1,6 +1,7 @@
 import util from 'util'
 import { exec } from 'child_process'
 import * as compose from 'docker-compose'
+import log from 'electron-log'
 
 import DockerPsError from '@/exceptions/DockerPsError'
 import DockerUpError from '@/exceptions/DockerUpError'
@@ -32,6 +33,7 @@ class Docker {
                 value: status,
             }
         } catch (error) {
+            log.error(error)
             throw new DockerPsError(
                 'An error occured when checking whether the project was running.',
             )
@@ -48,6 +50,7 @@ class Docker {
                 status: 'success',
             }
         } catch (error) {
+            log.error(error)
             throw new DockerUpError(
                 'An error occured when starting the project.',
             )
@@ -64,6 +67,7 @@ class Docker {
                 status: 'success',
             }
         } catch (error) {
+            log.error(error)
             throw new DockerDownError(
                 'An error occured when stopping the project.',
             )
@@ -80,6 +84,7 @@ class Docker {
                 status: 'success',
             }
         } catch (error) {
+            log.error(error)
             const message = this.command.error || error.message
 
             throw new Error(message)

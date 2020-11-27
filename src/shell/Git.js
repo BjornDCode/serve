@@ -1,4 +1,5 @@
 import simpleGit from 'simple-git'
+import log from 'electron-log'
 
 class Git {
     constructor(command) {
@@ -21,6 +22,7 @@ class Git {
                 }
             }
         } catch (error) {
+            log.error(error)
             return
         }
     }

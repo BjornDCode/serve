@@ -1,5 +1,6 @@
 import fs from 'fs'
 import chokidar from 'chokidar'
+import log from 'electron-log'
 
 import { win } from '@/background'
 
@@ -32,6 +33,7 @@ class Filesystem {
                 status: 'success',
             }
         } catch (error) {
+            log.error(error)
             const message =
                 this.command.error ||
                 `There was a problem reading: ${this.command.path}`
@@ -55,6 +57,7 @@ class Filesystem {
                 status: 'success',
             }
         } catch (error) {
+            log.error(error)
             const message =
                 this.command.error ||
                 `There was a problem reading: ${this.command.path}`
@@ -67,6 +70,7 @@ class Filesystem {
         try {
             fs.writeFileSync(this.command.path, this.command.value)
         } catch (error) {
+            log.error(error)
             throw new WriteFileError(
                 `There was a problem writing: ${this.command.path}`,
             )

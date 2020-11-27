@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import { mapGetters, mapActions } from 'vuex'
+import * as Sentry from '@sentry/browser'
+import { Vue as VueIntegration } from '@sentry/integrations'
 
 import App from './App.vue'
 import router from './router'
@@ -9,6 +11,14 @@ import './assets/Inter/inter.css'
 import './assets/tailwind.css'
 
 Vue.config.productionTip = false
+
+Sentry.init({
+    dsn:
+        'https://98467b9f5b4b40e7ab2b002f3b0144dd@o483540.ingest.sentry.io/5535471',
+    integrations: [
+        new VueIntegration({ Vue, attachProps: true, logErrors: true }),
+    ],
+})
 
 new Vue({
     router,
