@@ -23,6 +23,9 @@
   "main": "background.js",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
+    "@sentry/browser": "^5.27.6",
+    "@sentry/electron": "^2.0.4",
+    "@sentry/integrations": "^5.27.6",
     "chokidar": "^3.4.3",
     "core-js": "^3.6.5",
     "date-fns": "^2.16.1",
@@ -47,6 +50,7 @@
     "yaml": "^1.10.0"
   },
   "devDependencies": {
+    "@sentry/webpack-plugin": "^1.14.0",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",

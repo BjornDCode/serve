@@ -1,3 +1,5 @@
+const SentryWebpackPlugin = require('@sentry/webpack-plugin')
+
 module.exports = {
     lintOnSave: false,
     pluginOptions: {
@@ -40,5 +42,23 @@ module.exports = {
                 },
             },
         },
+    },
+    configureWebpack: {
+        plugins: [
+            ...(process.env.NODE_ENV === 'production'
+                ? [
+                      new SentryWebpackPlugin({
+                          // sentry-cli configuration
+                          authToken: process.env.SENTRY_AUTH_TOKEN,
+                          org: 'serve',
+                          project: 'serve',
+
+                          // webpack specific configuration
+                          include: '.',
+                          ignore: ['node_modules', 'webpack.config.js'],
+                      }),
+                  ]
+                : []),
+        ],
     },
 }

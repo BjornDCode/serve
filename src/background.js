@@ -8,11 +8,14 @@ import { exec } from 'child_process'
 import path from 'path'
 import log from 'electron-log'
 import Nucleus from 'nucleus-nodejs'
+import * as Sentry from '@sentry/electron'
 
 import { registerCommands } from './commands'
 import { registerMenus } from './menu'
 
 require('dotenv').config()
+
+Sentry.init({ dsn: process.env.SENTRY_DSN })
 
 if (process.env.NODE_ENV === 'production') {
     const fixPath = require('fix-path')
